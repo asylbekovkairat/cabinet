@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /diploma/$
+Allow: /diploma/login
+
+Sitemap: https://diplom.edu.gov.kg/sitemap.xml
