@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { useTranslation } from '~shared/lib/i18n';
+import { i18n, useTranslation } from '~shared/lib/i18n';
 import { Button, Form, Input, Typography, useNotification } from '~shared/ui';
 
+import { RoutesUrls } from '~shared/lib/router';
+
 import { externalSignIn, signIn } from '../../api';
-import { SignInData } from '../../model';
 
-export interface SignInFormProps {
-  onSignIn: (payload: SignInData) => void;
-}
+export interface SignInFormProps {}
 
-export const SignInForm: React.FC<SignInFormProps> = ({ onSignIn }) => {
+export const SignInForm: React.FC<SignInFormProps> = () => {
   const notification = useNotification();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
@@ -21,7 +21,15 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSignIn }) => {
   const queryToken = searchParams.get('external');
 
   const handleSignInSuccess = (data: any) => {
-    onSignIn(data);
+    console.log('data', data);
+
+    // onSignIn(data);
+    notification.openNotification({
+      message: data.message,
+      type: 'success',
+    });
+
+    navigate(RoutesUrls.main);
 
     if (queryToken) {
       setSearchParams((params) => {
@@ -37,11 +45,13 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSignIn }) => {
       setLoading(true);
       const { data, error, message } = await signInFn();
 
+      console.log('data', data);
+
       if (error && data === false) {
         throw new Error(message);
       }
 
-      handleSignInSuccess(data);
+      handleSignInSuccess({ data, error, message });
     } catch (err) {
       console.error('Error during sign in:', err);
       const errorMessage = isExternal
@@ -70,6 +80,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSignIn }) => {
         signIn({
           login: form.getFieldValue('login')?.trim(),
           password: form.getFieldValue('password')?.trim(),
+          lang: i18n.language,
         }),
       false
     );

@@ -102,7 +102,13 @@
     "help": "Жардам",
     "privacyPolicy": "Купуялык саясаты",
     "forgetPassword": "Сыр сөздү унуттуңузбу?",
-    "logout": "Чыгуу"
+    "logout": "Чыгуу",
+
+    "personalInfo": "Жеке маалымат",
+    "selectSpuz": "КООЖ (еолледж) тандаңыз",
+    "viewRegistrations": "Катоолорду көрүү",
+    "tours": "Турлардын графиги",
+    "instruction": "Нускама"
   },
   "Timer": {
     "title": "Каттоо аяктаганга чейинки убакыт:",

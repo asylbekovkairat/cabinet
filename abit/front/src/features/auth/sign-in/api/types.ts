@@ -1,6 +1,7 @@
 export interface ApiSignInData {
   login: string;
   password: string;
+  lang: string;
 }
 
 export enum RoleType {

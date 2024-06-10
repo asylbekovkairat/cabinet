@@ -94,7 +94,7 @@ export default ({ mode }: { mode: string }) => {
         ...srcAliases,
       },
     },
-    base: '/diploma/',
+    // base: '/diploma/',
     server: {
       port: 3000,
     },
