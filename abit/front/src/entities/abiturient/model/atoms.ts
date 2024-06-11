@@ -4,17 +4,15 @@ import { atomWithDefault } from 'jotai/utils';
 
 import { getAbitInfo } from '../api';
 
-export const abiturientInfoAtom = atomWithDefault<any | null>((_get) => null);
+import { Abiturient } from './types';
 
-export const setAbiturientInfoAtom = atom<any, any, any>(
+export const abiturientInfoAtom = atomWithDefault<Abiturient | null>((_get) => null);
+
+export const setAbiturientInfoAtom = atom<any, number, Promise<void>>(
   (get) => get(abiturientInfoAtom),
-  async (_get, set) => {
-    const response = await getAbitInfo(203763);
+  async (_get, set, userEnrolleOrt) => {
+    const response = await getAbitInfo(userEnrolleOrt);
 
-    if (response?.data?.error || response?.error) {
-      set(abiturientInfoAtom, null);
-    } else if (response?.data) {
-      set(abiturientInfoAtom, response.data);
-    }
+    set(abiturientInfoAtom, response as any);
   }
 );

@@ -67,7 +67,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSignIn }) => {
 
   const handleExternalSignIn = async () => {
     if (queryToken) {
-      console.log('Token external');
       await handleSignIn(() => externalSignIn(queryToken), true);
     }
   };

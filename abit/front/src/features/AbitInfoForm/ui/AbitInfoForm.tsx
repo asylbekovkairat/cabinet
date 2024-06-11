@@ -1,9 +1,12 @@
 import { Button, Form, Upload, UploadFile } from 'antd';
+import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
 import { useAbiturientInfo, useSetAbiturientInfo } from '~entities/abiturient';
+import { ClassSelector } from '~entities/shared/class';
+import { useClassList, useSetClassList } from '~entities/shared/class/model';
 
 import { useSetUserEnrolleOrt, useUserEnrollOrt } from '~entities/shared/user';
 
@@ -11,74 +14,78 @@ import { DatePicker, Input, Select } from '~shared/ui';
 
 const AbitInfoForm = () => {
   const { t } = useTranslation();
+  const [form] = Form.useForm();
+
   const userEnrolleOrt = useUserEnrollOrt();
   const abiturientInfo = useAbiturientInfo();
+  const classesList = useClassList();
 
   const setAbiturientInfo = useSetAbiturientInfo();
   const setUserEnrolleOrt = useSetUserEnrolleOrt();
+  const setClassesList = useSetClassList();
 
   useEffect(() => {
     setUserEnrolleOrt();
-    setAbiturientInfo();
+    setClassesList();
   }, []);
 
-  console.log('userEnrolleOrt', userEnrolleOrt);
-  console.log('abiturientInfo', abiturientInfo);
+  useEffect(() => {
+    if (userEnrolleOrt?.id_enrollee_ORT) {
+      setAbiturientInfo(userEnrolleOrt.id_enrollee_ORT);
+    }
+  }, [userEnrolleOrt]);
 
-  const fileList: UploadFile[] = [
-    {
-      uid: '0',
-      name: 'xxx.png',
-      status: 'uploading',
-      percent: 33,
-    },
-    {
-      uid: '-1',
-      name: 'yyy.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-2',
-      name: 'zzz.png',
-      status: 'error',
-    },
-  ];
+  useEffect(() => {
+    form.setFieldsValue(abiturientInfo);
+  }, [abiturientInfo]);
 
   return (
     <>
-      <Form labelAlign="left" layout="vertical">
-        <Form.Item label="Фамилия" required>
-          <Input size="middle" />
+      <Form form={form} labelAlign="left" layout="vertical" initialValues={{ ...abiturientInfo }}>
+        <Form.Item name="surname" label="Фамилия" required>
+          <Input size="middle" disabled />
         </Form.Item>
-        <Form.Item label="Имя" required>
-          <Input size="middle" />
+        <Form.Item name="names" label="Имя" required>
+          <Input size="middle" disabled />
         </Form.Item>
-        <Form.Item label="Отчество">
+        <Form.Item name="patronymic" label="Отчество">
           <Input size="middle" />
         </Form.Item>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
           <Form.Item className="w-full" label="Дата рождения" required>
-            <DatePicker className="w-full" size="middle" />
+            <DatePicker
+              value={dayjs(abiturientInfo?.birthdate)}
+              className="w-full"
+              size="middle"
+              disabled
+            />
           </Form.Item>
-          <Form.Item className="w-full" label="Персональный номер (ИНН)">
-            <Input size="middle" />
+          <Form.Item name="inn" className="w-full" label="Персональный номер (ИНН)">
+            <Input size="middle" disabled />
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 items-end xs:flex-col xs:gap-0">
-          <Form.Item className="w-full" label="Серия паспорта или свидетельства о рождении">
-            <Input size="middle" />
+          <Form.Item
+            name="serial_pas"
+            className="w-full"
+            label="Серия паспорта или свидетельства о рождении"
+          >
+            <Input size="middle" disabled />
           </Form.Item>
           <Form.Item className="w-full" label="Дата выдачи паспорта">
-            <DatePicker className="w-full" size="middle" />
+            <DatePicker
+              value={dayjs(abiturientInfo?.date_given_pas)}
+              className="w-full"
+              size="middle"
+              disabled
+            />
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
           <Form.Item className="w-full" label="Серия аттестата">
             <Input className="w-full" size="middle" />
           </Form.Item>
-          <Form.Item className="w-full" label="Номер аттестата">
+          <Form.Item name="id_enrollee_ORT" className="w-full" label="Номер аттестата">
             <Input className="w-full" size="middle" />
           </Form.Item>
         </div>
@@ -87,7 +94,7 @@ const AbitInfoForm = () => {
             <Input className="w-full" size="middle" />
           </Form.Item>
           <Form.Item className="w-full" label="Класс">
-            <Select className="w-full" size="middle" />
+            <ClassSelector size="middle" classList={classesList || []} />
           </Form.Item>
         </div>
 

@@ -1,5 +1,7 @@
 import { ApiResponseData, api } from '~shared/api';
 
+import { Abiturient } from '../model';
+
 import { routes } from './routes';
 
 export const getEnrolleOrt = async () => {
@@ -7,24 +9,21 @@ export const getEnrolleOrt = async () => {
 
   try {
     response = await api.get(routes.enrolleORTId());
-    console.log('response', response);
-
-    return response;
   } catch (error) {
-    console.log(error);
+    response = error;
   }
+
+  return response;
 };
 
 export const getAbitInfo = async (enrolleOrtId: number) => {
-  let response;
+  let response!: ApiResponseData<Abiturient> | null;
 
   try {
-    response = await api.get<any, ApiResponseData<any>>(routes.abitInfo(enrolleOrtId));
-
-    console.log('response', response);
-
-    return response;
+    response = await api.get<any, ApiResponseData<Abiturient>>(routes.abitInfo(enrolleOrtId));
   } catch (error) {
-    console.log(error);
+    response = null;
   }
+
+  return response;
 };

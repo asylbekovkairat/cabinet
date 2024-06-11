@@ -21,23 +21,11 @@ export function useSignIn(): (signInConfig: signInFunctionParams) => boolean {
     const { token, tokenType, authState, expiresIn, refreshToken, refreshTokenExpireIn } =
       signInConfig;
 
-    console.log('useSignIn', {
-      token,
-      tokenType,
-      authState,
-      expiresIn,
-      refreshToken,
-      refreshTokenExpireIn,
-    });
-
     const expTime = new Date(new Date().getTime() + expiresIn * 60 * 1000);
 
     if (context.authState.isUsingRefreshToken) {
-      console.log('isUsingRefreshToken');
-
       // Using the power of refresh token
       if (!!refreshToken && !!refreshTokenExpireIn) {
-        console.log('!!refreshToken');
         // refresh token params are provided
         // sign in with refresh token
         const refreshTokenExpireAt = new Date(

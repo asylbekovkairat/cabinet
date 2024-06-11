@@ -7,14 +7,12 @@ import { ApiSignInData, ApiSignInResponseData } from './types';
 export const signIn = async (data: ApiSignInData) => {
   let response;
 
-  console.log('routes.signIn()', routes.signIn());
-
   try {
+    document.cookie = 'domain=2020.local.edu.gov.kg;';
+
     response = await api.post<any, ApiResponseData<ApiSignInResponseData>>(routes.signIn(), {
       ...data,
     });
-
-    console.log('response', response);
 
     if (response.data) {
       return response;

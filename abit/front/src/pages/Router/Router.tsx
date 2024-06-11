@@ -14,6 +14,10 @@ const PersonalInfoPage = lazyLoader(() =>
   import('~pages/PersonalInfo').then((module) => ({ default: module.PersonalInfoPage }))
 );
 
+const SelectSpuzPage = lazyLoader(() =>
+  import('~pages/SelectSpuz').then((module) => ({ default: module.SelectSpuzPage }))
+);
+
 const routes = [
   {
     path: RoutesUrls.root,
@@ -32,7 +36,7 @@ const routes = [
         children: [
           { path: RoutesUrls.settings, element: <SettingsPage /> },
           { path: RoutesUrls.personalInfo, element: <PersonalInfoPage /> },
-          { path: RoutesUrls.selectSpuz, element: <p>Select spuz</p> },
+          { path: RoutesUrls.selectSpuz, element: <SelectSpuzPage /> },
           { path: RoutesUrls.viewRegistrations, element: <p>Просмотр регистраций</p> },
           { path: RoutesUrls.tours, element: <p>График туров</p> },
           { path: RoutesUrls.instruction, element: <p>Инструкции</p> },

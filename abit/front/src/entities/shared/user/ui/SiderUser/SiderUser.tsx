@@ -11,9 +11,10 @@ export interface SiderUserProps {
   fio?: string;
   role?: string | null;
   onError?: ReactNode;
+  sertificateNum: number | null;
 }
 
-export const SiderUser: FC<SiderUserProps> = ({ photo, fio, role, onError }) => {
+export const SiderUser: FC<SiderUserProps> = ({ photo, fio, sertificateNum, onError }) => {
   const collapsed = useCollapsed();
   const wrapperClass = classNames(styles.collapsed, !collapsed ? styles.closed : '');
 
@@ -24,7 +25,7 @@ export const SiderUser: FC<SiderUserProps> = ({ photo, fio, role, onError }) => 
       </Avatar>
       <div className={styles.fioRole}>
         <h2 className={styles.fio}>{fio}</h2>
-        <p className={styles.role}>Абитуриент</p>
+        <p className={styles.role}>Ваш шифр&nbsp;{sertificateNum}</p>
       </div>
     </div>
   );

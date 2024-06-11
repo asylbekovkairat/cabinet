@@ -32,11 +32,6 @@ export const setUserEnrollORTAtom = atom<any, any, any>(
   (get) => get(userEnrollORTAtom),
   async (_get, set) => {
     const response = await getUserEnrolleORT();
-
-    if (response?.data.error) {
-      set(userEnrollORTAtom, null);
-    } else if (response?.data) {
-      set(userEnrollORTAtom, response.data);
-    }
+    set(userEnrollORTAtom, response[0]);
   }
 );

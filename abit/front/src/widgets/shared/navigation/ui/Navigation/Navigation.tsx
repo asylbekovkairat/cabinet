@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 
 import { useSettings } from '~entities/shared/settings';
-import { SiderUser, useUser } from '~entities/shared/user';
+import { SiderUser, useUser, useUserEnrollOrt } from '~entities/shared/user';
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
@@ -23,6 +23,7 @@ export const Navigation: FC<NavigationProps> = () => {
   const setCollapsed = useSetCollapsed();
   const user = useUser();
   const windowWidth = useWindowInnerWidth();
+  const userEnrolleOrt = useUserEnrollOrt();
 
   useEffect(() => {
     if (windowWidth <= 768) {
@@ -79,6 +80,7 @@ export const Navigation: FC<NavigationProps> = () => {
       <Sider
         user={
           <SiderUser
+            sertificateNum={userEnrolleOrt?.NumberSert}
             fio={`${user?.s} ${user?.n?.charAt(-0)}. ${user?.p ? user?.p.charAt(0) + '.' : ''}`}
             role={t(`cm:role.${user?.role}`)}
             onError={<SN surname={user?.s || ''} name={user?.n || ''} size={18} />}

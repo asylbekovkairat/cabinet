@@ -1,3 +1,3 @@
 export const routes = {
-  getClass: () => '/shared/classesList',
+  getClass: () => '/abit/classesList',
 };

@@ -15,11 +15,8 @@ export const errorHandler = (err: ApiError) => {
     localStorage.removeItem(import.meta.env.VITE_TOKEN_TTL);
 
     const isAuthCheckAPI = String(err.config.url).includes(CHECK_AUTH_API);
-    const path = window.location.pathname;
 
-    if (!path.startsWith(RoutesUrls.cabinet)) {
-      console.log('ok');
-    } else if (isAuthCheckAPI) {
+    if (isAuthCheckAPI) {
       window.location.replace(LOGIN_PAGE);
     } else {
       window.location.replace(LOGIN_PAGE);

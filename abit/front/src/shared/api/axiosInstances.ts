@@ -5,7 +5,7 @@ import { defaultLocale } from '~shared/lib/l10n';
 import { errorHandler, requestHandler, responseHandler } from './interceptors';
 
 export const api = axios.create({
-  withCredentials: import.meta.env.DEV ? true : false,
+  withCredentials: true,
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Accept': 'application/json',
