@@ -7,10 +7,13 @@ import { Button, Form, Input, Typography, useNotification } from '~shared/ui';
 import { RoutesUrls } from '~shared/lib/router';
 
 import { externalSignIn, signIn } from '../../api';
+import { SignInData } from '../../model';
 
-export interface SignInFormProps {}
+export interface SignInFormProps {
+  onSignIn: (payload: SignInData) => void;
+}
 
-export const SignInForm: React.FC<SignInFormProps> = () => {
+export const SignInForm: React.FC<SignInFormProps> = ({ onSignIn }) => {
   const notification = useNotification();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,15 +24,7 @@ export const SignInForm: React.FC<SignInFormProps> = () => {
   const queryToken = searchParams.get('external');
 
   const handleSignInSuccess = (data: any) => {
-    console.log('data', data);
-
-    // onSignIn(data);
-    notification.openNotification({
-      message: data.message,
-      type: 'success',
-    });
-
-    navigate(RoutesUrls.main);
+    onSignIn(data);
 
     if (queryToken) {
       setSearchParams((params) => {
@@ -45,13 +40,16 @@ export const SignInForm: React.FC<SignInFormProps> = () => {
       setLoading(true);
       const { data, error, message } = await signInFn();
 
-      console.log('data', data);
-
       if (error && data === false) {
         throw new Error(message);
       }
 
-      handleSignInSuccess({ data, error, message });
+      notification.openNotification({
+        message: message,
+        type: 'success',
+      });
+
+      handleSignInSuccess(data);
     } catch (err) {
       console.error('Error during sign in:', err);
       const errorMessage = isExternal

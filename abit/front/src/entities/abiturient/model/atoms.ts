@@ -1,17 +1,19 @@
 import { atom } from 'jotai';
 
-import { ApiResponseData } from '~shared/api';
+import { atomWithDefault } from 'jotai/utils';
 
-export const abiturientInfoAtom = atom([]);
+import { getAbitInfo } from '../api';
+
+export const abiturientInfoAtom = atomWithDefault<any | null>((_get) => null);
 
 export const setAbiturientInfoAtom = atom<any, any, any>(
   (get) => get(abiturientInfoAtom),
   async (_get, set) => {
-    let response!: ApiResponseData;
+    const response = await getAbitInfo(203763);
 
-    if (response.data.error) {
-      set(abiturientInfoAtom, []);
-    } else if (response.data) {
+    if (response?.data?.error || response?.error) {
+      set(abiturientInfoAtom, null);
+    } else if (response?.data) {
       set(abiturientInfoAtom, response.data);
     }
   }

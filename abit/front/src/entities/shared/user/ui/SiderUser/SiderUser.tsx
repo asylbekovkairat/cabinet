@@ -24,7 +24,7 @@ export const SiderUser: FC<SiderUserProps> = ({ photo, fio, role, onError }) => 
       </Avatar>
       <div className={styles.fioRole}>
         <h2 className={styles.fio}>{fio}</h2>
-        <p className={styles.role}>{role}</p>
+        <p className={styles.role}>Абитуриент</p>
       </div>
     </div>
   );

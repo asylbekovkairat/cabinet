@@ -1,3 +1,3 @@
-import PersonalInfo from './ui/PersonalInfo';
+import PersonalInfoPage from './ui/PersonalInfoPage';
 
-export { PersonalInfo };
+export { PersonalInfoPage };

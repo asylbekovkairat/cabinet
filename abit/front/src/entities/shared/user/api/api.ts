@@ -18,6 +18,18 @@ export const getUser = async () => {
   return response;
 };
 
+export const getUserEnrolleORT = async () => {
+  let response;
+
+  try {
+    response = await api.get<any, ApiResponseData<any>>(routes.userEnrollORT());
+  } catch (error: any) {
+    response = error?.response?.data;
+  }
+
+  return response;
+};
+
 export const mockGetUser = async () => {
   let result: unknown = null;
 

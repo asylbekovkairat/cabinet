@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import { Button } from 'antd';
+
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 import { SiderArrowIcon, XIcon } from '~shared/ui/Icons';
 import { Logo } from '~shared/ui/logo';
@@ -38,7 +40,9 @@ export const Sider: React.FC<SiderProps> = ({ user, routes, settings }) => {
             {user}
           </div>
           <div>{routes}</div>
-          <div className={styles.settings_logout}>{settings}</div>
+          <div className={styles.settings_logout}>
+            <Button type="primary">Выйти</Button>
+          </div>
         </div>
       </div>
     );
@@ -62,7 +66,9 @@ export const Sider: React.FC<SiderProps> = ({ user, routes, settings }) => {
           </div>
           <div className={styles.routes}>{routes}</div>
         </div>
-        <div className={styles.settings_logout}>{settings}</div>
+        <div className={styles.settings_logout}>
+          <Button type="primary">Выйти</Button>
+        </div>
       </div>
     </div>
   );
