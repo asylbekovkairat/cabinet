@@ -13,3 +13,15 @@ export const uploadImage = async (data: FormData) => {
 
   return response;
 };
+
+export const downloadImage = async (file: string) => {
+  let response;
+
+  try {
+    response = await api.post<any, ApiResponseData<any>>(routes.dowmloadImage(), { file });
+  } catch (error) {
+    response = error;
+  }
+
+  return response;
+};

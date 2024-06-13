@@ -18,9 +18,9 @@ export interface Abiturient {
   logInsert: string; // or Date if you prefer to handle dates as Date objects
   id_learning: number;
   photoAtestA: string;
-  photoAtestB: string | null;
+  photoAtestB: string;
   documentA: string;
-  documentB: string | null;
+  documentB: string;
   documentLigot: string | null;
   email: string;
   id_user: number;

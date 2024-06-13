@@ -33,3 +33,4 @@ interface ComponentWithChild {
 interface ComponentWithChildren {
   children: ReactNode | ReactNode[];
 }
+declare module '*.module.scss';

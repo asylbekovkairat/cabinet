@@ -1,6 +1,5 @@
 import { FC, useEffect } from 'react';
 
-import { useSettings } from '~entities/shared/settings';
 import { SiderUser, useUser, useUserEnrollOrt } from '~entities/shared/user';
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 import { useTranslation } from '~shared/lib/i18n';

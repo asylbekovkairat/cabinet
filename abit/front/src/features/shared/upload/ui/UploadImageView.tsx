@@ -1,25 +1,30 @@
-import { Button, Upload, UploadProps } from 'antd';
+import { Button, Image, Upload, UploadProps } from 'antd';
 import { UploadChangeParam } from 'antd/es/upload';
 import { UploadFile } from 'antd/lib';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { ReactComponent as UploadIcon } from '~shared/assets/UploadIcon.svg';
+import { ReactComponent as ExpandIcon } from '~shared/assets/ExpandIcon.svg';
 import { validateFileType } from '~shared/lib/utils';
 
 import { useNotification } from '~shared/ui';
 
 import { useUserEnrollOrt } from '~entities/shared/user';
 
-import { uploadImage } from '../api';
+import { downloadImage, uploadImage } from '../api';
 
 interface Props extends UploadProps {
   uploadText: string;
   upload_type: string;
+  thumbFileName?: string;
 }
 
-const UploadImageView: FC<Props> = ({ uploadText, upload_type }) => {
+const UploadImageView: FC<Props> = ({ uploadText, upload_type, thumbFileName }) => {
   const notification = useNotification();
   const userEnrolleOrt = useUserEnrollOrt();
+
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const uploadProps = useMemo(
@@ -56,30 +61,64 @@ const UploadImageView: FC<Props> = ({ uploadText, upload_type }) => {
     [fileList]
   );
 
-  const handleUpload: (info: UploadChangeParam<UploadFile<any>>) => void = async (info) => {
-    console.log('event', info);
+  const handleUploadImage: (info: UploadChangeParam<UploadFile<any>>) => void = async (info) => {
     const formData = new FormData();
 
     formData.append('file', info.fileList[0].originFileObj as any);
-    formData.append('id_abiturient', userEnrolleOrt.id_enrollee_ORT as any);
+    formData.append('id_abiturient', Number(userEnrolleOrt.NumberSert) as any);
     formData.append('type', upload_type as any);
 
-    const response = await uploadImage(formData);
-    console.log('response', response);
+    const file = (await uploadImage(formData)) as { res: number; name: string; type: string };
+    handleDownloadImage(file.name);
   };
 
+  const handleDownloadImage = async (fileName: string): Promise<void> => {
+    const response = (await downloadImage(fileName)) as { exist: true; file: string };
+    setPreviewImage(response?.file);
+  };
+
+  useEffect(() => {
+    if (thumbFileName) {
+      handleDownloadImage(thumbFileName);
+    }
+  }, [thumbFileName]);
+
   return (
-    <Upload
-      className="w-full"
-      maxCount={1}
-      listType="picture"
-      onChange={handleUpload}
-      {...uploadProps}
-    >
-      <Button className="w-full h-auto " icon={<UploadIcon className="w-[20px]" />}>
-        {uploadText}
-      </Button>
-    </Upload>
+    <>
+      <Upload
+        className="w-full"
+        maxCount={1}
+        listType="picture"
+        onChange={handleUploadImage}
+        {...uploadProps}
+      >
+        <Button className="w-full h-auto" icon={<UploadIcon className="w-[20px]" />}>
+          {uploadText}
+        </Button>
+      </Upload>
+      {previewImage && (
+        <Button
+          className="w-full h-auto"
+          iconPosition="start"
+          icon={<ExpandIcon className="w-[24px] h-[24px]" />}
+          onClick={() => setPreviewOpen(true)}
+        >
+          Просмотр документа
+        </Button>
+      )}
+      {previewOpen && (
+        <Image
+          className="max-w-[200px]"
+          // eslint-disable-next-line react-extra/no-inline-styles
+          style={{ display: 'none' }}
+          preview={{
+            visible: previewOpen,
+            onVisibleChange: (visible) => setPreviewOpen(visible),
+          }}
+          src={`data:image/png;base64,${previewImage}`}
+        />
+      )}
+    </>
   );
 };
 

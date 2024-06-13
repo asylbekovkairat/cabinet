@@ -1,5 +1,4 @@
 import { Button, Form } from 'antd';
-import { RadioChangeEvent } from 'antd/lib';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
@@ -12,7 +11,7 @@ import { useClassList, useSetClassList } from '~entities/shared/class/model';
 
 import { useSetUserEnrolleOrt, useUserEnrollOrt } from '~entities/shared/user';
 
-import { DatePicker, Input } from '~shared/ui';
+import { DatePicker, Input, useNotification } from '~shared/ui';
 
 import { updateAbitInfo } from '../api';
 
@@ -21,6 +20,7 @@ import BenefitProof from './BenefitProof';
 const AbitInfoForm = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const notification = useNotification();
 
   const userEnrolleOrt = useUserEnrollOrt();
   const abiturientInfo = useAbiturientInfo();
@@ -66,33 +66,29 @@ const AbitInfoForm = () => {
 
     setSelectedSubCategory(abiturientInfo?.id_abiturient_category || 0);
     setInitialValues(values);
-  }, [abiturientInfo, form, userEnrolleOrt]);
+  }, [abiturientInfo, userEnrolleOrt]);
 
   useEffect(() => {
-    console.log(
-      'vne',
-      selectedSubCategory === 8 || selectedSubCategory === 9 || selectedSubCategory === 10
-    );
-
-    console.log('selectedSubCategory', selectedSubCategory);
-
     if (selectedSubCategory === 2 || selectedSubCategory === 4) {
       setSelectedBenefit(2);
+      form.setFieldsValue({ benefit: 2 });
     } else if (
       selectedSubCategory === 8 ||
       selectedSubCategory === 9 ||
       selectedSubCategory === 10
     ) {
       setSelectedBenefit(4);
+      form.setFieldsValue({ benefit: 4 });
     } else {
       setSelectedBenefit(1);
+      form.setFieldsValue({ benefit: 1 });
     }
-  }, [abiturientInfo, benefits, selectedSubCategory]);
+  }, [abiturientInfo, selectedSubCategory]);
 
   const onSubmit = async (values: any) => {
     const data = {
       ...values,
-      beneficiary_status: values.id_abiturient_category === 1 ? false : values.beneficiary_status,
+      beneficiary_status: values.benefit === 1 ? false : values.beneficiary_status,
       NumberAD: Number(values.id_abiturient),
       SeriesAD: values.attestat_ser || '',
       id_abiturient: userEnrolleOrt.NumberSert,
@@ -104,10 +100,14 @@ const AbitInfoForm = () => {
       id_abiturient_category: selectedBenefit === 1 ? selectedBenefit : selectedSubCategory,
     };
 
-    console.log('data,', data);
+    await updateAbitInfo(data);
 
-    const response = await updateAbitInfo(data);
-    console.log('response', response);
+    notification.openNotification({
+      message: 'Данные сохранены успешно',
+      type: 'success',
+    });
+
+    setAbiturientInfo(userEnrolleOrt.id_enrollee_ORT);
   };
 
   console.log('selectedBenefit', selectedBenefit);
@@ -116,9 +116,11 @@ const AbitInfoForm = () => {
     console.log('values', values);
   };
 
-  const onValuesChange = ({ id_abiturient_category }: any) => {
-    if (id_abiturient_category) {
-      setSelectedBenefit(id_abiturient_category);
+  const onValuesChange = ({ benefit }: any) => {
+    if (benefit) {
+      console.log('benefit', benefit);
+
+      setSelectedBenefit(benefit);
     }
   };
 
@@ -129,6 +131,7 @@ const AbitInfoForm = () => {
 
   return (
     <>
+      {notification.contextHolder}
       <Form
         form={form}
         onFinish={onSubmit}
@@ -201,7 +204,7 @@ const AbitInfoForm = () => {
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
-          <Form.Item className="w-full" name="id_abiturient_category">
+          <Form.Item className="w-full" name="benefit">
             <BenefitsCategoriesView value={selectedBenefit} />
           </Form.Item>
           <Form.Item className="w-full" name="beneficiary_status">
