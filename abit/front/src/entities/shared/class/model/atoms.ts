@@ -8,12 +8,9 @@ export const classListAtom = atomWithDefault<ClassList | null>((_get) => null);
 export const setClassListAtom = atom<ClassList | null, undefined, Promise<void>>(
   (get) => get(classListAtom),
   async (_get, set) => {
-    const response = await getClass();
-
-    if (response.data?.error) {
-      set(classListAtom, null);
-    } else if (response.data) {
-      set(classListAtom, response.data);
-    }
+    set(classListAtom, [
+      { value: 1, label: '9 класс' },
+      { value: 2, label: '11 класс' },
+    ]);
   }
 );

@@ -1,3 +1,3 @@
 export const routes = {
-  getClass: () => '/abit/classesList',
+  getClass: () => '/classesList',
 };

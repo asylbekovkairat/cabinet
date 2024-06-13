@@ -20,14 +20,6 @@ const SelectSpuzPage = lazyLoader(() =>
 
 const routes = [
   {
-    path: RoutesUrls.root,
-    element: <SiteLayout />,
-    children: [
-      { path: RoutesUrls.login, element: <LoginPage /> },
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
     path: RoutesUrls.cabinet,
     element: <RequireAuth loginPath={RoutesUrls.login} />,
     children: [
@@ -45,6 +37,7 @@ const routes = [
       },
     ],
   },
+  { path: RoutesUrls.login, element: <LoginPage /> },
 ];
 
 export const Router = () => {

@@ -8,3 +8,4 @@ export * from './debounce';
 export * from './encryptionUtils';
 export * from './fileSave';
 export * from './setAsyncTimeout';
+export * from './filtType';

@@ -1,7 +1,13 @@
-import React from 'react';
+import { SpuzListView } from '~entities/spuz';
+import { SpuzFilterView } from '~features/spuzFilter';
 
 const SelectSpuz = () => {
-  return <div>SelectSpuz</div>;
+  return (
+    <>
+      <SpuzFilterView />
+      <SpuzListView />
+    </>
+  );
 };
 
 export default SelectSpuz;

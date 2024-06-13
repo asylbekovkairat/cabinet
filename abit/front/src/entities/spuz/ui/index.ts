@@ -1,1 +1,1 @@
-export * from './SelectSpuzModal';
+export * from './SpuzList';

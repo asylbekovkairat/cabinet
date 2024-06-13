@@ -1,6 +1,6 @@
 export interface ClassItem {
-  class: string | number;
-  id_class: string;
+  value: string | number;
+  label: string;
 }
 
 export interface ClassList extends Array<ClassItem> {}

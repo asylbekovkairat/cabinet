@@ -1,16 +1,22 @@
-import { Button, Form, Upload, UploadFile } from 'antd';
+import { Button, Form } from 'antd';
+import { RadioChangeEvent } from 'antd/lib';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
 import { useAbiturientInfo, useSetAbiturientInfo } from '~entities/abiturient';
+import { Benefits, BenefitsCategoriesView, useBenefits, useSetBenefits } from '~entities/benefits';
 import { ClassSelector } from '~entities/shared/class';
 import { useClassList, useSetClassList } from '~entities/shared/class/model';
 
 import { useSetUserEnrolleOrt, useUserEnrollOrt } from '~entities/shared/user';
 
-import { DatePicker, Input, Select } from '~shared/ui';
+import { DatePicker, Input } from '~shared/ui';
+
+import { updateAbitInfo } from '../api';
+
+import BenefitProof from './BenefitProof';
 
 const AbitInfoForm = () => {
   const { t } = useTranslation();
@@ -19,10 +25,29 @@ const AbitInfoForm = () => {
   const userEnrolleOrt = useUserEnrollOrt();
   const abiturientInfo = useAbiturientInfo();
   const classesList = useClassList();
+  const benefits = useBenefits();
 
   const setAbiturientInfo = useSetAbiturientInfo();
   const setUserEnrolleOrt = useSetUserEnrolleOrt();
   const setClassesList = useSetClassList();
+  const setBenefits = useSetBenefits();
+
+  const [selectedBenefit, setSelectedBenefit] = useState(0);
+
+  const [subCategories, setSubCategories] = useState<Benefits[]>([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(1);
+  const [initialValues, setInitialValues] = useState({});
+
+  useEffect(() => {
+    setBenefits();
+  }, []);
+
+  useEffect(() => {
+    if (benefits && selectedBenefit) {
+      const filtered = benefits.filter((benefit) => benefit.id_abiturient_type === selectedBenefit);
+      setSubCategories(filtered);
+    }
+  }, [benefits, selectedBenefit]);
 
   useEffect(() => {
     setUserEnrolleOrt();
@@ -36,23 +61,100 @@ const AbitInfoForm = () => {
   }, [userEnrolleOrt]);
 
   useEffect(() => {
-    form.setFieldsValue(abiturientInfo);
-  }, [abiturientInfo]);
+    const values = { ...abiturientInfo };
+    form.setFieldsValue(values);
+
+    setSelectedSubCategory(abiturientInfo?.id_abiturient_category || 0);
+    setInitialValues(values);
+  }, [abiturientInfo, form, userEnrolleOrt]);
+
+  useEffect(() => {
+    console.log(
+      'vne',
+      selectedSubCategory === 8 || selectedSubCategory === 9 || selectedSubCategory === 10
+    );
+
+    console.log('selectedSubCategory', selectedSubCategory);
+
+    if (selectedSubCategory === 2 || selectedSubCategory === 4) {
+      setSelectedBenefit(2);
+    } else if (
+      selectedSubCategory === 8 ||
+      selectedSubCategory === 9 ||
+      selectedSubCategory === 10
+    ) {
+      setSelectedBenefit(4);
+    } else {
+      setSelectedBenefit(1);
+    }
+  }, [abiturientInfo, benefits, selectedSubCategory]);
+
+  const onSubmit = async (values: any) => {
+    const data = {
+      ...values,
+      beneficiary_status: values.id_abiturient_category === 1 ? false : values.beneficiary_status,
+      NumberAD: Number(values.id_abiturient),
+      SeriesAD: values.attestat_ser || '',
+      id_abiturient: userEnrolleOrt.NumberSert,
+      StreetHomeAddress: values.StreetHomeAddress || '',
+      id_enrollee_ORT: userEnrolleOrt.id_enrollee_ORT,
+      male: values.inn.at(0) === 2,
+      number_pas: values.number_pas || '',
+      learn: values.id_learning || '',
+      id_abiturient_category: selectedBenefit === 1 ? selectedBenefit : selectedSubCategory,
+    };
+
+    console.log('data,', data);
+
+    const response = await updateAbitInfo(data);
+    console.log('response', response);
+  };
+
+  console.log('selectedBenefit', selectedBenefit);
+
+  const onFinishFailed = (values: any) => {
+    console.log('values', values);
+  };
+
+  const onValuesChange = ({ id_abiturient_category }: any) => {
+    if (id_abiturient_category) {
+      setSelectedBenefit(id_abiturient_category);
+    }
+  };
+
+  const handleBeneficiary = (value: number): void => {
+    form.setFieldsValue({ beneficiary_status: true });
+    setSelectedSubCategory(value);
+  };
 
   return (
     <>
-      <Form form={form} labelAlign="left" layout="vertical" initialValues={{ ...abiturientInfo }}>
-        <Form.Item name="surname" label="Фамилия" required>
+      <Form
+        form={form}
+        onFinish={onSubmit}
+        onFinishFailed={onFinishFailed}
+        onValuesChange={onValuesChange}
+        labelAlign="left"
+        layout="vertical"
+        initialValues={initialValues}
+      >
+        <Form.Item name="surname" label={t('auth:form.surname')} required>
           <Input size="middle" disabled />
         </Form.Item>
-        <Form.Item name="names" label="Имя" required>
+        <Form.Item name="names" label={t('auth:form.name')} required>
           <Input size="middle" disabled />
         </Form.Item>
-        <Form.Item name="patronymic" label="Отчество">
+        <Form.Item name="patronymic" label={t('auth:form.patronymic')}>
           <Input size="middle" />
         </Form.Item>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
-          <Form.Item className="w-full" label="Дата рождения" required>
+          <Form.Item
+            name="birthdate"
+            valuePropName="date"
+            className="w-full"
+            label={t('auth:form.birthDate')}
+            required
+          >
             <DatePicker
               value={dayjs(abiturientInfo?.birthdate)}
               className="w-full"
@@ -60,19 +162,20 @@ const AbitInfoForm = () => {
               disabled
             />
           </Form.Item>
-          <Form.Item name="inn" className="w-full" label="Персональный номер (ИНН)">
+          <Form.Item name="inn" className="w-full" label={t('auth:pin')}>
             <Input size="middle" disabled />
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 items-end xs:flex-col xs:gap-0">
-          <Form.Item
-            name="serial_pas"
-            className="w-full"
-            label="Серия паспорта или свидетельства о рождении"
-          >
+          <Form.Item name="serial_pas" className="w-full" label={t('auth:form.passportNumber')}>
             <Input size="middle" disabled />
           </Form.Item>
-          <Form.Item className="w-full" label="Дата выдачи паспорта">
+          <Form.Item
+            name="date_given_pas"
+            valuePropName="date"
+            className="w-full"
+            label="Дата выдачи паспорта"
+          >
             <DatePicker
               value={dayjs(abiturientInfo?.date_given_pas)}
               className="w-full"
@@ -82,86 +185,43 @@ const AbitInfoForm = () => {
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
-          <Form.Item className="w-full" label="Серия аттестата">
+          <Form.Item name="attestat_ser" className="w-full" label="Серия аттестата">
             <Input className="w-full" size="middle" />
           </Form.Item>
-          <Form.Item name="id_enrollee_ORT" className="w-full" label="Номер аттестата">
+          <Form.Item name="id_abiturient" className="w-full" label="Номер аттестата">
             <Input className="w-full" size="middle" />
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
-          <Form.Item className="w-full" label="Адрес" required>
+          <Form.Item name="StreetHomeAddress" className="w-full" label="Адрес" required>
             <Input className="w-full" size="middle" />
           </Form.Item>
-          <Form.Item className="w-full" label="Класс">
+          <Form.Item name="id_learning" className="w-full" label="Класс">
             <ClassSelector size="middle" classList={classesList || []} />
+          </Form.Item>
+        </div>
+        <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
+          <Form.Item className="w-full" name="id_abiturient_category">
+            <BenefitsCategoriesView value={selectedBenefit} />
+          </Form.Item>
+          <Form.Item className="w-full" name="beneficiary_status">
+            {selectedBenefit > 1 && (
+              <BenefitProof
+                key={selectedBenefit}
+                handleBeneficiary={handleBeneficiary}
+                defaultValue={selectedSubCategory}
+                subCategories={subCategories}
+              />
+            )}
           </Form.Item>
         </div>
 
         <div className="flex justify-center">
-          <Button type="primary" className="mx-auto">
+          <Button type="primary" htmlType="submit" className="mx-auto">
             {t('cm:actions.save')}
           </Button>
         </div>
       </Form>
-      <section className="flex items-center gap-3 flex-wrap justify-center">
-        <Upload action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload" listType="picture">
-          <Button
-            className="h-auto xs:flex xs:flex-col"
-            icon={
-              <img
-                className="w-[100px]"
-                src="https://visualpharm.com/assets/826/ID%20Card-595b40b65ba036ed117d09d6.svg"
-                alt=""
-              />
-            }
-          >
-            Аттестаттын 1 бетинин cүрөтүн жүктөө
-          </Button>
-        </Upload>
-        <Upload action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload" listType="picture">
-          <Button
-            className="h-auto xs:flex xs:flex-col"
-            icon={
-              <img
-                className="w-[100px]"
-                src="https://visualpharm.com/assets/826/ID%20Card-595b40b65ba036ed117d09d6.svg"
-                alt=""
-              />
-            }
-          >
-            Аттестаттын 2 бетинин cүрөтүн жүктөө
-          </Button>
-        </Upload>
-        <Upload action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload" listType="picture">
-          <Button
-            className="h-auto xs:flex xs:flex-col"
-            icon={
-              <img
-                className="w-[100px]"
-                src="https://visualpharm.com/assets/826/ID%20Card-595b40b65ba036ed117d09d6.svg"
-                alt=""
-              />
-            }
-          >
-            Аттестаттын 3 бетинин cүрөтүн жүктөө
-          </Button>
-        </Upload>
-        <Upload action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload" listType="picture">
-          <Button
-            className="h-auto xs:flex xs:flex-col"
-            icon={
-              <img
-                className="w-[100px]"
-                src="https://visualpharm.com/assets/826/ID%20Card-595b40b65ba036ed117d09d6.svg"
-                alt=""
-              />
-            }
-          >
-            Аттестаттын 4 бетинин cүрөтүн жүктөө
-          </Button>
-        </Upload>
-      </section>
     </>
   );
 };
