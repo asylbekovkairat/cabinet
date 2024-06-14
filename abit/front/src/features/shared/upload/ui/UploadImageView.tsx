@@ -85,39 +85,34 @@ const UploadImageView: FC<Props> = ({ uploadText, upload_type, thumbFileName }) 
 
   return (
     <>
-      <Upload
-        className="w-full"
-        maxCount={1}
-        listType="picture"
-        onChange={handleUploadImage}
-        {...uploadProps}
-      >
-        <Button className="w-full h-auto" icon={<UploadIcon className="w-[20px]" />}>
-          {uploadText}
-        </Button>
-      </Upload>
-      {previewImage && (
-        <Button
-          className="w-full h-auto"
-          iconPosition="start"
-          icon={<ExpandIcon className="w-[24px] h-[24px]" />}
-          onClick={() => setPreviewOpen(true)}
+      <div className="flex bg-white items-center rounded-lg">
+        <Upload
+          className="w-full"
+          maxCount={1}
+          listType="picture"
+          onChange={handleUploadImage}
+          {...uploadProps}
         >
-          Просмотр документа
-        </Button>
-      )}
-      {previewOpen && (
-        <Image
-          className="max-w-[200px]"
-          // eslint-disable-next-line react-extra/no-inline-styles
-          style={{ display: 'none' }}
-          preview={{
-            visible: previewOpen,
-            onVisibleChange: (visible) => setPreviewOpen(visible),
-          }}
-          src={`data:image/png;base64,${previewImage}`}
-        />
-      )}
+          <Button
+            className="w-full h-auto border-none flex justify-start"
+            icon={<UploadIcon className="w-[20px]" />}
+          >
+            {uploadText}
+          </Button>
+        </Upload>
+        {previewImage && (
+          <div className="rounded-lg">
+            <Image
+              className="max-w-[100px] min-w-[100px] max-h-[100px] min-h-[100px] w-[100px] h-[100px] object-cover rounded-lg"
+              preview={{
+                visible: previewOpen,
+                onVisibleChange: (visible) => setPreviewOpen(visible),
+              }}
+              src={`data:image/png;base64,${previewImage}`}
+            />
+          </div>
+        )}
+      </div>
     </>
   );
 };

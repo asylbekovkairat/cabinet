@@ -4,6 +4,8 @@ import { Button, SelectProps, Upload } from 'antd';
 
 import { ReactComponent as UploadIcon } from '~shared/assets/UploadIcon.svg';
 import { BeneficiarySelector, Benefits } from '~entities/benefits';
+import { UploadImageView } from '~features/shared/upload';
+import { useAbiturientInfo } from '~entities/abiturient';
 
 interface BenefitProofProps {
   subCategories: Benefits[];
@@ -16,6 +18,7 @@ const BenefitProof: FC<BenefitProofProps> = ({
   handleBeneficiary,
   defaultValue,
 }) => {
+  const abiturientInfo = useAbiturientInfo();
   const selectProps = useMemo(() => {
     const props: SelectProps = {};
 
@@ -37,11 +40,11 @@ const BenefitProof: FC<BenefitProofProps> = ({
         subCategories={subCategories}
         handleBeneficiary={handleBeneficiary}
       />
-      <Upload action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload" listType="picture">
-        <Button className="h-auto xs:flex xs:flex-col" icon={<UploadIcon className="w-[20px]" />}>
-          Загрузите подтверждающий документ
-        </Button>
-      </Upload>
+      <UploadImageView
+        uploadText="Загрузите подтверждающий документ"
+        upload_type="documentLigot"
+        thumbFileName={abiturientInfo?.documentLigot || ''}
+      />
     </div>
   );
 };

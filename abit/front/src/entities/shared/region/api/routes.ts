@@ -1,3 +1,3 @@
 export const routes = {
-  getRegion: () => `/shared/region`,
+  getRegion: () => `/getRegion`,
 };

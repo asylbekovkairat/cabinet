@@ -1,3 +1,4 @@
+import { mode } from 'crypto-js';
 import { useRoutes } from 'react-router-dom';
 
 import { BaseLayout } from '~pages/layouts';
@@ -15,6 +16,14 @@ const SelectSpuzPage = lazyLoader(() =>
   import('~pages/select-spuz').then((module) => ({ default: module.SelectSpuzPage }))
 );
 
+const RegistrationsPage = lazyLoader(() =>
+  import('~pages/registrations').then((module) => ({ default: module.Registrations }))
+);
+
+const ToursChartPage = lazyLoader(() =>
+  import('~pages/tours-chart').then((module) => ({ default: module.ToursChart }))
+);
+
 const routes = [
   {
     path: RoutesUrls.cabinet,
@@ -25,8 +34,8 @@ const routes = [
         children: [
           { path: RoutesUrls.personalInfo, element: <PersonalInfoPage /> },
           { path: RoutesUrls.selectSpuz, element: <SelectSpuzPage /> },
-          { path: RoutesUrls.viewRegistrations, element: <p>Просмотр регистраций</p> },
-          { path: RoutesUrls.tours, element: <p>График туров</p> },
+          { path: RoutesUrls.viewRegistrations, element: <RegistrationsPage /> },
+          { path: RoutesUrls.tours, element: <ToursChartPage /> },
           { path: RoutesUrls.instruction, element: <p>Инструкции</p> },
           { path: RoutesUrls.logout, element: <LogoutPage /> },
         ],

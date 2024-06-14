@@ -17,10 +17,6 @@ export const setRegionListAtom = atom<RegionList | null, undefined, Promise<void
   async (_get, set) => {
     const response = await getRegion();
 
-    if (response.data?.error) {
-      set(regionListAtom, null);
-    } else if (response.data) {
-      set(regionListAtom, response.data);
-    }
+    set(regionListAtom, response);
   }
 );
