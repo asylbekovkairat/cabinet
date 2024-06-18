@@ -1,6 +1,6 @@
 import { useAtomValue, useResetAtom, useSetAtom } from '~shared/lib/atom-state';
 
-import { regionListAtom, setRegionListAtom } from './atoms';
+import { regionAtom, regionListAtom, setRegionAtom, setRegionListAtom } from './atoms';
 
 export const useRegionList = () => {
   return useAtomValue(regionListAtom);
@@ -12,4 +12,12 @@ export const useSetRegionList = () => {
 
 export const useResetRegionList = () => {
   return useResetAtom(regionListAtom);
+};
+
+export const useSelectedRegion = () => {
+  return useAtomValue(regionAtom);
+};
+
+export const useSetSelectedRegion = () => {
+  return useSetAtom(setRegionAtom);
 };

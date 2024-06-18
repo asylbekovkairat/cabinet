@@ -15,18 +15,6 @@ export interface RegionSelectorProps extends SelectProps {
 export const RegionSelector: FC<RegionSelectorProps> = ({ value, regionList, ...props }) => {
   const { i18n } = useTranslation();
 
-  console.log('i18n.language', i18n.language);
-
-  console.log(
-    'regionList',
-    regionList.map((item) => {
-      return {
-        value: item.id_region,
-        label: item.region,
-      };
-    })
-  );
-
   return (
     <Select
       value={value}

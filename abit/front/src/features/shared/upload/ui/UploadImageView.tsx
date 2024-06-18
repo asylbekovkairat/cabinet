@@ -4,7 +4,6 @@ import { UploadFile } from 'antd/lib';
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { ReactComponent as UploadIcon } from '~shared/assets/UploadIcon.svg';
-import { ReactComponent as ExpandIcon } from '~shared/assets/ExpandIcon.svg';
 import { validateFileType } from '~shared/lib/utils';
 
 import { useNotification } from '~shared/ui';
@@ -97,7 +96,7 @@ const UploadImageView: FC<Props> = ({ uploadText, upload_type, thumbFileName }) 
             className="w-full h-auto border-none flex justify-start"
             icon={<UploadIcon className="w-[20px]" />}
           >
-            {uploadText}
+            <p>{uploadText}</p>
           </Button>
         </Upload>
         {previewImage && (

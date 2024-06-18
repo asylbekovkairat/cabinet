@@ -5,7 +5,7 @@ const UploadAbitDocs = () => {
   const abiturientInfo = useAbiturientInfo();
 
   return (
-    <section className="flex items-center gap-3">
+    <section className="flex items-center gap-3 xs:flex-col">
       <div className="w-full flex flex-col gap-3">
         <UploadImageView
           uploadText="Аттестаттын 1 бетинин cүрөтүн жүктөө"
