@@ -84,7 +84,7 @@ const UploadImageView: FC<Props> = ({ uploadText, upload_type, thumbFileName }) 
 
   return (
     <>
-      <div className="flex bg-white items-center rounded-lg">
+      <div className="flex bg-white items-center rounded-lg min-h-[100px]">
         <Upload
           className="w-full"
           maxCount={1}

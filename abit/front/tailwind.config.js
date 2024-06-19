@@ -12,7 +12,7 @@ export default {
         white: '#fff',
         green: '#8fbb33',
         orange: '#ff7800',
-        yellow: '#ffd60a',
+        yellow: '#D87E2E',
         red: '#ff4d4f',
         bg: '#f1f4f9',
         content: '#fff',

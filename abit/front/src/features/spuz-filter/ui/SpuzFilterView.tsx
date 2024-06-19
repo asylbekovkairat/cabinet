@@ -1,7 +1,7 @@
 import { Button, Modal } from 'antd';
 import { useState } from 'react';
 
-import SpuzSelectForm from './SpuzSelectForm';
+import { SpuzSelectForm } from './SpuzSelectForm';
 
 const SpuzFilterView = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ const SpuzFilterView = () => {
       <Button type="primary" onClick={onOpen}>
         Выбрать СПУЗ
       </Button>
-      <Modal open={isOpen} onClose={onClose} onCancel={onClose}>
+      <Modal footer={null} open={isOpen} onClose={onClose} onCancel={onClose}>
         <SpuzSelectForm />
       </Modal>
     </section>

@@ -1,3 +1,2 @@
-import ToursListView from './ToursListView';
-
-export { ToursListView };
+export { ToursListView } from './ToursList';
+export { TourStageView } from './TourStageView';

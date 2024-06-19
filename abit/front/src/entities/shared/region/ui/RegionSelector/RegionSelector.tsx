@@ -2,7 +2,6 @@ import { SelectProps } from 'antd';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DynamicLocaleType } from '~features/shared/locale/set-locale/model';
 import { Select } from '~shared/ui';
 
 import { RegionItem } from '../../model';

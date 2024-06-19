@@ -1,7 +1,7 @@
-import React from 'react';
+import { ViewRegistrations } from '~widgets/view-registrations';
 
 const Registrations = () => {
-  return <div>Registrations</div>;
+  return <ViewRegistrations />;
 };
 
 export default Registrations;
