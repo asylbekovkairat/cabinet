@@ -27,8 +27,6 @@ const AbitInfoForm = () => {
   const classesList = useClassList();
   const benefits = useBenefits();
 
-  const setAbiturientInfo = useSetAbiturientInfo();
-  const setUserEnrolleOrt = useSetUserEnrolleOrt();
   const setClassesList = useSetClassList();
   const setBenefits = useSetBenefits();
 
@@ -50,15 +48,8 @@ const AbitInfoForm = () => {
   }, [benefits, selectedBenefit]);
 
   useEffect(() => {
-    setUserEnrolleOrt();
     setClassesList();
   }, []);
-
-  useEffect(() => {
-    if (userEnrolleOrt?.id_enrollee_ORT) {
-      setAbiturientInfo(userEnrolleOrt.id_enrollee_ORT);
-    }
-  }, [userEnrolleOrt]);
 
   useEffect(() => {
     const values = { ...abiturientInfo };
@@ -106,20 +97,10 @@ const AbitInfoForm = () => {
       message: 'Данные сохранены успешно',
       type: 'success',
     });
-
-    setAbiturientInfo(userEnrolleOrt.id_enrollee_ORT);
-  };
-
-  console.log('selectedBenefit', selectedBenefit);
-
-  const onFinishFailed = (values: any) => {
-    console.log('values', values);
   };
 
   const onValuesChange = ({ benefit }: any) => {
     if (benefit) {
-      console.log('benefit', benefit);
-
       setSelectedBenefit(benefit);
     }
   };
@@ -135,7 +116,6 @@ const AbitInfoForm = () => {
       <Form
         form={form}
         onFinish={onSubmit}
-        onFinishFailed={onFinishFailed}
         onValuesChange={onValuesChange}
         labelAlign="left"
         layout="vertical"

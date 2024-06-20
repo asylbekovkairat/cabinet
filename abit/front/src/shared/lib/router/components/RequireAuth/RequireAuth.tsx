@@ -12,13 +12,13 @@ export const RequireAuth: React.FunctionComponent<RequireAuthProps> = ({ loginPa
   const location = useLocation();
 
   const isAuth = () => {
-    // if (user) {
-    //   return true;
-    // }
+    if (user) {
+      return true;
+    }
 
-    // if (!user) {
-    //   setUser({ authState: null });
-    // }
+    if (!user) {
+      setUser({ authState: null });
+    }
 
     return true;
   };

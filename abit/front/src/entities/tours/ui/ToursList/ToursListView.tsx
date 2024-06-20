@@ -13,8 +13,12 @@ interface Props {
 export const ToursListView: FC<Props> = ({ list }) => {
   const renderTours = useMemo(
     () =>
-      list.map((item) => (
-        <Card className="w-[300px] text-center" title={`${item.tour} Тур`} key={item.bk}>
+      list.map((item, index) => (
+        <Card
+          className="w-[300px] text-center"
+          title={`${item.tour} Тур`}
+          key={`${item.bk}_${index}`}
+        >
           <p className="tracking-wider mb-[24px]">{item.bk}</p>
           <div className="mb-[24px]">
             <p className="text-[#D87E2E] text-lg tracking-wide">Регистрация</p>

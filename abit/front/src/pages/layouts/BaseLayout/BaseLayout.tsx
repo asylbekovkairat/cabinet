@@ -6,18 +6,28 @@ import { Navigation } from '~widgets/shared/navigation';
 
 import { PageLayout } from '~shared/ui';
 import { useSetUserEnrolleOrt, useUserEnrollOrt } from '~entities/shared/user';
+import { useAbiturientInfo, useSetAbiturientInfo } from '~entities/abiturient';
 
 export interface BaseLayoutProps extends Partial<ComponentWithChildren> {}
 
 export const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
-  const setUserEnrolleOrt = useSetUserEnrolleOrt();
   const userEnrolleOrt = useUserEnrollOrt();
+  const abiturientInfo = useAbiturientInfo();
+
+  const setUserEnrolleOrt = useSetUserEnrolleOrt();
+  const setAbitinfo = useSetAbiturientInfo();
 
   useEffect(() => {
-    setUserEnrolleOrt().finally(() => console.log(userEnrolleOrt));
-
-    console.log('asd');
+    setUserEnrolleOrt();
   }, []);
+
+  useEffect(() => {
+    if (userEnrolleOrt) {
+      setAbitinfo(userEnrolleOrt?.id_enrollee_ORT);
+    }
+  }, [userEnrolleOrt]);
+
+  console.log('abiturientInfo', abiturientInfo);
 
   return (
     <PageLayout navigation={<Navigation />} header={<AppHeader />}>

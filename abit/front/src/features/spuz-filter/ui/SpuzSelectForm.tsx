@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Button, Form } from 'antd';
 
 import {
@@ -9,7 +9,7 @@ import {
   useSetSelectedRegion,
 } from '~entities/shared/region';
 
-import { Input, Select, TextArea, useNotification } from '~shared/ui';
+import { Input, useNotification } from '~shared/ui';
 import { SpuzSelector } from '~entities/spuz';
 import { useSetSpuz, useSpuz } from '~entities/spuz/model';
 import {
@@ -36,11 +36,16 @@ import { i18n } from '~shared/lib/i18n';
 
 import { registerToSpuz } from '../api';
 
-export const SpuzSelectForm = () => {
+interface Props {
+  openConfirmModal: () => void;
+}
+
+export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
   const [form] = Form.useForm();
   const notification = useNotification();
 
   const spuzWatch = Form.useWatch('spuz', form);
+  const regionWatch = Form.useWatch('region', form);
   const specializationWatch = Form.useWatch('specialization', form);
 
   const regions = useRegionList();
@@ -68,7 +73,7 @@ export const SpuzSelectForm = () => {
   useEffect(() => {
     setRegions();
     setUserEnrolleOrt();
-  }, []);
+  }, [setRegions, setUserEnrolleOrt]);
 
   useEffect(() => {
     if (userEnrolleOrt?.id_enrollee_ORT) {
@@ -96,6 +101,27 @@ export const SpuzSelectForm = () => {
   }, [specializationWatch]);
 
   useEffect(() => {
+    form.resetFields([
+      'placesAmount',
+      'tour',
+      'discipline',
+      'learningType',
+      'specialization',
+      'paymentType',
+    ]);
+  }, [spuzWatch, regionWatch]);
+
+  useEffect(() => {
+    if (vacantPlaces) {
+      form.setFieldsValue({ placesAmount: vacantPlaces[0].vakanziy });
+    }
+
+    if (tourByBk) {
+      form.setFieldsValue({ tour: tourByBk?.[0].tour });
+    }
+  }, [vacantPlaces, tourByBk, paymentTypes]);
+
+  useEffect(() => {
     if (paymentTypes) {
       setTourByBk(paymentTypes[0].id_bk);
       setVacantPlaces(paymentTypes[0].id_admission_plan);
@@ -104,33 +130,43 @@ export const SpuzSelectForm = () => {
     }
   }, [paymentTypes]);
 
-  useEffect(() => {
-    if (tourByBk) {
-      form.setFieldsValue({ tour: tourByBk?.[0].tour });
-    }
-  }, [tourByBk]);
-
-  useEffect(() => {
-    if (vacantPlaces) {
-      form.setFieldsValue({ placesAmount: vacantPlaces[0].vakanziy });
-    }
-  }, [vacantPlaces]);
-
-  const onFinish = async (values: any) => {
+  const onFinish = async ({ paymentTypes, tour }: any) => {
     const params = {
       NumberSert: abiturientInfo?.NumberAD,
-      tour: tourByBk?.[0].tour,
-      bk: paymentTypes?.[0].id_bk,
+      tour: tour,
+      bk: paymentTypes,
       lang: i18n.language === 'ru' ? 1 : 2,
     };
 
     const response = await registerToSpuz(params);
-    console.log('response', response);
 
-    notification.openNotification({
-      message: response?.msg,
-      type: 'warning',
-    });
+    if (response.kol > 0) {
+      notification.openNotification({
+        message: response?.msg,
+        type: 'warning',
+      });
+    } else {
+      notification.openNotification({
+        message: 'Success',
+        type: 'success',
+      });
+
+      openConfirmModal();
+    }
+  };
+
+  const openRatingList = () => {
+    const { paymentType } = form.getFieldsValue(['paymentType']);
+    const { tour } = form.getFieldsValue(['tour']);
+
+    console.log('plan', paymentType);
+    console.log('tour', tour);
+
+    window.open(
+      `https://2020.edu.gov.kg/spuz/ranjir/report?p=${paymentType}&&t=${tour}`,
+      '_blank',
+      ''
+    );
   };
 
   return (
@@ -147,8 +183,9 @@ export const SpuzSelectForm = () => {
         </Form.Item>
         <Form.Item name="spuz" label="СПУЗ" required>
           <SpuzSelector
+            key={selectedRegion}
             placeholder={!spuzes?.length ? 'Выберите регион' : 'Выберите СПУЗ'}
-            disabled={!spuzes?.length}
+            disabled={!selectedRegion}
             size="middle"
             spuzList={spuzes || []}
           />
@@ -171,7 +208,14 @@ export const SpuzSelectForm = () => {
         <Form.Item name="discipline" label="Профилирующая дисциплина">
           <Input value={paymentTypes?.[0].discipline || ''} disabled />
         </Form.Item>
-        <Button htmlType="submit">Save</Button>
+        <div className="flex justify-end items-center gap-3">
+          <Button htmlType="submit" onClick={openRatingList}>
+            Рейтинг тизмесин коруу
+          </Button>
+          <Button type="primary" htmlType="submit">
+            Каттоо
+          </Button>
+        </div>
       </Form>
     </>
   );

@@ -22,7 +22,8 @@ export const setToursAtom = atom<any, any, Promise<void>>(
   (get) => get(toursInfoAtom),
   async (_get, set) => {
     const response = (await getToursInfo()) as Tour[];
+    const sortedTours = response.sort((a, b) => a.tour - b.tour);
 
-    set(toursInfoAtom, response);
+    set(toursInfoAtom, sortedTours);
   }
 );

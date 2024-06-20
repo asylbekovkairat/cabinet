@@ -23,8 +23,6 @@ const App: React.FC<AppProps> = () => {
     if (windowWidth <= 768) {
       setInnerHigth(window.innerHeight);
     }
-
-    fetch('https://local.edu.gov.kg/spuz/logout', { method: 'POST' });
   }, [windowWidth]);
 
   const antdTheme = {
