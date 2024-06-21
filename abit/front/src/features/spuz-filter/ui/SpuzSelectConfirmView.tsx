@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useAbiturientInfo } from '~entities/abiturient';
 import { usePaymentTypes } from '~entities/shared/payment-type';
@@ -9,7 +9,12 @@ import { Button, Input, useNotification } from '~shared/ui';
 
 import { confirmSpuzRegister } from '../api';
 
-const SpuzSelectConfirmView = () => {
+interface Props {
+  loadRegistrations: () => void;
+  closeConfirmModal: () => void;
+}
+
+const SpuzSelectConfirmView: FC<Props> = ({ loadRegistrations, closeConfirmModal }) => {
   const notification = useNotification();
   const [cipher, setCipher] = useState('');
 
@@ -41,6 +46,9 @@ const SpuzSelectConfirmView = () => {
             message: response.msg,
             type: 'success',
           });
+
+          loadRegistrations();
+          closeConfirmModal();
         } else {
           notification.openNotification({
             message: response.msg,

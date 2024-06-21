@@ -18,10 +18,14 @@ const SelectSpuz = () => {
   const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
 
   useEffect(() => {
+    loadRegistrations();
+  }, [userEnrolleOrt]);
+
+  const loadRegistrations = () => {
     if (userEnrolleOrt?.NumberSert) {
       setRegistrations(userEnrolleOrt.NumberSert);
     }
-  }, [userEnrolleOrt]);
+  };
 
   const onConfirmOpen = () => setOpenConfirmModal(true);
   const onConfirmClose = () => setOpenConfirmModal((prev) => !prev);
@@ -29,7 +33,7 @@ const SelectSpuz = () => {
   return (
     <>
       <RegistrationsConfirmView open={openConfirmModal} onClose={onConfirmClose} />
-      <SpuzFilterView />
+      <SpuzFilterView loadRegistrations={loadRegistrations} />
       <RegistrationsListView registrationList={registrations || []} onConfirm={onConfirmOpen} />
     </>
   );

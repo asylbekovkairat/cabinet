@@ -1,10 +1,14 @@
 import { Button, Modal } from 'antd';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { SpuzSelectForm } from './SpuzSelectForm';
 import SpuzSelectConfirmView from './SpuzSelectConfirmView';
 
-const SpuzFilterView = () => {
+interface Props {
+  loadRegistrations: () => void;
+}
+
+const SpuzFilterView: FC<Props> = ({ loadRegistrations }) => {
   const [FormOpen, setFormOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -35,7 +39,10 @@ const SpuzFilterView = () => {
         onClose={closeConfirmModal}
         title={<p className="text-center">Катталуу</p>}
       >
-        <SpuzSelectConfirmView />
+        <SpuzSelectConfirmView
+          loadRegistrations={loadRegistrations}
+          closeConfirmModal={closeConfirmModal}
+        />
       </Modal>
     </section>
   );
