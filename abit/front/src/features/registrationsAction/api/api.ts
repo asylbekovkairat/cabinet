@@ -1,9 +1,9 @@
 import { api } from '~shared/api';
 
 import { routes } from './routes';
-import { ConfirmParams } from './types';
+import { ConfirmParams, ConfirmType } from './types';
 
-export const confirmRegistration = async (params: ConfirmParams, url: string) => {
+export const confirmRegistration = async (params: ConfirmParams, url: ConfirmType) => {
   let response;
 
   try {

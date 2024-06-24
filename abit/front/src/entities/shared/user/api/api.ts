@@ -5,8 +5,6 @@ import { routes } from './routes';
 import { ApiUserData } from './types';
 
 export const getUser = async () => {
-  console.log('asd');
-
   let response;
 
   try {

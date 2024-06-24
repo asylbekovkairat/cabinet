@@ -24,6 +24,10 @@ const ToursChartPage = lazyLoader(() =>
   import('~pages/tours-chart').then((module) => ({ default: module.ToursChart }))
 );
 
+const InstructionPage = lazyLoader(() =>
+  import('~pages/instruction').then((module) => ({ default: module.Instruction }))
+);
+
 const routes = [
   {
     path: RoutesUrls.cabinet,
@@ -36,7 +40,7 @@ const routes = [
           { path: RoutesUrls.selectSpuz, element: <SelectSpuzPage /> },
           { path: RoutesUrls.viewRegistrations, element: <RegistrationsPage /> },
           { path: RoutesUrls.tours, element: <ToursChartPage /> },
-          { path: RoutesUrls.instruction, element: <p>Инструкции</p> },
+          { path: RoutesUrls.instruction, element: <InstructionPage /> },
           { path: RoutesUrls.logout, element: <LogoutPage /> },
         ],
       },

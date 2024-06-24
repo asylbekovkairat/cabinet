@@ -24,6 +24,7 @@ export default {
       md: { max: '1024px' },
       sm: { max: '768px' },
       xs: { max: '568px' },
+      lg: { max: '1162px' },
     },
   },
   plugins: [],

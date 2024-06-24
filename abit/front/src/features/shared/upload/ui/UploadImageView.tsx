@@ -31,7 +31,6 @@ const UploadImageView: FC<Props> = ({ uploadText, upload_type, thumbFileName }) 
       accept: 'image/*',
       beforeUpload: (file: UploadFile) => {
         const isAllowedType = validateFileType(file, ['image/png', 'image/jpg', 'image/jpeg']);
-        console.log('file', file);
 
         if (!isAllowedType) {
           setFileList((state) => [...state]);
@@ -84,7 +83,7 @@ const UploadImageView: FC<Props> = ({ uploadText, upload_type, thumbFileName }) 
 
   return (
     <>
-      <div className="flex bg-white items-center rounded-lg min-h-[100px]">
+      <div className="flex bg-white items-center rounded-lg min-h-[100px] lg:flex-col">
         <Upload
           className="w-full"
           maxCount={1}
@@ -96,7 +95,7 @@ const UploadImageView: FC<Props> = ({ uploadText, upload_type, thumbFileName }) 
             className="w-full h-auto border-none flex justify-start"
             icon={<UploadIcon className="w-[20px]" />}
           >
-            <p>{uploadText}</p>
+            <p className="break-word inline-block whitespace-normal">{uploadText}</p>
           </Button>
         </Upload>
         {previewImage && (

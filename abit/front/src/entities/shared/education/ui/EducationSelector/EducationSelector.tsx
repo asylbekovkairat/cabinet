@@ -21,7 +21,7 @@ export const EducationSelector: FC<EducationSelectorProps> = ({
     <Select
       onChange={onEducationListSelect}
       value={value}
-      placeholder="Образования"
+      placeholder="Образование"
       options={educationList.map((item) => {
         return {
           value: item.id_education,

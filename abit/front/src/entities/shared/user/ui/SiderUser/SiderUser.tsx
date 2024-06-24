@@ -1,6 +1,8 @@
 import { FC, ReactNode } from 'react';
 import classNames from 'classnames';
 
+import { useTranslation } from 'react-i18next';
+
 import { Avatar } from '~shared/ui';
 import { useCollapsed } from '~features/shared/collapse';
 
@@ -17,6 +19,7 @@ export interface SiderUserProps {
 export const SiderUser: FC<SiderUserProps> = ({ photo, fio, sertificateNum, onError }) => {
   const collapsed = useCollapsed();
   const wrapperClass = classNames(styles.collapsed, !collapsed ? styles.closed : '');
+  const { t } = useTranslation();
 
   return (
     <div className={wrapperClass}>
@@ -25,7 +28,9 @@ export const SiderUser: FC<SiderUserProps> = ({ photo, fio, sertificateNum, onEr
       </Avatar>
       <div className={styles.fioRole}>
         <h2 className={styles.fio}>{fio}</h2>
-        <p className={styles.role}>Ваш шифр&nbsp;{sertificateNum}</p>
+        <p className={styles.role}>
+          {t('cm:yourCipher')}&nbsp;{sertificateNum}
+        </p>
       </div>
     </div>
   );

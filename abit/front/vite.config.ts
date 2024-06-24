@@ -30,37 +30,6 @@ const srcAliases = srcDirs.reduce(
   {}
 );
 
-const manifestForPlugIn: Partial<VitePWAOptions> = {
-  registerType: 'autoUpdate',
-  includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
-  injectRegister: 'inline',
-  manifest: {
-    name: 'Appname',
-    short_name: 'Appname',
-    description: 'Check diploms and appname',
-    icons: [
-      {
-        src: '/assets/android-chrome-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'favicon',
-      },
-      {
-        src: '/assets/android-chrome-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'favicon',
-      },
-      {
-        src: '/assets/apple-touch-icon.png',
-        sizes: '180x180',
-        type: 'image/png',
-        purpose: 'apple touch icon',
-      },
-    ],
-  },
-};
-
 export default ({ mode }: { mode: string }) => {
   const viteEnv = loadEnv(mode, './envs');
   process.env = { ...process.env, ...viteEnv };
@@ -77,8 +46,6 @@ export default ({ mode }: { mode: string }) => {
           id: process.env.VITE_GOOGLE_ANALYTICS || 'G-AAAAAAAAAA',
         },
       }),
-      // VitePWA(manifestForPlugIn),
-      // ssr(),
       checker({
         typescript: true,
       }),
@@ -86,15 +53,11 @@ export default ({ mode }: { mode: string }) => {
       svgr(),
     ],
     envDir: './envs',
-    // build: {
-    //   sourcemap: false,
-    // },
     resolve: {
       alias: {
         ...srcAliases,
       },
     },
-    // base: '/diploma/',
     server: {
       port: 3000,
     },

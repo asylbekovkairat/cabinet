@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { useAbiturientInfo, useSetAbiturientInfo } from '~entities/abiturient';
+import { useAbiturientInfo } from '~entities/abiturient';
 import { Benefits, BenefitsCategoriesView, useBenefits, useSetBenefits } from '~entities/benefits';
 import { ClassSelector } from '~entities/shared/class';
 import { useClassList, useSetClassList } from '~entities/shared/class/model';
 
-import { useSetUserEnrolleOrt, useUserEnrollOrt } from '~entities/shared/user';
+import { useUserEnrollOrt } from '~entities/shared/user';
 
 import { DatePicker, Input, useNotification } from '~shared/ui';
 
@@ -38,7 +38,7 @@ const AbitInfoForm = () => {
 
   useEffect(() => {
     setBenefits();
-  }, []);
+  }, [setBenefits]);
 
   useEffect(() => {
     if (benefits && selectedBenefit) {
@@ -49,7 +49,7 @@ const AbitInfoForm = () => {
 
   useEffect(() => {
     setClassesList();
-  }, []);
+  }, [setClassesList]);
 
   useEffect(() => {
     const values = { ...abiturientInfo };
@@ -57,7 +57,7 @@ const AbitInfoForm = () => {
 
     setSelectedSubCategory(abiturientInfo?.id_abiturient_category || 0);
     setInitialValues(values);
-  }, [abiturientInfo, userEnrolleOrt]);
+  }, [abiturientInfo, form, userEnrolleOrt]);
 
   useEffect(() => {
     if (selectedSubCategory === 2 || selectedSubCategory === 4) {
@@ -70,11 +70,14 @@ const AbitInfoForm = () => {
     ) {
       setSelectedBenefit(4);
       form.setFieldsValue({ benefit: 4 });
+    } else if (selectedSubCategory === 15) {
+      setSelectedBenefit(5);
+      form.setFieldsValue({ benefit: 5 });
     } else {
       setSelectedBenefit(1);
       form.setFieldsValue({ benefit: 1 });
     }
-  }, [abiturientInfo, selectedSubCategory]);
+  }, [abiturientInfo, form, selectedSubCategory]);
 
   const onSubmit = async (values: any) => {
     const data = {
@@ -94,7 +97,7 @@ const AbitInfoForm = () => {
     await updateAbitInfo(data);
 
     notification.openNotification({
-      message: 'Данные сохранены успешно',
+      message: t('cm:saveSuccess'),
       type: 'success',
     });
   };
@@ -130,7 +133,7 @@ const AbitInfoForm = () => {
         <Form.Item name="patronymic" label={t('auth:form.patronymic')}>
           <Input size="middle" />
         </Form.Item>
-        <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
+        <div className="flex flex-row justify-between gap-4 lg:flex-col xs:gap-0">
           <Form.Item
             name="birthdate"
             valuePropName="date"
@@ -145,7 +148,7 @@ const AbitInfoForm = () => {
               disabled
             />
           </Form.Item>
-          <Form.Item name="inn" className="w-full" label={t('auth:pin')}>
+          <Form.Item name="inn" className="w-full" label={t('auth:form.pin')}>
             <Input size="middle" disabled />
           </Form.Item>
         </div>
@@ -157,7 +160,7 @@ const AbitInfoForm = () => {
             name="date_given_pas"
             valuePropName="date"
             className="w-full"
-            label="Дата выдачи паспорта"
+            label={t('auth:form.passportDate')}
           >
             <DatePicker
               value={dayjs(abiturientInfo?.date_given_pas)}
@@ -168,18 +171,23 @@ const AbitInfoForm = () => {
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
-          <Form.Item name="attestat_ser" className="w-full" label="Серия аттестата">
+          <Form.Item name="attestat_ser" className="w-full" label={t('auth:form.atestatSer')}>
             <Input className="w-full" size="middle" />
           </Form.Item>
-          <Form.Item name="id_abiturient" className="w-full" label="Номер аттестата">
+          <Form.Item name="id_abiturient" className="w-full" label={t('auth:form.atestatNum')}>
             <Input className="w-full" size="middle" />
           </Form.Item>
         </div>
         <div className="flex flex-row justify-between gap-4 xs:flex-col xs:gap-0">
-          <Form.Item name="StreetHomeAddress" className="w-full" label="Адрес" required>
+          <Form.Item
+            name="StreetHomeAddress"
+            className="w-full"
+            label={t('auth:form.address')}
+            required
+          >
             <Input className="w-full" size="middle" />
           </Form.Item>
-          <Form.Item name="id_learning" className="w-full" label="Класс">
+          <Form.Item name="id_learning" className="w-full" label={t('auth:form.class')}>
             <ClassSelector size="middle" classList={classesList || []} />
           </Form.Item>
         </div>
@@ -191,6 +199,7 @@ const AbitInfoForm = () => {
             {selectedBenefit > 1 && (
               <BenefitProof
                 key={selectedBenefit}
+                mainBenefitId={selectedBenefit}
                 handleBeneficiary={handleBeneficiary}
                 defaultValue={selectedSubCategory}
                 subCategories={subCategories}

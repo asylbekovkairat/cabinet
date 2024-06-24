@@ -117,7 +117,7 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
     }
 
     if (tourByBk) {
-      form.setFieldsValue({ tour: tourByBk?.[0].tour });
+      form.setFieldsValue({ tour: tourByBk?.[0]?.tour });
     }
   }, [vacantPlaces, tourByBk, paymentTypes]);
 
@@ -159,9 +159,6 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
     const { paymentType } = form.getFieldsValue(['paymentType']);
     const { tour } = form.getFieldsValue(['tour']);
 
-    console.log('plan', paymentType);
-    console.log('tour', tour);
-
     window.open(
       `https://2020.edu.gov.kg/spuz/ranjir/report?p=${paymentType}&&t=${tour}`,
       '_blank',
@@ -200,7 +197,7 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
           <PaymentTypeSelector paymentTypes={paymentTypes || []} />
         </Form.Item>
         <Form.Item name="tour" label="Тур">
-          <TourStageView tourStage={tourByBk?.[0].tour || 0} />
+          <TourStageView tourStage={tourByBk?.[0]?.tour || 0} />
         </Form.Item>
         <Form.Item name="placesAmount" label="Количество мест">
           <VacantPlacesView vacantPlaces={vacantPlaces?.[0].vakanziy || 0} />

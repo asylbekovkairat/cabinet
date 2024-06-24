@@ -1,8 +1,7 @@
 import { FC, useMemo } from 'react';
 
-import { Button, SelectProps, Upload } from 'antd';
+import { SelectProps } from 'antd';
 
-import { ReactComponent as UploadIcon } from '~shared/assets/UploadIcon.svg';
 import { BeneficiarySelector, Benefits } from '~entities/benefits';
 import { UploadImageView } from '~features/shared/upload';
 import { useAbiturientInfo } from '~entities/abiturient';
@@ -11,12 +10,14 @@ interface BenefitProofProps {
   subCategories: Benefits[];
   handleBeneficiary: (value: number) => void;
   defaultValue?: number;
+  mainBenefitId: number;
 }
 
 const BenefitProof: FC<BenefitProofProps> = ({
   subCategories,
   handleBeneficiary,
   defaultValue,
+  mainBenefitId,
 }) => {
   const abiturientInfo = useAbiturientInfo();
   const selectProps = useMemo(() => {
@@ -34,12 +35,14 @@ const BenefitProof: FC<BenefitProofProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <BeneficiarySelector
-        key={selectProps.defaultValue}
-        {...selectProps}
-        subCategories={subCategories}
-        handleBeneficiary={handleBeneficiary}
-      />
+      {mainBenefitId !== 5 && (
+        <BeneficiarySelector
+          key={selectProps.defaultValue}
+          {...selectProps}
+          subCategories={subCategories}
+          handleBeneficiary={handleBeneficiary}
+        />
+      )}
       <UploadImageView
         uploadText="Загрузите подтверждающий документ"
         upload_type="documentLigot"

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import {
+  RegistrationInfo,
   RegistrationsListView,
   useRegistrationsInfo,
   useSetRegistrationsInfo,
 } from '~entities/registrations';
 import { useUserEnrollOrt } from '~entities/shared/user';
-import { RegistrationsConfirmView } from '~features/registrationsConfirm';
+import { ConfirmType, RegistrationsActionView } from '~features/registrationsAction';
 import { SpuzFilterView } from '~features/spuz-filter';
 
 const SelectSpuz = () => {
@@ -16,6 +17,8 @@ const SelectSpuz = () => {
   const setRegistrations = useSetRegistrationsInfo();
 
   const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
+  const [registrationInfo, setRegistrationInfo] = useState<RegistrationInfo>();
+  const [actionType, setActionType] = useState<ConfirmType>(ConfirmType.confirm);
 
   useEffect(() => {
     loadRegistrations();
@@ -27,14 +30,28 @@ const SelectSpuz = () => {
     }
   };
 
-  const onConfirmOpen = () => setOpenConfirmModal(true);
-  const onConfirmClose = () => setOpenConfirmModal((prev) => !prev);
+  const onActionViewOpen = (data: RegistrationInfo, type: ConfirmType) => {
+    setOpenConfirmModal(true);
+    setRegistrationInfo(data);
+    setActionType(type);
+  };
+
+  const onActionViewClose = () => setOpenConfirmModal((prev) => !prev);
 
   return (
     <>
-      <RegistrationsConfirmView open={openConfirmModal} onClose={onConfirmClose} />
+      <RegistrationsActionView
+        open={openConfirmModal}
+        info={registrationInfo}
+        onActionViewClose={onActionViewClose}
+        loadRegistrations={loadRegistrations}
+        actionType={actionType}
+      />
       <SpuzFilterView loadRegistrations={loadRegistrations} />
-      <RegistrationsListView registrationList={registrations || []} onConfirm={onConfirmOpen} />
+      <RegistrationsListView
+        registrationList={registrations || []}
+        onActionViewOpen={onActionViewOpen}
+      />
     </>
   );
 };

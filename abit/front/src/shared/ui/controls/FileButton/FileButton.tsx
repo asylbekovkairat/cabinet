@@ -29,7 +29,7 @@ export const FileButton: FC<FileButtonProps> = ({
     <Tooltip title={title} color={UseColor(title)} key={key}>
       <a href={href} onClick={onClick} target={target} rel={rel} className={styles.wrapper}>
         <div className={styles.title}>
-          {UseIcon(title)}
+          {UseIcon(href)}
           <Typography.Text
             ellipsis
             style={{ width: useWindowInnerWidth() <= 410 ? 150 : '', color: UseColor(title) }}

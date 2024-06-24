@@ -56,7 +56,6 @@ export function useSignIn(): (signInConfig: signInFunctionParams) => boolean {
     } else {
       // Not using refresh token
       if (!!refreshToken && !!refreshTokenExpireIn) {
-        console.log('else !!refreshToken');
         // params are not expected but provided
         // throw an error
         throw new Error(
@@ -66,7 +65,6 @@ export function useSignIn(): (signInConfig: signInFunctionParams) => boolean {
         );
       } else {
         // sign in without the refresh token
-        console.log('sign in without the refresh token');
 
         context.dispatch(
           doSignIn({

@@ -27,8 +27,6 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
     }
   }, [userEnrolleOrt]);
 
-  console.log('abiturientInfo', abiturientInfo);
-
   return (
     <PageLayout navigation={<Navigation />} header={<AppHeader />}>
       {children}

@@ -2,6 +2,8 @@ import { FC } from 'react';
 
 import { Select, SelectProps } from 'antd';
 
+import { useTranslation } from 'react-i18next';
+
 import { Benefits } from '../model';
 
 interface BenefitProofProps extends SelectProps {
@@ -14,9 +16,11 @@ const BeneficiarySelector: FC<BenefitProofProps> = ({
   handleBeneficiary,
   ...props
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Select
-      placeholder="Выберите соответствующую категорию"
+      placeholder={t('cm:selectCategory')}
       onSelect={handleBeneficiary}
       options={subCategories.map((a) => ({
         label: a.abiturient_category,

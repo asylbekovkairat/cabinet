@@ -1,0 +1,1 @@
+export { RegistrationsActionView } from './RegistrationsActionView';

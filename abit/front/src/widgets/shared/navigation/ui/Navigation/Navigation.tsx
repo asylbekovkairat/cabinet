@@ -1,12 +1,16 @@
 import { FC, useEffect } from 'react';
 
+import { useAbiturientInfo } from '~entities/abiturient';
+
 import { SiderUser, useUser, useUserEnrollOrt } from '~entities/shared/user';
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
 import {
   BooksIcon,
+  GeneralInfoIcon,
   HomeIcon,
+  MinistriesIcon,
   OrganizationIcon,
   SN,
   Sider,
@@ -23,6 +27,7 @@ export const Navigation: FC<NavigationProps> = () => {
   const user = useUser();
   const windowWidth = useWindowInnerWidth();
   const userEnrolleOrt = useUserEnrollOrt();
+  const abiturientInfo = useAbiturientInfo();
 
   useEffect(() => {
     if (windowWidth <= 768) {
@@ -51,13 +56,13 @@ export const Navigation: FC<NavigationProps> = () => {
     {
       title: 'Просмотр регистраций',
       path: RoutesUrls.viewRegistrations,
-      icon: <BooksIcon />,
+      icon: <MinistriesIcon />,
       isTabbar: true,
     },
     {
       title: 'Трафик туров',
       path: RoutesUrls.tours,
-      icon: <BooksIcon />,
+      icon: <GeneralInfoIcon />,
       isTabbar: true,
     },
     {
@@ -80,7 +85,13 @@ export const Navigation: FC<NavigationProps> = () => {
         user={
           <SiderUser
             sertificateNum={userEnrolleOrt?.NumberSert}
-            fio={`${user?.s} ${user?.n?.charAt(-0)}. ${user?.p ? user?.p.charAt(0) + '.' : ''}`}
+            fio={`${user?.s || abiturientInfo?.surname} ${
+              user?.n?.charAt(-0) || abiturientInfo?.names?.charAt(-0)
+            }. ${
+              user?.p
+                ? user?.p.charAt(0) + '.'
+                : abiturientInfo?.patronymic && abiturientInfo?.patronymic?.charAt(0) + '.'
+            }`}
             role={t(`cm:role.${user?.role}`)}
             onError={<SN surname={user?.s || ''} name={user?.n || ''} size={18} />}
           />

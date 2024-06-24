@@ -12,7 +12,6 @@ export const setBenefitsAtom = atom<any, any, Promise<void>>(
   (get) => get(benefitsAtom),
   async (_get, set) => {
     const response = await getBenefits();
-    console.log('response');
 
     set(benefitsAtom, response);
   }
