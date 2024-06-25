@@ -1,14 +1,17 @@
 import { Button, Modal } from 'antd';
 import { FC, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { SpuzSelectForm } from './SpuzSelectForm';
-import SpuzSelectConfirmView from './SpuzSelectConfirmView';
+import { SpuzSelectConfirmView } from './SpuzSelectConfirmView';
 
 interface Props {
   loadRegistrations: () => void;
 }
 
 const SpuzFilterView: FC<Props> = ({ loadRegistrations }) => {
+  const { t } = useTranslation();
   const [FormOpen, setFormOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -27,7 +30,7 @@ const SpuzFilterView: FC<Props> = ({ loadRegistrations }) => {
   return (
     <section>
       <Button type="primary" onClick={onOpen}>
-        Выбрать СПУЗ
+        {t('cm:selectSpuz')}
       </Button>
       <Modal footer={null} open={FormOpen} onClose={closeFormModal} onCancel={closeFormModal}>
         <SpuzSelectForm openConfirmModal={openConfirmModal} />
@@ -37,7 +40,7 @@ const SpuzFilterView: FC<Props> = ({ loadRegistrations }) => {
         open={confirmOpen}
         onCancel={closeConfirmModal}
         onClose={closeConfirmModal}
-        title={<p className="text-center">Катталуу</p>}
+        title={<p className="text-center">{t('cm:register')}</p>}
       >
         <SpuzSelectConfirmView
           loadRegistrations={loadRegistrations}

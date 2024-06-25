@@ -1,6 +1,8 @@
 import { Button, Checkbox, ModalProps } from 'antd';
 import { FunctionComponent, useMemo, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { RegistrationInfo } from '~entities/registrations';
 
 import { Input, Modal, useNotification } from '~shared/ui';
@@ -17,6 +19,7 @@ interface Props extends ModalProps {
 export const RegistrationsActionView: FunctionComponent<Props> = (props) => {
   const { info, onActionViewClose, actionType, loadRegistrations } = props;
 
+  const { t } = useTranslation();
   const notification = useNotification();
   const [cipher, setCipher] = useState<string>('');
   const [checked, setChecked] = useState<boolean>(false);
@@ -33,7 +36,7 @@ export const RegistrationsActionView: FunctionComponent<Props> = (props) => {
       await confirmRegistration(params, type);
 
       notification.openNotification({
-        message: 'success',
+        message: t('cm:notify.success'),
         type: 'success',
       });
 
@@ -43,7 +46,7 @@ export const RegistrationsActionView: FunctionComponent<Props> = (props) => {
       setCipher('');
 
       notification.openNotification({
-        message: `Заполните все поля!`,
+        message: t('cm:fillAllFields'),
         type: 'warning',
       });
     }
@@ -56,15 +59,17 @@ export const RegistrationsActionView: FunctionComponent<Props> = (props) => {
           <>
             <div className="flex flex-col gap-3">
               <p>
-                {info?.specialty} ырастоо үчүн шифрди (шифр - {info?.NumberSert}) киргизиңиз
+                {t('cm:confirmEnrolle', {
+                  yourCipher: info?.NumberSert,
+                  specialty: info?.specialty,
+                })}
               </p>
               <Input value={cipher} onChange={({ target }) => handleCipher(target.value)} />
             </div>
             <div className="mt-5 flex gap-3 justify-end">
               <Button type="primary" onClick={() => onSubmit(ConfirmType.confirm)}>
-                Ырастоо
+                {t('cm:confirm')}
               </Button>
-              <Button onClick={onActionViewClose}>Жабуу</Button>
             </div>
           </>
         );
@@ -74,22 +79,21 @@ export const RegistrationsActionView: FunctionComponent<Props> = (props) => {
           <>
             <div className="flex flex-col gap-3">
               <p className="text-left">
-                Введите ваш шифр и поставьте галочку, чтобы освободить выделенное Вам место в
-                выбранном ранее СПУЗе: <br /> <strong>{info?.specialty}</strong> <br /> ДАЛЕЕ ВЫ
-                СМОЖЕТЕ УЧАСТВОВАТЬ В СЛЕДУЮЩЕМ ТУРЕ. <br /> В ЭТОМ ТУРЕ ВЫ НЕ СМОЖЕТЕ ВЫБРАТЬ
-                ДРУГУЮ СПЕЦИАЛЬНОСТЬ
+                {t('cm:denyEnrolle1')}
+                <br />
+                <strong>{info?.specialty}</strong> <br />
+                {t('cm:denyEnrolle2')}
+                <br />
+                {t('cm:denyEnrolle3')}
               </p>
               <Input value={cipher} onChange={({ target }) => handleCipher(target.value)} />
               <Checkbox checked={checked} onChange={({ target }) => setChecked(target.checked)}>
-                <span className="text-red font-bold">
-                  Да, я подтверждаю свое желание освободить место
-                </span>
+                <span className="text-red font-bold">{t('cm:denyConfirm')}</span>
               </Checkbox>
             </div>
             <div className="mt-5 flex gap-3 justify-end">
-              <Button onClick={onActionViewClose}>Жабуу</Button>
               <Button type="primary" onClick={() => onSubmit(ConfirmType.deny)}>
-                Отозвать (отказаться и освободить выделенное Вам место)
+                {t('cm:denyBtn')}
               </Button>
             </div>
           </>
@@ -104,11 +108,11 @@ export const RegistrationsActionView: FunctionComponent<Props> = (props) => {
     <>
       {notification.contextHolder}
       <Modal
-        className="text-center !w-fit !w-min"
+        className="text-center !w-fit !w-min min-w-[calc(100%-250px)]"
         title={
           actionType === ConfirmType.confirm
-            ? 'Чын эле ырастагыңыз келеби?'
-            : 'Вы действительно хотите отозвать (отказаться)?'
+            ? t('cm:confirmEnrolleTitle')
+            : t('cm:denyEnrolleTitle')
         }
         onClose={onActionViewClose}
         onCancel={onActionViewClose}

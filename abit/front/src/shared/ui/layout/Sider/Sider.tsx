@@ -40,9 +40,6 @@ export const Sider: React.FC<SiderProps> = ({ user, routes, settings }) => {
             {user}
           </div>
           <div>{routes}</div>
-          <div className={styles.settings_logout}>
-            <Button type="primary">Выйти</Button>
-          </div>
         </div>
       </div>
     );
@@ -65,9 +62,6 @@ export const Sider: React.FC<SiderProps> = ({ user, routes, settings }) => {
             {user}
           </div>
           <div className={styles.routes}>{routes}</div>
-        </div>
-        <div className={styles.settings_logout}>
-          <Button type="primary">Выйти</Button>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
@@ -5,17 +6,29 @@ import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 
 import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
-import { Header, Logo, MenuIcon, useWindowInnerWidth } from '~shared/ui';
+import { Button, Header, Logo, MenuIcon, useWindowInnerWidth } from '~shared/ui';
 
 export interface AppHeaderProps extends Partial<ComponentWithChild> {}
 
+export enum LocaleCodes {
+  // ENGLISH = 'en',
+  KYRGYZ = 'ky',
+  RUSSIAN = 'ru',
+}
+
 export const AppHeader: FC<AppHeaderProps> = () => {
   const location = useLocation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [pageTitle, setPageTitle] = useState('');
   const windoWidth = useWindowInnerWidth();
   const collapsed = useCollapsed();
   const setCollapsed = useSetCollapsed();
+  const lang = i18n.language;
+
+  const handleLocaleChange = (payload: string | number) => {
+    i18n.changeLanguage(payload as string);
+    dayjs.locale(payload as string);
+  };
 
   useEffect(() => {
     const pageKey =
@@ -39,7 +52,7 @@ export const AppHeader: FC<AppHeaderProps> = () => {
   const TitleHead = () => <p className="text-[18px] text-bold text-primary">{pageTitle}</p>;
 
   return (
-    <Header>
+    <Header className="w-full flex justify-between">
       {windoWidth > 768 ? (
         <TitleHead />
       ) : (
@@ -54,6 +67,22 @@ export const AppHeader: FC<AppHeaderProps> = () => {
           </div>
         </div>
       )}
+      <div className="flex gap-3">
+        <Button
+          shape="round"
+          type={lang === 'ru' ? 'default' : 'text'}
+          onClick={() => handleLocaleChange(LocaleCodes.RUSSIAN)}
+        >
+          {t('auth:buttons.ru')}
+        </Button>
+        <Button
+          shape="round"
+          type={lang === 'ky' ? 'default' : 'text'}
+          onClick={() => handleLocaleChange(LocaleCodes.KYRGYZ)}
+        >
+          {t('auth:buttons.ky')}
+        </Button>
+      </div>
     </Header>
   );
 };

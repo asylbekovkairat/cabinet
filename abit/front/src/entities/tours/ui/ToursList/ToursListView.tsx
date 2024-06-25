@@ -4,6 +4,8 @@ import { Card } from 'antd';
 
 import dayjs from 'dayjs';
 
+import { useTranslation } from 'react-i18next';
+
 import { Tour } from '~entities/tours/model';
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 }
 
 export const ToursListView: FC<Props> = ({ list }) => {
+  const { t } = useTranslation();
   const renderTours = useMemo(
     () =>
       list
@@ -23,14 +26,22 @@ export const ToursListView: FC<Props> = ({ list }) => {
           >
             <p className="tracking-wider mb-[24px]">{item.bk}</p>
             <div className="mb-[24px]">
-              <p className="text-[#D87E2E] text-lg tracking-wide">Регистрация</p>
-              <p>Башталышы: {dayjs(item.begin_date).format('DD:MM:YYYY')}</p>
-              <p>Аяктоо: {dayjs(item.end_date).format('DD:MM:YYYY')}</p>
+              <p className="text-[#D87E2E] text-lg tracking-wide">{t('cm:regTalon')}</p>
+              <p>
+                {t('cm:start')}: {dayjs(item.begin_date).format('DD:MM:YYYY')}
+              </p>
+              <p>
+                {t('cm:end')}: {dayjs(item.end_date).format('DD:MM:YYYY')}
+              </p>
             </div>
             <div>
-              <p className="text-[#D87E2E] text-lg tracking-wide">Подтверждение</p>
-              <p>Башталышы: {dayjs(item.confirm_begin_date).format('DD:MM:YYYY')}</p>
-              <p>Аяктоо: {dayjs(item.confirm_end_date).format('DD:MM:YYYY')}</p>
+              <p className="text-[#D87E2E] text-lg tracking-wide">{t('auth:form.confirm')}</p>
+              <p>
+                {t('cm:start')}: {dayjs(item.confirm_begin_date).format('DD:MM:YYYY')}
+              </p>
+              <p>
+                {t('cm:end')}: {dayjs(item.confirm_end_date).format('DD:MM:YYYY')}
+              </p>
             </div>
           </Card>
         )),

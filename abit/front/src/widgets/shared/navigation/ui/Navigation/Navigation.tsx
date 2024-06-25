@@ -10,6 +10,7 @@ import {
   BooksIcon,
   GeneralInfoIcon,
   HomeIcon,
+  LogoutIcon,
   MinistriesIcon,
   OrganizationIcon,
   SN,
@@ -70,6 +71,12 @@ export const Navigation: FC<NavigationProps> = () => {
       path: RoutesUrls.instruction,
       icon: <BooksIcon />,
       isTabbar: true,
+    },
+    {
+      title: t('cm:bottomLinks.logout'),
+      path: RoutesUrls.logout,
+      icon: <LogoutIcon />,
+      isBlank: false,
     },
   ];
 

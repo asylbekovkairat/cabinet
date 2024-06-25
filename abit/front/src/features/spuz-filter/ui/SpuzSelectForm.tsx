@@ -32,7 +32,7 @@ import { VacantPlacesView, useSetVacantPlaces, useVacantPlaces } from '~entities
 import { useSetUserEnrolleOrt, useUserEnrollOrt } from '~entities/shared/user';
 import { useAbiturientInfo, useSetAbiturientInfo } from '~entities/abiturient';
 
-import { i18n } from '~shared/lib/i18n';
+import { i18n, useTranslation } from '~shared/lib/i18n';
 
 import { registerToSpuz } from '../api';
 
@@ -41,12 +41,14 @@ interface Props {
 }
 
 export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const notification = useNotification();
 
   const spuzWatch = Form.useWatch('spuz', form);
   const regionWatch = Form.useWatch('region', form);
   const specializationWatch = Form.useWatch('specialization', form);
+  const learningTypeWatch = Form.useWatch('learningType', form);
 
   const regions = useRegionList();
   const spuzes = useSpuz();
@@ -90,9 +92,14 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
   useEffect(() => {
     if (spuzWatch) {
       setLearningTypes(spuzWatch);
-      setSpecialities({ spuzId: spuzWatch, learningId: 1 });
     }
   }, [spuzWatch]);
+
+  useEffect(() => {
+    if (learningTypeWatch) {
+      setSpecialities({ spuzId: spuzWatch, learningId: learningTypeWatch });
+    }
+  }, [learningTypeWatch]);
 
   useEffect(() => {
     if (specializationWatch) {
@@ -147,7 +154,7 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
       });
     } else {
       notification.openNotification({
-        message: 'Success',
+        message: '',
         type: 'success',
       });
 
@@ -181,33 +188,33 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
         <Form.Item name="spuz" label="СПУЗ" required>
           <SpuzSelector
             key={selectedRegion}
-            placeholder={!spuzes?.length ? 'Выберите регион' : 'Выберите СПУЗ'}
+            placeholder={t('cm:selectSpuz')}
             disabled={!selectedRegion}
             size="middle"
             spuzList={spuzes || []}
           />
         </Form.Item>
-        <Form.Item name="learningType" label="Форма обучения">
+        <Form.Item name="learningType" label={t('cm:learnType')}>
           <LearningTypeSelector key={spuzWatch} learningTypes={learningTypes || []} />
         </Form.Item>
-        <Form.Item name="specialization" label="Специальность">
+        <Form.Item name="specialization" label={t('cm:routes.specialty')}>
           <SpecialitySelector specialtitesList={specialtites || []} />
         </Form.Item>
-        <Form.Item name="paymentType" label="Форма оплаты">
+        <Form.Item name="paymentType" label={t('cm:paymentType')}>
           <PaymentTypeSelector paymentTypes={paymentTypes || []} />
         </Form.Item>
         <Form.Item name="tour" label="Тур">
           <TourStageView tourStage={tourByBk?.[0]?.tour || 0} />
         </Form.Item>
-        <Form.Item name="placesAmount" label="Количество мест">
+        <Form.Item name="placesAmount" label={t('cm:vacantPlaces')}>
           <VacantPlacesView vacantPlaces={vacantPlaces?.[0].vakanziy || 0} />
         </Form.Item>
-        <Form.Item name="discipline" label="Профилирующая дисциплина">
+        <Form.Item name="discipline" label={t('cm:regProfDisc')}>
           <Input value={paymentTypes?.[0].discipline || ''} disabled />
         </Form.Item>
         <div className="flex justify-end items-center gap-3">
           <Button htmlType="submit" onClick={openRatingList}>
-            Рейтинг тизмесин коруу
+            {t('cm:regViewRanj')}
           </Button>
           <Button type="primary" htmlType="submit">
             Каттоо

@@ -1,9 +1,17 @@
+import { useTranslation } from 'react-i18next';
+
 import { FileButton } from '~shared/ui';
 
 const InstructionPage = () => {
+  const { t } = useTranslation();
+
   return (
     <section>
-      <FileButton href="/spuz/pdf/abiturient_spuz.pdf" title="Инструкция PDF" target="_blank" />
+      <FileButton
+        href="/spuz/pdf/abiturient_spuz.pdf"
+        title={`${t('cm:bottomLinks.manual')} PDF`}
+        target="_blank"
+      />
       <div
         className="youtube-frame"
         style={{ maxWidth: '560px', maxHeight: '315px', margin: '10px 0' }}

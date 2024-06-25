@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useAbiturientInfo } from '~entities/abiturient';
 import { usePaymentTypes } from '~entities/shared/payment-type';
 import { useTourByBk } from '~entities/tours';
-import { i18n } from '~shared/lib/i18n';
+import { i18n, useTranslation } from '~shared/lib/i18n';
 
 import { Button, Input, useNotification } from '~shared/ui';
 
@@ -14,7 +14,8 @@ interface Props {
   closeConfirmModal: () => void;
 }
 
-const SpuzSelectConfirmView: FC<Props> = ({ loadRegistrations, closeConfirmModal }) => {
+export const SpuzSelectConfirmView: FC<Props> = ({ loadRegistrations, closeConfirmModal }) => {
+  const { t } = useTranslation();
   const notification = useNotification();
   const [cipher, setCipher] = useState('');
 
@@ -63,7 +64,7 @@ const SpuzSelectConfirmView: FC<Props> = ({ loadRegistrations, closeConfirmModal
       }
     } else {
       notification.openNotification({
-        message: 'Введите верный шифр',
+        message: t('cm:correctCipher'),
         type: 'warning',
       });
 
@@ -76,19 +77,16 @@ const SpuzSelectConfirmView: FC<Props> = ({ loadRegistrations, closeConfirmModal
       {notification.contextHolder}
       <div className="flex flex-col gap-3">
         <p className="text-center">
-          <span>Урматтуу абитуриент!</span> <br /> Тандап алган адистикке катталуу үчүн, шифр
-          киргизиңиз ({abiturientInfo?.NumberAD})
+          <span>{t('cm:dearAbit')}</span> <br />
+          &nbsp;{t('cm:enterCipher')}&nbsp;({abiturientInfo?.NumberAD})
         </p>
         <Input value={cipher} onChange={({ target }) => handleCipher(target.value)} />
         <div className="flex justify-center items-center gap-3">
-          <Button className="bg-red text-white">Отмена</Button>
           <Button type="primary" onClick={onSubmit}>
-            Регистрация
+            {t('cm:regTalon')}
           </Button>
         </div>
       </div>
     </>
   );
 };
-
-export default SpuzSelectConfirmView;
