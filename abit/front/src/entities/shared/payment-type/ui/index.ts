@@ -1,3 +1,1 @@
-import PaymentTypeSelector from './PaymentTypeSelector';
-
-export { PaymentTypeSelector };
+export { PaymentTypeSelector } from './PaymentTypeSelector';

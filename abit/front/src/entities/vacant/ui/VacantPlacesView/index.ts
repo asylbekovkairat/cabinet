@@ -1,3 +1,1 @@
-import VacantPlacesView from './VacantPLacesView';
-
-export { VacantPlacesView };
+export { VacantPlacesView } from './VacantPlacesView';

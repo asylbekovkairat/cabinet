@@ -1,5 +1,5 @@
 import { Select, SelectProps } from 'antd';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
 import { PaymentType } from '../model';
 
@@ -7,7 +7,7 @@ interface Props extends SelectProps {
   paymentTypes: PaymentType[];
 }
 
-const PaymentTypeSelector: FC<Props> = ({ paymentTypes, ...restProps }) => {
+export const PaymentTypeSelector: FC<Props> = memo(({ paymentTypes, ...restProps }) => {
   return (
     <Select
       options={paymentTypes.map((item) => ({
@@ -17,6 +17,4 @@ const PaymentTypeSelector: FC<Props> = ({ paymentTypes, ...restProps }) => {
       {...restProps}
     />
   );
-};
-
-export default PaymentTypeSelector;
+});

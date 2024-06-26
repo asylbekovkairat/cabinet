@@ -1,3 +1,1 @@
-import LearningTypeSelector from './LearningTypeSelector';
-
-export { LearningTypeSelector };
+export { LearningTypeSelector } from './LearningTypeSelector';

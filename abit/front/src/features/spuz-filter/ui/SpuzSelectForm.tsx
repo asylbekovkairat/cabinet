@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { Button, Form } from 'antd';
+import { Button, Form, Tooltip } from 'antd';
 
 import {
   RegionSelector,
@@ -9,7 +9,7 @@ import {
   useSetSelectedRegion,
 } from '~entities/shared/region';
 
-import { Input, useNotification } from '~shared/ui';
+import { Input, QuestionIcon, useNotification } from '~shared/ui';
 import { SpuzSelector } from '~entities/spuz';
 import { useSetSpuz, useSpuz } from '~entities/spuz/model';
 import {
@@ -31,6 +31,7 @@ import { TourStageView, useSetTourByBk, useTourByBk } from '~entities/tours';
 import { VacantPlacesView, useSetVacantPlaces, useVacantPlaces } from '~entities/vacant';
 import { useSetUserEnrolleOrt, useUserEnrollOrt } from '~entities/shared/user';
 import { useAbiturientInfo, useSetAbiturientInfo } from '~entities/abiturient';
+import { VoucherSelector, useVoucher } from '~entities/shared/voucher';
 
 import { i18n, useTranslation } from '~shared/lib/i18n';
 
@@ -49,6 +50,7 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
   const regionWatch = Form.useWatch('region', form);
   const specializationWatch = Form.useWatch('specialization', form);
   const learningTypeWatch = Form.useWatch('learningType', form);
+  const voucherWatch = Form.useWatch('voucher', form);
 
   const regions = useRegionList();
   const spuzes = useSpuz();
@@ -60,6 +62,7 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
   const vacantPlaces = useVacantPlaces();
   const userEnrolleOrt = useUserEnrollOrt();
   const abiturientInfo = useAbiturientInfo();
+  const vouchers = useVoucher();
 
   const setRegions = useSetRegionList();
   const setSpuzes = useSetSpuz();
@@ -116,7 +119,7 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
       'specialization',
       'paymentType',
     ]);
-  }, [spuzWatch, regionWatch]);
+  }, [spuzWatch, regionWatch, voucherWatch]);
 
   useEffect(() => {
     if (vacantPlaces) {
@@ -173,10 +176,30 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
     );
   };
 
+  console.log('voucherWatch', voucherWatch);
+
   return (
     <>
       {notification.contextHolder}
       <Form form={form} layout="vertical" onFinish={onFinish}>
+        <Form.Item
+          name="voucher"
+          label={
+            <div className="flex gap-2">
+              Выберите направление
+              {voucherWatch === 1 && (
+                <Tooltip title="Педагогические бюджетные места">
+                  <span className="cursor-pointer">
+                    <QuestionIcon />
+                  </span>
+                </Tooltip>
+              )}
+            </div>
+          }
+          required
+        >
+          <VoucherSelector size="middle" voucherList={vouchers || []} />
+        </Form.Item>
         <Form.Item name="region" label="Регион" required>
           <RegionSelector
             size="middle"
@@ -194,13 +217,13 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
             spuzList={spuzes || []}
           />
         </Form.Item>
-        <Form.Item name="learningType" label={t('cm:learnType')}>
+        <Form.Item name="learningType" label={t('cm:learnType')} required>
           <LearningTypeSelector key={spuzWatch} learningTypes={learningTypes || []} />
         </Form.Item>
-        <Form.Item name="specialization" label={t('cm:routes.specialty')}>
+        <Form.Item name="specialization" label={t('cm:routes.specialty')} required>
           <SpecialitySelector specialtitesList={specialtites || []} />
         </Form.Item>
-        <Form.Item name="paymentType" label={t('cm:paymentType')}>
+        <Form.Item name="paymentType" label={t('cm:paymentType')} required>
           <PaymentTypeSelector paymentTypes={paymentTypes || []} />
         </Form.Item>
         <Form.Item name="tour" label="Тур">
@@ -217,7 +240,7 @@ export const SpuzSelectForm: FC<Props> = ({ openConfirmModal }) => {
             {t('cm:regViewRanj')}
           </Button>
           <Button type="primary" htmlType="submit">
-            Каттоо
+            {t('cm:regTalon')}
           </Button>
         </div>
       </Form>

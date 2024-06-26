@@ -1,4 +1,4 @@
-import { FunctionComponent, useMemo } from 'react';
+import { Fragment, FunctionComponent, useMemo } from 'react';
 
 import { Button, Card, Col } from 'antd';
 
@@ -52,8 +52,8 @@ export const RegistrationsListView: FunctionComponent<Props> = ({
           const statusTags = status.split(',');
 
           return (
-            <>
-              <Col className="w-full" key={id_bk}>
+            <Fragment key={id_bk}>
+              <Col className="w-full">
                 <Card
                   title={
                     <p>
@@ -100,7 +100,7 @@ export const RegistrationsListView: FunctionComponent<Props> = ({
                   </section>
                 </Card>
               </Col>
-            </>
+            </Fragment>
           );
         }),
     [registrationList]

@@ -1,6 +1,5 @@
 import { SelectProps } from 'antd';
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+import { FC, memo } from 'react';
 
 import { Select } from '~shared/ui';
 
@@ -11,9 +10,7 @@ export interface RegionSelectorProps extends SelectProps {
   regionList: RegionItem[];
 }
 
-export const RegionSelector: FC<RegionSelectorProps> = ({ value, regionList, ...props }) => {
-  const { i18n } = useTranslation();
-
+export const RegionSelector: FC<RegionSelectorProps> = memo(({ value, regionList, ...props }) => {
   return (
     <Select
       value={value}
@@ -26,4 +23,4 @@ export const RegionSelector: FC<RegionSelectorProps> = ({ value, regionList, ...
       {...props}
     />
   );
-};
+});

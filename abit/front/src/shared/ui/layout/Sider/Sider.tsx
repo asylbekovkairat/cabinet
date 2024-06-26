@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { Button } from 'antd';
+import { useEffect } from 'react';
 
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 import { SiderArrowIcon, XIcon } from '~shared/ui/Icons';
@@ -27,6 +27,12 @@ export const Sider: React.FC<SiderProps> = ({ user, routes, settings }) => {
   const handleCollapse = () => {
     setCollapsed(!collapsed);
   };
+
+  useEffect(() => {
+    if (windowWidth <= 1024) {
+      setCollapsed(false);
+    }
+  }, [windowWidth]);
 
   // Mobile
   if (windowWidth <= 768) {
@@ -55,9 +61,11 @@ export const Sider: React.FC<SiderProps> = ({ user, routes, settings }) => {
               <div className={!collapsed ? 'hidden' : 'flex ml-[-8px]'}>
                 <Logo collased={collapsed} />
               </div>
-              <button className={collapseBtnClass} onClick={handleCollapse}>
-                <SiderArrowIcon />
-              </button>
+              {windowWidth <= 1024 && (
+                <button className={collapseBtnClass} onClick={handleCollapse}>
+                  <SiderArrowIcon />
+                </button>
+              )}
             </div>
             {user}
           </div>

@@ -1,3 +1,1 @@
-import SpecialitySelector from './SpecialitySelector';
-
-export { SpecialitySelector };
+export { SpecialitySelector } from './SpecialitySelector';

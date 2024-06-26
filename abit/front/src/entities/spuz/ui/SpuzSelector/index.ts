@@ -1,3 +1,1 @@
-import SpuzSelector from './SpuzSelector';
-
-export { SpuzSelector };
+export { SpuzSelector } from './SpuzSelector';

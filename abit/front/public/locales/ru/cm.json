@@ -82,20 +82,12 @@
     "printing_house": "Типография"
   },
   "routes": {
-    "home": "Главная",
-    "main": "Главная",
-    "direction": "Направление",
-    "specialty": "Специальность",
-    "disciplines": "Дисциплины",
-    "registartion": "Регистрация",
     "manual": "Инструкция",
     "login": "Вход",
-    "help": "Помощь",
-    "forgetPassword": "Забыли пароль?",
     "logout": "Выйти",
 
-    "personalInfo": "Персональная информация",
-    "selectSpuz": "Выберите СПУЗ",
+    "personalInfo": "Персональная данные",
+    "selectSpuz": "Выбрать СПУЗ",
     "viewRegistrations": "Просмотр регистраций",
     "tours": "График туров",
     "instruction": "Инструкция"
@@ -115,7 +107,7 @@
     "gender": "Пол"
   },
   "selectCategory": "Выберите соответствующую категорию",
-  "yourCipher": "Ваш шифр",
+  "yourCipher": "Шифр",
   "ligotNO": "Без льгот:",
   "ligot": "Льготник:",
   "vneKonkursa": "Вне конкурса:",

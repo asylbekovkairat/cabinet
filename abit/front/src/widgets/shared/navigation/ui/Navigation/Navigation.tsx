@@ -43,31 +43,31 @@ export const Navigation: FC<NavigationProps> = () => {
 
   const routes = [
     {
-      title: 'Персональная данные',
+      title: t('cm:routes.personalInfo'),
       path: RoutesUrls.personalInfo,
       icon: <HomeIcon />,
       isTabbar: true,
     },
     {
-      title: 'Выбрать СПУЗ',
+      title: t('cm:routes.selectSpuz'),
       path: RoutesUrls.selectSpuz,
       icon: <OrganizationIcon />,
       isTabbar: true,
     },
     {
-      title: 'Просмотр регистраций',
+      title: t('cm:routes.viewRegistrations'),
       path: RoutesUrls.viewRegistrations,
       icon: <MinistriesIcon />,
       isTabbar: true,
     },
     {
-      title: 'Трафик туров',
+      title: t('cm:routes.tours'),
       path: RoutesUrls.tours,
       icon: <GeneralInfoIcon />,
       isTabbar: true,
     },
     {
-      title: 'Инструкции',
+      title: t('cm:routes.manual'),
       path: RoutesUrls.instruction,
       icon: <BooksIcon />,
       isTabbar: true,

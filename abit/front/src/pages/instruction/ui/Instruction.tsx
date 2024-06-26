@@ -25,6 +25,20 @@ const InstructionPage = () => {
           referrerPolicy="strict-origin-when-cross-origin"
         ></iframe>
       </div>
+      <div
+        className="youtube-frame"
+        style={{ maxWidth: '560px', maxHeight: '315px', margin: '10px 0' }}
+      >
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/rTsT2DpZXNg?si=L8AtV73zWH3jJdLv"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+      </div>
     </section>
   );
 };
