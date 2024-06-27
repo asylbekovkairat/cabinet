@@ -31,6 +31,8 @@ export const Sider: React.FC<SiderProps> = ({ user, routes, settings }) => {
   useEffect(() => {
     if (windowWidth <= 1024) {
       setCollapsed(false);
+    } else {
+      setCollapsed(true);
     }
   }, [windowWidth]);
 

@@ -1,4 +1,7 @@
+import { Breadcrumb } from 'antd';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import {
   RegistrationInfo,
@@ -9,8 +12,10 @@ import {
 import { useUserEnrollOrt } from '~entities/shared/user';
 import { ConfirmType, RegistrationsActionView } from '~features/registrationsAction';
 import { SpuzFilterView } from '~features/spuz-filter';
+import { RoutesUrls } from '~shared/lib/router';
 
 const SelectSpuz = () => {
+  const { t } = useTranslation();
   const registrations = useRegistrationsInfo();
   const userEnrolleOrt = useUserEnrollOrt();
 
@@ -40,6 +45,21 @@ const SelectSpuz = () => {
 
   return (
     <>
+      <Breadcrumb
+        className="text-[16px] mb-8"
+        items={[
+          {
+            title: `Шифр ${userEnrolleOrt.NumberSert}`,
+          },
+          {
+            title: (
+              <Link className="!text-[#D87E2E]" to={RoutesUrls.personalInfo}>
+                {t('cm:routes.personalInfo')}
+              </Link>
+            ),
+          },
+        ]}
+      />
       <RegistrationsActionView
         open={openConfirmModal}
         info={registrationInfo}
