@@ -8,18 +8,15 @@ export const signIn = async (data: ApiSignInData) => {
   let response;
 
   try {
+    document.cookie = 'domain=2020.local.edu.gov.kg;';
+
     response = await api.post<any, ApiResponseData<ApiSignInResponseData>>(routes.signIn(), {
-      login: data.login,
-      password: data.password,
+      ...data,
     });
 
-    const tokenType = response.data.tokenType;
-    const tokenRes = response.data.token;
-    const ttl = response.data.authState.exp;
-    const token = `${tokenType} ${tokenRes}`;
-    // LocalStorageCache.set(import.meta.env.VITE_TOKEN_NAME, token, ttl);
-    localStorage.setItem(import.meta.env.VITE_TOKEN_NAME, JSON.stringify(token));
-    localStorage.setItem(import.meta.env.VITE_TOKEN_TTL, JSON.stringify(ttl));
+    if (response.data) {
+      return response;
+    }
   } catch (error: any) {
     response = error?.response?.data;
   }

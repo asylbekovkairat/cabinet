@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useSetUser, useUser } from '~entities/shared/user';
 import { SignInForm, SignInFormProps } from '~features/auth';
@@ -17,15 +17,17 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
 
   const handleSignIn: SignInFormProps['onSignIn'] = useCallback(
     ({ authState }) => {
+      console.log('authState', authState);
+
       setUser({ authState }).then(() => {
-        return navigate(RoutesUrls.main, { replace: true });
+        return navigate(RoutesUrls.manual, { replace: true });
       });
     },
     [navigate, setUser]
   );
 
   if (user) {
-    return <Navigate to={RoutesUrls.main} replace />;
+    return <Navigate to={RoutesUrls.manual} replace />;
   }
 
   return (

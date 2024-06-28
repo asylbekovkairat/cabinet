@@ -23,6 +23,8 @@ export const RequireAuth: React.FunctionComponent<RequireAuthProps> = ({ loginPa
     }
   }, [user]);
 
+  console.log('user', user);
+
   const isAuth = () => {
     if (isUserReady) {
       if (user) {
@@ -36,7 +38,7 @@ export const RequireAuth: React.FunctionComponent<RequireAuthProps> = ({ loginPa
       }
     }
 
-    return false;
+    return true;
   };
 
   if (!isAuth()) {

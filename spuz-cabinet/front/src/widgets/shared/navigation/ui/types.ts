@@ -1,4 +1,3 @@
-import { RoleType } from '~entities/shared/user';
 import { RoutesUrls } from '~shared/lib/router';
 
 export interface INavTabItem {
@@ -7,5 +6,4 @@ export interface INavTabItem {
   icon: React.ReactNode;
   isTabBar?: boolean;
   isBlank?: boolean;
-  show?: RoleType[];
 }

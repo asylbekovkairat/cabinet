@@ -1,5 +1,5 @@
 {
-  "appName": "project-uniq-name",
+  "appName": "СПУЗ",
   "mainSiteName": "Кыргыз Республикасынын билим берүү жана илим министрлиги",
   "undefined": {
     "label": "Мындай барак табылган жок.",
@@ -82,26 +82,7 @@
     "printing_house": "Басмакана"
   },
   "routes": {
-    "home": "Башкы",
-    "main": "Башкы бет",
-    "ministries": "Министрликтер",
-    "organization": "Уюм",
-    "faculty": "Окутуучулар",
-    "direction": "Багыт",
-    "specialty": "Адистик / Профиль",
-    "disciplines": "Сабактар",
-    "employees": "Кызматкерлер",
-    "curriculum": "Окуу планы",
-    "reports": "Отчеттор",
-    "graduates": "Бүтүрүүчүлөр",
-    "grades": "Баалар",
-    "registartion": "Катталуу",
-    "manual": "Нускама",
-    "login": "Кирүү",
-    "settings": "Оңдоолор",
-    "help": "Жардам",
-    "privacyPolicy": "Купуялык саясаты",
-    "forgetPassword": "Сыр сөздү унуттуңузбу?",
+    "generalInfo": "Жалпы маалымат",
     "logout": "Чыгуу"
   },
   "Timer": {

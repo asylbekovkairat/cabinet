@@ -37,7 +37,7 @@ app.use(fileUpload());
 app.use(translator);
 
 // Static file serving
-app.use('/project-uniq-name', express.static('public'));
+app.use('/СПУЗ', express.static('public'));
 
 // Fake auth mode check
 if (Config.FAKE_AUTH_MODE === 'true') {
@@ -45,10 +45,10 @@ if (Config.FAKE_AUTH_MODE === 'true') {
 }
 
 // API routes
-app.use('/project-uniq-name/api/user', require('./user'));
-app.use('/project-uniq-name/api/register', require('./register'));
-app.use('/project-uniq-name/api/shared', require('./shared'));
-// app.use('/project-uniq-name/api', JwtCheck.isAuth, require('./site'));
+app.use('/СПУЗ/api/user', require('./user'));
+app.use('/СПУЗ/api/register', require('./register'));
+app.use('/СПУЗ/api/shared', require('./shared'));
+// app.use('/СПУЗ/api', JwtCheck.isAuth, require('./site'));
 
 // API Docs conditionally enabled in dev mode
 if (Config.NODE_ENV === 'development') {
@@ -57,7 +57,7 @@ if (Config.NODE_ENV === 'development') {
 
 // Redirect root to a specific path
 app.use('/*', (req, res, _next) => {
-  if (req.originalUrl === '/') return res.redirect('/project-uniq-name');
+  if (req.originalUrl === '/') return res.redirect('/СПУЗ');
   return res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

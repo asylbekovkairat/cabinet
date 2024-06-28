@@ -1,4 +1,4 @@
 export const routes = {
-  signIn: () => `/user/login`,
+  signIn: () => `/vuz/user/login`,
   externalSignIn: () => `/user/external`,
 };

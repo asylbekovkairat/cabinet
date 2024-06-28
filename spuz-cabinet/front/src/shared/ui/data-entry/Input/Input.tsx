@@ -3,7 +3,7 @@ import { Input as AntInput, InputProps } from 'antd';
 
 import { PassInVisibleIcon, PassVisibleIcon } from '~shared/ui/Icons/icons';
 
-export const Input: React.FC<InputProps> = ({ type, size = 'large', ...props }) => {
+export const Input: React.FC<InputProps> = ({ type, size = 'middle', ...props }) => {
   switch (type) {
     case 'password':
       return (

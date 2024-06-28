@@ -1,5 +1,5 @@
 {
-  "appName": "project-uniq-name",
+  "appName": "СПУЗ",
   "mainSiteName": "Министерство образования и науки Кыргызской Республики",
   "undefined": {
     "label": "Такой страницы не найдено.",
@@ -82,26 +82,8 @@
     "printing_house": "Типография"
   },
   "routes": {
-    "home": "Главная",
-    "main": "Главная",
-    "ministries": "Министерства",
-    "organization": "Организация",
-    "faculty": "Факультет",
-    "direction": "Направление",
-    "specialty": "Специальность / Профиль",
-    "disciplines": "Дисциплины",
-    "employees": "Сотрудники",
-    "curriculum": "Учебный план",
-    "reports": "Отчёты",
-    "graduates": "Выпускники",
-    "grades": "Оценки",
-    "registartion": "Регистрация",
-    "manual": "Инструкция",
-    "login": "Вход",
-    "settings": "Настройки",
-    "help": "Помощь",
-    "privacyPolicy": "Политика конфиденциальности",
-    "forgetPassword": "Забыли пароль?",
+    "generalInfo": "Жалпы маалымат",
+    "specialities": "Специальности",
     "logout": "Выйти"
   },
   "Timer": {

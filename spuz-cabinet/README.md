@@ -11,7 +11,7 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 #### Change global name for app name, description:
 
 ```shell
-project-uniq-name
+СПУЗ
 project-unique-title
 project-unique-description
 project-unique-registry

@@ -1,11 +1,14 @@
 import { FC, useEffect } from 'react';
 
-import { RoleType, SiderUser, useUser } from '~entities/shared/user';
+import { SiderUser, useUser } from '~entities/shared/user';
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
 import {
+  ApplicationIcon,
+  GeneralInfoIcon,
   LogoutIcon,
+  OrganizationPhotoIcon,
   SN,
   SettingsIcon,
   Sider,
@@ -37,21 +40,20 @@ export const Navigation: FC<NavigationProps> = () => {
 
   const routes: INavTabItem[] = [
     {
-      title: t('cm:routes.employees'),
-      path: RoutesUrls.employees,
-      icon: <UsersIcon />,
+      title: t('cm:routes.generalInfo'),
+      path: RoutesUrls.generalInfo,
+      icon: <GeneralInfoIcon />,
       isTabBar: true,
-      show: [RoleType.employee, RoleType.organization, RoleType.supervisor],
+    },
+    {
+      title: t('cm:routes.specialities'),
+      path: RoutesUrls.specialities,
+      icon: <ApplicationIcon />,
+      isTabBar: true,
     },
   ];
 
   const settingsRoutes: INavTabItem[] = [
-    {
-      title: t('cm:routes.settings'),
-      path: RoutesUrls.settings,
-      icon: <SettingsIcon />,
-      isBlank: false,
-    },
     {
       title: t('cm:bottomLinks.logout'),
       path: RoutesUrls.logout,
@@ -72,24 +74,21 @@ export const Navigation: FC<NavigationProps> = () => {
         user={
           <SiderUser
             fio={`${user?.s} ${user?.n?.charAt(-0)}. ${user?.p ? user?.p.charAt(0) + '.' : ''}`}
-            role={t(`cm:role.${user?.role}`)}
             onError={<SN surname={user?.s || ''} name={user?.n || ''} size={18} />}
           />
         }
-        routes={routes
-          .filter((x) => x.show?.some((y) => user!.role.includes(y as RoleType)))
-          .map((item) => {
-            return (
-              <SiderButton
-                key={item.path}
-                path={item.path}
-                title={item.title}
-                icon={item.icon}
-                collapsed={collapsedAtom}
-                onClick={handleClickButton}
-              />
-            );
-          })}
+        routes={routes.map((item) => {
+          return (
+            <SiderButton
+              key={item.path}
+              path={item.path}
+              title={item.title}
+              icon={item.icon}
+              collapsed={collapsedAtom}
+              onClick={handleClickButton}
+            />
+          );
+        })}
         links={null}
         settings={settingsRoutes?.map((item) => {
           return (
