@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
+import { SetRegistrationView } from '~features/shared/locale';
 
 import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
@@ -41,7 +42,12 @@ export const AppHeader: FC<AppHeaderProps> = () => {
   return (
     <Header>
       {windoWidth > 768 ? (
-        <TitleHead />
+        <section className="w-full flex justify-between">
+          <TitleHead />
+          <div className="flex gap-2">
+            <SetRegistrationView />
+          </div>
+        </section>
       ) : (
         <div className="flex justify-between w-full items-center">
           <div className="flex items-center gap-5">

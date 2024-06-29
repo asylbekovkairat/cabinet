@@ -1,5 +1,9 @@
-import React from 'react';
+import { Specialities } from '~widgets/spuz';
 
-export const Specialities = () => {
-  return <div>Specialities</div>;
+export const SpecialitiesPage = () => {
+  return (
+    <>
+      <Specialities />
+    </>
+  );
 };
