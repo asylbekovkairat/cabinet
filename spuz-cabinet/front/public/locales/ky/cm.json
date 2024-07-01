@@ -84,6 +84,7 @@
   "routes": {
     "generalInfo": "Жалпы маалымат",
     "specialities": "Адистик",
+    "recruitmentPlan": "План набора",
     "logout": "Чыгуу"
   },
   "Timer": {

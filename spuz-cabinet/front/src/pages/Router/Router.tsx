@@ -4,6 +4,7 @@ import { BaseLayout } from '~pages/layouts';
 import { LoginPage } from '~pages/shared/login';
 import { LogoutPage } from '~pages/shared/logout';
 import { GeneralInfoPage, SpecialitiesPage } from '~pages/spuz';
+import { RecruitmentPlanPage } from '~pages/spuz/RecruitmentPlan';
 import { RequireAuth, RoutesUrls } from '~shared/lib/router';
 
 const routes = [
@@ -17,7 +18,7 @@ const routes = [
         children: [
           { path: RoutesUrls.generalInfo, element: <GeneralInfoPage /> },
           { path: RoutesUrls.specialities, element: <SpecialitiesPage /> },
-          { path: RoutesUrls.manual, element: <p>Manual</p> },
+          { path: RoutesUrls.recruitmentPlan, element: <RecruitmentPlanPage /> },
           { path: RoutesUrls.logout, element: <LogoutPage /> },
         ],
       },

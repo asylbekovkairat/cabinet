@@ -51,6 +51,12 @@ export const Navigation: FC<NavigationProps> = () => {
       icon: <ApplicationIcon />,
       isTabBar: true,
     },
+    {
+      title: t('cm:routes.recruitmentPlan'),
+      path: RoutesUrls.recruitmentPlan,
+      icon: <ApplicationIcon />,
+      isTabBar: true,
+    },
   ];
 
   const settingsRoutes: INavTabItem[] = [

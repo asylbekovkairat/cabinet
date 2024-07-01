@@ -82,8 +82,9 @@
     "printing_house": "Типография"
   },
   "routes": {
-    "generalInfo": "Жалпы маалымат",
+    "generalInfo": "Общая информация",
     "specialities": "Специальности",
+    "recruitmentPlan": "План набора",
     "logout": "Выйти"
   },
   "Timer": {
