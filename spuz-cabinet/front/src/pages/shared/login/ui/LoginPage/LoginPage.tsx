@@ -20,14 +20,14 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
       console.log('authState', authState);
 
       setUser({ authState }).then(() => {
-        return navigate(RoutesUrls.manual, { replace: true });
+        return navigate(RoutesUrls.generalInfo, { replace: true });
       });
     },
     [navigate, setUser]
   );
 
   if (user) {
-    return <Navigate to={RoutesUrls.manual} replace />;
+    return <Navigate to={RoutesUrls.generalInfo} replace />;
   }
 
   return (

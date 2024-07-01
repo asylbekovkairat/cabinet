@@ -1,4 +1,4 @@
-import { GeneralInfoView } from '~features/spuz';
+import { GeneralInfoView } from '~features/spuz/generalInfo';
 
 export const GeneralInfo = () => {
   return (

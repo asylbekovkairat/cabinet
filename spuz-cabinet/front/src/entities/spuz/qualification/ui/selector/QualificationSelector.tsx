@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import { Select } from 'antd';
 
@@ -14,5 +14,14 @@ export const QualificationSelector: FC<QualificationSelectorProps> = ({
   qualifications,
   ...restProps
 }) => {
-  return <Select options={qualifications} {...restProps} />;
+  const renderOptions = useMemo(
+    () =>
+      qualifications.map((item) => ({
+        label: item.profession_ru,
+        value: item.id_profession,
+      })),
+    [qualifications]
+  );
+
+  return <Select options={renderOptions} {...restProps} />;
 };

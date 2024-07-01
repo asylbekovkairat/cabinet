@@ -1,5 +1,5 @@
 export interface Speciality {
-  id_specialt: number;
+  id_specialty: number;
   id_university: number;
   specialty_cipher: string;
   specialty: string;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Form } from 'antd';
+import { Button, Form, InputNumber } from 'antd';
 
 import { Input, useNotification } from '~shared/ui';
 
@@ -28,10 +28,7 @@ export const GeneralInfoView = () => {
   };
 
   const onFinish = async (values: Spuz) => {
-    console.log('values', values);
-
     const response = (await updateSpuzInfo(values)) as { res: boolean };
-    console.log('response', response);
 
     if (response?.res) {
       notification.openNotification({ message: 'Success', type: 'success' });
@@ -51,6 +48,7 @@ export const GeneralInfoView = () => {
             label="Полное название (на кыргызском)"
             name="university_name_kg"
             required
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
@@ -59,6 +57,7 @@ export const GeneralInfoView = () => {
             label="Полное название (на русском)"
             name="university_name"
             required
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
@@ -69,6 +68,7 @@ export const GeneralInfoView = () => {
             label="Краткое название (на кыргызском)"
             name="s_university_kg"
             required
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
@@ -77,6 +77,7 @@ export const GeneralInfoView = () => {
             label="Краткое название (на русском)"
             name="s_university"
             required
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
@@ -90,6 +91,7 @@ export const GeneralInfoView = () => {
             label="Адрес WEB-сайта"
             name="university_url"
             required
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
@@ -100,6 +102,7 @@ export const GeneralInfoView = () => {
             label="Руководитель"
             name="university_supervisor"
             required
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
@@ -108,21 +111,23 @@ export const GeneralInfoView = () => {
             label="Должность руководителя"
             name="supervisor_position"
             required
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
         </div>
         <div className="flex gap-5 w-full sm:flex-col sm:gap-0">
           <Form.Item className="w-1/2 sm:w-full" label="Полезная площадь" name="area" required>
-            <Input type="number" />
+            <InputNumber className="w-full" />
           </Form.Item>
           <Form.Item
             className="w-1/2 sm:w-full"
             label=" Общее кол-во студентов без учета выпускников"
             name="student"
             required
+            rules={[{ required: true }]}
           >
-            <Input type="number" />
+            <InputNumber className="w-full" />
           </Form.Item>
         </div>
         <div className="flex gap-5 w-full sm:flex-col sm:gap-0">
@@ -131,11 +136,12 @@ export const GeneralInfoView = () => {
             label="Общее кол-во ваучерных мест"
             name="voucher"
             required
+            rules={[{ required: true }]}
           >
-            <Input type="number" />
+            <InputNumber className="w-full" />
           </Form.Item>
           <Form.Item className="w-1/2 sm:w-full" label="Общий план набора" name="plan" required>
-            <Input type="number" />
+            <InputNumber className="w-full" />
           </Form.Item>
         </div>
         <div className="flex w-full justify-center">

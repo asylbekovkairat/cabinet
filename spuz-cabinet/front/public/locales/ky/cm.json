@@ -83,6 +83,7 @@
   },
   "routes": {
     "generalInfo": "Жалпы маалымат",
+    "specialities": "Адистик",
     "logout": "Чыгуу"
   },
   "Timer": {

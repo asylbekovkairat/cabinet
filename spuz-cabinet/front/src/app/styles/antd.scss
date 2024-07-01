@@ -152,3 +152,20 @@
   border-color: var(--orange) !important;
   opacity: 0.8;
 }
+
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
+.ant-col.ant-form-item-label.ant-form-item-label-left.css-dev-only-do-not-override-uxcav5 {
+  padding-bottom: 2px;
+}
+
+.ant-table-cell:where(.css-dev-only-do-not-override-cih0i6).ant-table-wrapper .ant-table-cell,
+:where(.css-dev-only-do-not-override-cih0i6).ant-table-wrapper .ant-table-thead > tr > th,
+:where(.css-dev-only-do-not-override-cih0i6).ant-table-wrapper .ant-table-tbody > tr > th,
+:where(.css-dev-only-do-not-override-cih0i6).ant-table-wrapper .ant-table-tbody > tr > td,
+:where(.css-dev-only-do-not-override-cih0i6).ant-table-wrapper tfoot > tr > th,
+:where(.css-dev-only-do-not-override-cih0i6).ant-table-wrapper tfoot > tr > td {
+  padding: 8px 8px;
+}

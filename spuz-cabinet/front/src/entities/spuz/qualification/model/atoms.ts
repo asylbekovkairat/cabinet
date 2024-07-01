@@ -12,5 +12,7 @@ export const setQualificationsAtom = atom<any, any, any>(
   (get) => get(qualificationsAtom),
   async (_get, set) => {
     const response = await getQualifications();
+
+    set(qualificationsAtom, response as Qualification[]);
   }
 );

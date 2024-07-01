@@ -1,4 +1,4 @@
-import { GeneralInfo } from '~widgets/spuz';
+import { GeneralInfo } from '~widgets/spuz/generalInfo';
 
 export const GeneralInfoPage = () => {
   return (
