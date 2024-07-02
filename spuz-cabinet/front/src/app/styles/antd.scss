@@ -169,3 +169,7 @@
 :where(.css-dev-only-do-not-override-cih0i6).ant-table-wrapper tfoot > tr > td {
   padding: 8px 8px;
 }
+
+.ant-card-actions:where(.css-dev-only-do-not-override-cih0i6).ant-card .ant-card-actions > li {
+  margin: 12px 0;
+}

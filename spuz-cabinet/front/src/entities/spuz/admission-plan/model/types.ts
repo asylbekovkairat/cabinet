@@ -13,3 +13,10 @@ export interface AdmissionPlan {
   medicine: boolean;
   voucher_plan: boolean;
 }
+
+export interface AdmissionPlans extends AdmissionPlan {
+  specialty_cipher: string;
+  specialty: string;
+  bk: string;
+  discipline: string;
+}

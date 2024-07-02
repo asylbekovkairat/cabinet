@@ -85,6 +85,7 @@
     "generalInfo": "Общая информация",
     "specialities": "Специальности",
     "admissionPlan": "План набора",
+    "admissionPlanList": "План набора список",
     "logout": "Выйти"
   },
   "Timer": {

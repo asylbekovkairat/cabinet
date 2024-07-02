@@ -5,6 +5,7 @@ import { LoginPage } from '~pages/shared/login';
 import { LogoutPage } from '~pages/shared/logout';
 import { GeneralInfoPage, SpecialitiesPage } from '~pages/spuz';
 import { AdmissionPlanPage } from '~pages/spuz/AdmissionPlan';
+import { AdmissionPlanListPage } from '~pages/spuz/AdmissionPlanList';
 import { RequireAuth, RoutesUrls } from '~shared/lib/router';
 
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
           { path: RoutesUrls.generalInfo, element: <GeneralInfoPage /> },
           { path: RoutesUrls.specialities, element: <SpecialitiesPage /> },
           { path: RoutesUrls.admissionPlan, element: <AdmissionPlanPage /> },
+          { path: RoutesUrls.admissionPlanList, element: <AdmissionPlanListPage /> },
           { path: RoutesUrls.logout, element: <LogoutPage /> },
         ],
       },

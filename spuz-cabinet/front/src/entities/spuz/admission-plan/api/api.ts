@@ -13,3 +13,15 @@ export const getAdmissionPlan = async (id_specialty: number, id_bk: number) => {
 
   return response;
 };
+
+export const getAdmissionPlanList = async (id_university: number, id_learning: number) => {
+  let response;
+
+  try {
+    response = await api.get(routes.getAdmissionPlanList(id_university, id_learning));
+  } catch (error) {
+    response = error;
+  }
+
+  return response;
+};

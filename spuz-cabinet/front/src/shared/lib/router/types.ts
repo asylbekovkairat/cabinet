@@ -7,4 +7,5 @@ export const RoutesUrls = {
   generalInfo: `/${import.meta.env.VITE_BASE}/general-info`,
   specialities: `/${import.meta.env.VITE_BASE}/specialities`,
   admissionPlan: `/${import.meta.env.VITE_BASE}/admission-plan`,
+  admissionPlanList: `/${import.meta.env.VITE_BASE}/admission-plan-list`,
 };

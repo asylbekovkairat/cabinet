@@ -57,6 +57,12 @@ export const Navigation: FC<NavigationProps> = () => {
       icon: <ApplicationIcon />,
       isTabBar: true,
     },
+    {
+      title: t('cm:routes.admissionPlanList'),
+      path: RoutesUrls.admissionPlanList,
+      icon: <ApplicationIcon />,
+      isTabBar: true,
+    },
   ];
 
   const settingsRoutes: INavTabItem[] = [
