@@ -1,0 +1,1 @@
+export { AdmissionPlanView } from './form';

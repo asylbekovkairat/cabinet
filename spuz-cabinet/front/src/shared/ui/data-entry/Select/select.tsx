@@ -5,7 +5,7 @@ import { ArrowIcon } from '~shared/ui/Icons/icons';
 import { useTranslation } from '~shared/lib/i18n';
 
 export const Select: FC<SelectProps> = ({
-  size = 'large',
+  size = 'middle',
   suffixIcon = <ArrowIcon />,
   placeholder,
   ...props

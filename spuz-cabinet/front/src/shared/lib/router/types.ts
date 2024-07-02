@@ -6,5 +6,5 @@ export const RoutesUrls = {
   notFound: `/${import.meta.env.VITE_BASE}/not-found`,
   generalInfo: `/${import.meta.env.VITE_BASE}/general-info`,
   specialities: `/${import.meta.env.VITE_BASE}/specialities`,
-  recruitmentPlan: `/${import.meta.env.VITE_BASE}/recruitment-plan`,
+  admissionPlan: `/${import.meta.env.VITE_BASE}/admission-plan`,
 };

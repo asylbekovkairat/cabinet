@@ -52,8 +52,8 @@ export const Navigation: FC<NavigationProps> = () => {
       isTabBar: true,
     },
     {
-      title: t('cm:routes.recruitmentPlan'),
-      path: RoutesUrls.recruitmentPlan,
+      title: t('cm:routes.admissionPlan'),
+      path: RoutesUrls.admissionPlan,
       icon: <ApplicationIcon />,
       isTabBar: true,
     },

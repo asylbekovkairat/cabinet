@@ -1,8 +1,8 @@
 import { FC, useMemo } from 'react';
 
-import { Select } from 'antd';
-
 import { SelectProps } from 'antd/lib';
+
+import { Select } from '~shared/ui';
 
 import { Qualification } from '../../model';
 

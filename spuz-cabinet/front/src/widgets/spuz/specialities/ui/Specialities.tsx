@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useLearningId } from '~entities/spuz/learning-type';
 import {
   SpecialitiesListView,
-  useSetSpecialitiesList,
-  useSpecialitiesList,
+  useSetSpecialities,
+  useSpecialities,
 } from '~entities/spuz/specialities';
 import {
   SpecialitiesAddView,
@@ -24,9 +24,9 @@ const Specialities = () => {
   } | null>(null);
 
   const learningId = useLearningId();
-  const specialities = useSpecialitiesList();
+  const specialities = useSpecialities();
 
-  const setSpecialities = useSetSpecialitiesList();
+  const setSpecialities = useSetSpecialities();
 
   useEffect(() => {
     if (learningId) {

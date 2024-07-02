@@ -84,7 +84,7 @@
   "routes": {
     "generalInfo": "Общая информация",
     "specialities": "Специальности",
-    "recruitmentPlan": "План набора",
+    "admissionPlan": "План набора",
     "logout": "Выйти"
   },
   "Timer": {
