@@ -40,7 +40,7 @@ export const AppHeader: FC<AppHeaderProps> = () => {
   const TitleHead = () => <p className="text-[18px] text-bold text-primary">{pageTitle}</p>;
 
   return (
-    <Header>
+    <Header className="w-full flex justify-between">
       {windoWidth > 768 ? (
         <section className="w-full flex justify-between">
           <TitleHead />

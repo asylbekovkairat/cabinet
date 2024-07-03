@@ -8,4 +8,5 @@ export const RoutesUrls = {
   specialities: `/${import.meta.env.VITE_BASE}/specialities`,
   admissionPlan: `/${import.meta.env.VITE_BASE}/admission-plan`,
   admissionPlanList: `/${import.meta.env.VITE_BASE}/admission-plan-list`,
+  admissionCommission: `/${import.meta.env.VITE_BASE}/admission-commission`,
 };

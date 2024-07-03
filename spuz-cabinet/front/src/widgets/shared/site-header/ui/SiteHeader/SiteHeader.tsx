@@ -14,7 +14,7 @@ export const SiteHeader: FC<SiteHeaderProps> = () => {
   const { pathname } = useLocation();
 
   return (
-    <Header className="mx-auto">
+    <Header className="w-full flex justify-between">
       <div className="flex justify-between w-full items-center">
         <SiteLogo />
       </div>

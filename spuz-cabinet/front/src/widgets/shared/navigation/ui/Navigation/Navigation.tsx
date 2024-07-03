@@ -63,6 +63,12 @@ export const Navigation: FC<NavigationProps> = () => {
       icon: <ApplicationIcon />,
       isTabBar: true,
     },
+    {
+      title: t('cm:routes.admissionCommission'),
+      path: RoutesUrls.admissionCommission,
+      icon: <ApplicationIcon />,
+      isTabBar: true,
+    },
   ];
 
   const settingsRoutes: INavTabItem[] = [
