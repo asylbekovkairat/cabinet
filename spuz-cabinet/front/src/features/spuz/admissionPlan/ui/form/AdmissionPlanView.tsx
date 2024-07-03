@@ -18,7 +18,7 @@ import {
   useSetSpecialities,
   useSpecialities,
 } from '~entities/spuz/specialities';
-import { TextArea, useNotification } from '~shared/ui';
+import { SaveIcon, TextArea, useNotification } from '~shared/ui';
 
 import { useAdmissionPlan, useSetAdmissionPlan } from '~entities/spuz/admission-plan';
 
@@ -197,8 +197,13 @@ const AdmissionPlanView = () => {
           </Form.Item>
         </section>
         <div className="flex justify-center mt-4">
-          <Button type="primary" htmlType="submit">
-            Сохранить
+          <Button
+            className="px-8 flex items-center"
+            type="primary"
+            htmlType="submit"
+            icon={<SaveIcon />}
+          >
+            Сохранить план
           </Button>
         </div>
       </Form>

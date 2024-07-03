@@ -15,7 +15,7 @@ const AdmissionPlanCardView: FC<AdmissionPlanCardProps> = ({ info }) => {
       key={info.id_admission_plan}
       title={`Форма оплаты: ${info.bk}`}
       actions={[
-        <Button className="bg-red flex items-start justify-center mx-auto text-white" key="delete">
+        <Button className="bg-red flex items-center justify-center mx-auto text-white" key="delete">
           Удалить
         </Button>,
       ]}

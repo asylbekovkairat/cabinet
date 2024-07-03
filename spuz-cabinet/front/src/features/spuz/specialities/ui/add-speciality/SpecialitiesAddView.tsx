@@ -10,7 +10,14 @@ import {
   useSetQualifications,
 } from '~entities/spuz/qualification';
 
-import { Input, useNotification } from '~shared/ui';
+import {
+  Input,
+  PlusIcon,
+  SquarePlusIcon,
+  UploadIcon,
+  UserPlusIcon,
+  useNotification,
+} from '~shared/ui';
 
 import { addSpecialty } from '../../api';
 
@@ -112,7 +119,7 @@ const SpecialitiesAddView: FC<SpecialitiesAddViewProps> = ({ loadSpecialitites }
           >
             <QualificationSelector qualifications={qualifications || []} />
           </Form.Item>
-          <Button htmlType="submit" type="primary">
+          <Button htmlType="submit" type="primary" icon={<SquarePlusIcon />}>
             Добавить специальность
           </Button>
         </div>

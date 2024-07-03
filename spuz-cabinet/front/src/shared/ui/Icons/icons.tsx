@@ -1,5 +1,11 @@
 export const PlusIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 18 18"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M9.08051 0.968318L9.08045 17.1996" stroke="auto" />
     <path d="M17.1957 9.08453L0.964476 9.08459" stroke="auto" />
   </svg>
@@ -1132,7 +1138,7 @@ export const SaveAllIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     width="auto"
     viewBox="0 0 24 24"
-    fill="none"
+    fill="white"
     strokeWidth="1"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -1146,18 +1152,24 @@ export const SaveAllIcon = () => (
 
 export const SaveIcon = () => (
   <svg
+    fill="currentColor"
+    version="1.1"
+    id="Capa_1"
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    strokeWidth="1"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    width="18px"
+    height="18px"
+    viewBox="0 0 407.096 407.096"
   >
-    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-    <polyline points="17 21 17 13 7 13 7 21" />
-    <polyline points="7 3 7 8 15 8" />
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <g>
+        <g>
+          <path d="M402.115,84.008L323.088,4.981C319.899,1.792,315.574,0,311.063,0H17.005C7.613,0,0,7.614,0,17.005v373.086 c0,9.392,7.613,17.005,17.005,17.005h373.086c9.392,0,17.005-7.613,17.005-17.005V96.032 C407.096,91.523,405.305,87.197,402.115,84.008z M300.664,163.567H67.129V38.862h233.535V163.567z"></path>{' '}
+          <path d="M214.051,148.16h43.08c3.131,0,5.668-2.538,5.668-5.669V59.584c0-3.13-2.537-5.668-5.668-5.668h-43.08 c-3.131,0-5.668,2.538-5.668,5.668v82.907C208.383,145.622,210.92,148.16,214.051,148.16z"></path>{' '}
+        </g>
+      </g>
+    </g>
   </svg>
 );
 
@@ -1187,7 +1199,7 @@ export const UserPlusIcon = () => (
     width="24"
     height="24"
     viewBox="0 0 24 24"
-    fill="none"
+    fill="currentColor"
     strokeWidth="1"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -1205,7 +1217,7 @@ export const SquarePlusIcon = () => (
     width="24"
     height="24"
     viewBox="0 0 24 24"
-    fill="none"
+    fill="currentColor"
     strokeWidth="1"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -1321,3 +1333,25 @@ export const BadgeCheckIcon = () => (
     <path d="m9 12 2 2 4-4" />
   </svg>
 );
+
+// export const PlusIcon = () => (
+//   <svg
+//     width="20px"
+//     height="20px"
+//     viewBox="0 0 32 32"
+//     version="1.1"
+//     xmlns="http://www.w3.org/2000/svg"
+//   >
+//     <title>plus-circle</title>
+//     <desc>Created with Sketch Beta.</desc>
+//     <defs></defs>
+//     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+//       <g id="Icon-Set" transform="translate(-464.000000, -1087.000000)" fill="#000000">
+//         <path
+//           d="M480,1117 C472.268,1117 466,1110.73 466,1103 C466,1095.27 472.268,1089 480,1089 C487.732,1089 494,1095.27 494,1103 C494,1110.73 487.732,1117 480,1117 L480,1117 Z M480,1087 C471.163,1087 464,1094.16 464,1103 C464,1111.84 471.163,1119 480,1119 C488.837,1119 496,1111.84 496,1103 C496,1094.16 488.837,1087 480,1087 L480,1087 Z M486,1102 L481,1102 L481,1097 C481,1096.45 480.553,1096 480,1096 C479.447,1096 479,1096.45 479,1097 L479,1102 L474,1102 C473.447,1102 473,1102.45 473,1103 C473,1103.55 473.447,1104 474,1104 L479,1104 L479,1109 C479,1109.55 479.447,1110 480,1110 C480.553,1110 481,1109.55 481,1109 L481,1104 L486,1104 C486.553,1104 487,1103.55 487,1103 C487,1102.45 486.553,1102 486,1102 L486,1102 Z"
+//           id="plus-circle"
+//         ></path>
+//       </g>
+//     </g>
+//   </svg>
+// );

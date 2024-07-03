@@ -1,5 +1,7 @@
 import { FC, memo, useMemo } from 'react';
 
+import { Empty } from 'antd';
+
 import { AdmissionPlans } from '../../model';
 import AdmissionPlanCardView from '../card/AdmissionPlanCardView';
 
@@ -23,6 +25,10 @@ const AdmissionPlanListView: FC<AdmissionPlanListProps> = memo(({ list }) => {
         .map((item) => <AdmissionPlanCardView key={item.id_admission_plan} info={item} />),
     [list]
   );
+
+  if (!list.length) {
+    return <Empty />;
+  }
 
   return (
     <section className="flex gap-6 xs:flex-col">
