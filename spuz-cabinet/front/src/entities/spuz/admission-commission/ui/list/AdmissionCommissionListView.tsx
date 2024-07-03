@@ -34,7 +34,7 @@ const AdmissionCommissionListView: FC<AdmissionCommissionListViewProps> = ({
     },
     {
       title: 'Логин',
-      dataIndex: 'email',
+      dataIndex: 'login_university',
       align: 'start',
     },
     {
