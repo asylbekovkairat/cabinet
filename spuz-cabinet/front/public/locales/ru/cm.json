@@ -87,6 +87,7 @@
     "admissionPlan": "План набора",
     "admissionPlanList": "План набора список",
     "admissionCommission": "Состав приемной комиссии",
+    "grantCommission": "Грантовая коммиссия",
     "logout": "Выйти"
   },
   "Timer": {

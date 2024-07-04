@@ -14,6 +14,7 @@ import {
   RowsIcon,
   SN,
   SettingsIcon,
+  ShieldIcon,
   Sider,
   SiderButton,
   SiderSettingsButton,
@@ -71,6 +72,12 @@ export const Navigation: FC<NavigationProps> = () => {
       title: t('cm:routes.admissionCommission'),
       path: RoutesUrls.admissionCommission,
       icon: <UsersAccessIcon />,
+      isTabBar: true,
+    },
+    {
+      title: t('cm:routes.grantCommission'),
+      path: RoutesUrls.grantCommission,
+      icon: <ShieldIcon />,
       isTabBar: true,
     },
   ];
