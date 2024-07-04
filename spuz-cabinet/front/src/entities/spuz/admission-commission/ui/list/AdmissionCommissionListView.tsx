@@ -9,7 +9,7 @@ import { AdmissionUser } from '../../model';
 interface AdmissionCommissionListViewProps {
   list: AdmissionUser[];
   onDelete: (deleteInfo: { fio_users_university: string; id_users_university: number }) => void;
-  onEdit: (value: AdmissionUser) => void;
+  onEdit: (editInfo: AdmissionUser) => void;
 }
 
 const AdmissionCommissionListView: FC<AdmissionCommissionListViewProps> = ({

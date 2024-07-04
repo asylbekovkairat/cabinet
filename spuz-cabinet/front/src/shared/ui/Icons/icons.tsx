@@ -651,14 +651,6 @@ export const DocumentIcon = () => (
   </svg>
 );
 
-export const ArrowLeftIcon = () => (
-  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0.5" y="0.5" width="29" height="29" rx="2.5" fill="white" stroke="#EBEBEB" />
-    <path d="M14 8L7 15L14 22" stroke="#4f679b" strokeWidth="4" />
-    <path d="M23 8L16 15L23 22" stroke="#4f679b" strokeWidth="4" />
-  </svg>
-);
-
 export const ArrowIcon = () => (
   <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -1394,7 +1386,7 @@ export const BriefCaseIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="#4f679b"
-    stroke-width="1.5"
+    stroke-width="1"
     stroke-linecap="round"
     stroke-linejoin="round"
     className="lucide lucide-briefcase-business"
@@ -1403,5 +1395,24 @@ export const BriefCaseIcon = () => (
     <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
     <path d="M22 13a18.15 18.15 0 0 1-20 0" />
     <rect width="20" height="14" x="2" y="6" rx="2" />
+  </svg>
+);
+
+export const ArrowLeftIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    className="lucide lucide-circle-arrow-left"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M16 12H8" />
+    <path d="m12 8-4 4 4 4" />
   </svg>
 );

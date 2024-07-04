@@ -1,5 +1,5 @@
 import { Button, Modal } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import {
   AdmissionCommissionListView,
@@ -10,26 +10,31 @@ import { useAdmissionCommissionList } from '~entities/spuz/admission-commission'
 import {
   AddAdmissionCommissionView,
   DeleteAdmissionCommissionView,
+  EditAdmissionCommissionView,
 } from '~features/spuz/admissionCommision';
 import { PlusIcon } from '~shared/ui';
 
 enum OpenModalId {
   addEmployee = 'addEmployee',
-  accessEmployee = 'accessEmployee',
   deleteAdmission = 'deleteAdmission',
   editAdmission = 'editAdmission',
 }
 
 export type DeleteInfo = Pick<AdmissionUser, 'fio_users_university' | 'id_users_university'>;
 
+interface Props {
+  openAccessEmployees: () => void;
+}
+
 // TRANSLATE
-export const AdmissionCommission = () => {
+export const AdmissionCommission: FC<Props> = ({ openAccessEmployees }) => {
   const admissionCommissionList = useAdmissionCommissionList();
 
   const setAdmissionCommissionList = useSetAdmissionCommissionList();
 
   const [openModalId, setOpenModalId] = useState<OpenModalId | null>(null);
   const [deleteInfo, setDeleteInfo] = useState<DeleteInfo | null>(null);
+  const [editInfo, setEditInfo] = useState<AdmissionUser | null>(null);
 
   useEffect(() => {
     loadAdmissionCommissionList();
@@ -37,14 +42,16 @@ export const AdmissionCommission = () => {
 
   const loadAdmissionCommissionList = () => setAdmissionCommissionList(138);
 
-  const openAddAddmissionModal = () => setOpenModalId(OpenModalId.addEmployee);
-  const openAccessAddmissionModal = () => setOpenModalId(OpenModalId.accessEmployee);
+  const openAddAdmissionModal = () => setOpenModalId(OpenModalId.addEmployee);
 
   const openDeleteModal = (deleteInfo: DeleteInfo) => {
-    console.log('deleteInfo', deleteInfo);
-
     setOpenModalId(OpenModalId.deleteAdmission);
     setDeleteInfo(deleteInfo);
+  };
+
+  const openEditModal = (editInfo: AdmissionUser) => {
+    setEditInfo(editInfo);
+    setOpenModalId(OpenModalId.editAdmission);
   };
 
   const closeModal = () => setOpenModalId(null);
@@ -66,10 +73,18 @@ export const AdmissionCommission = () => {
             loadAdmissionCommissionList={loadAdmissionCommissionList}
           />
         );
+      case OpenModalId.editAdmission:
+        return (
+          <EditAdmissionCommissionView
+            editInfo={editInfo}
+            closeModal={closeModal}
+            loadAdmissionCommissionList={loadAdmissionCommissionList}
+          />
+        );
       default:
         break;
     }
-  }, [openModalId]);
+  }, [deleteInfo]);
 
   return (
     <>
@@ -81,18 +96,18 @@ export const AdmissionCommission = () => {
           className="flex items-center pr-5"
           icon={<PlusIcon />}
           type="primary"
-          onClick={openAddAddmissionModal}
+          onClick={openAddAdmissionModal}
         >
           Добавить сотрудника
         </Button>
-        <Button className="px-8" type="primary" onClick={openAccessAddmissionModal}>
+        <Button className="px-8" type="primary" onClick={openAccessEmployees}>
           Доступ сотрудников
         </Button>
       </section>
       <AdmissionCommissionListView
         list={admissionCommissionList || []}
         onDelete={openDeleteModal}
-        onEdit={() => console.log('edit')}
+        onEdit={openEditModal}
       />
     </>
   );
