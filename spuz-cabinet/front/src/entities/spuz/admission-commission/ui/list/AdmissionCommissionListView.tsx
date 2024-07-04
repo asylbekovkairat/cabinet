@@ -8,7 +8,7 @@ import { AdmissionUser } from '../../model';
 
 interface AdmissionCommissionListViewProps {
   list: AdmissionUser[];
-  onDelete: (value: AdmissionUser) => void;
+  onDelete: (deleteInfo: { fio_users_university: string; id_users_university: number }) => void;
   onEdit: (value: AdmissionUser) => void;
 }
 
@@ -40,7 +40,7 @@ const AdmissionCommissionListView: FC<AdmissionCommissionListViewProps> = ({
     {
       title: 'Изменить',
       align: 'start',
-      render: (value) => (
+      render: (value, { fio_users_university, id_users_university }) => (
         <div className="flex gap-4 items-center">
           <Button
             className="flex items-center"
@@ -53,7 +53,7 @@ const AdmissionCommissionListView: FC<AdmissionCommissionListViewProps> = ({
           <Button
             className="flex items-center"
             icon={<DeleteIcon />}
-            onClick={() => onDelete(value)}
+            onClick={() => onDelete({ fio_users_university, id_users_university })}
           >
             Удалить
           </Button>

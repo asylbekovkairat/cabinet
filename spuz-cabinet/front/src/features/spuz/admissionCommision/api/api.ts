@@ -13,3 +13,15 @@ export const addAdmissionCommissionUser = async (data: any) => {
 
   return response;
 };
+
+export const deleteAdmissionCommissionUser = async (id_users_university: number) => {
+  let response;
+
+  try {
+    response = await api.post(routes.removeUsersUniversity(), { id_users_university });
+  } catch (error) {
+    response = error;
+  }
+
+  return response;
+};

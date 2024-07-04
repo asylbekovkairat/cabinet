@@ -6,14 +6,18 @@ import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
 import {
   ApplicationIcon,
+  BriefCaseIcon,
   GeneralInfoIcon,
   LogoutIcon,
   OrganizationPhotoIcon,
+  PlanIcon,
+  RowsIcon,
   SN,
   SettingsIcon,
   Sider,
   SiderButton,
   SiderSettingsButton,
+  UsersAccessIcon,
   UsersIcon,
   useWindowInnerWidth,
 } from '~shared/ui';
@@ -48,25 +52,25 @@ export const Navigation: FC<NavigationProps> = () => {
     {
       title: t('cm:routes.specialities'),
       path: RoutesUrls.specialities,
-      icon: <ApplicationIcon />,
+      icon: <BriefCaseIcon />,
       isTabBar: true,
     },
     {
       title: t('cm:routes.admissionPlan'),
       path: RoutesUrls.admissionPlan,
-      icon: <ApplicationIcon />,
+      icon: <PlanIcon />,
       isTabBar: true,
     },
     {
       title: t('cm:routes.admissionPlanList'),
       path: RoutesUrls.admissionPlanList,
-      icon: <ApplicationIcon />,
+      icon: <RowsIcon />,
       isTabBar: true,
     },
     {
       title: t('cm:routes.admissionCommission'),
       path: RoutesUrls.admissionCommission,
-      icon: <ApplicationIcon />,
+      icon: <UsersAccessIcon />,
       isTabBar: true,
     },
   ];
