@@ -44,6 +44,6 @@ export const EmployeesAccessListView: FC<EmployeesAccessListViewProps> = memo(
       },
     ];
 
-    return <Table dataSource={list} columns={columns} />;
+    return <Table bordered dataSource={list} columns={columns} />;
   }
 );

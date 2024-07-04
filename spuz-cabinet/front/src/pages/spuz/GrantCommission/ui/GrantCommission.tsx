@@ -1,5 +1,9 @@
-import React from 'react';
+import { GrantCommission } from '~widgets/spuz/grantCommission';
 
 export const GrantCommissionPage = () => {
-  return <div>GrandCommissionPage</div>;
+  return (
+    <>
+      <GrantCommission />
+    </>
+  );
 };

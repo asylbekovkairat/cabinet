@@ -62,7 +62,7 @@ const AdmissionCommissionListView: FC<AdmissionCommissionListViewProps> = ({
     },
   ];
 
-  return <Table key="admissionCommissionListView" dataSource={list} columns={columns} />;
+  return <Table bordered key="admissionCommissionListView" dataSource={list} columns={columns} />;
 };
 
 export default AdmissionCommissionListView;

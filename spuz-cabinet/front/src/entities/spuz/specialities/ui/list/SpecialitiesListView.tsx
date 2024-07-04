@@ -76,6 +76,7 @@ export const SpecialitiesListView: FC<SpecialitiesListProps> = memo(
         rowClassName="editable-row"
         key="specialitiesTableView"
         dataSource={list}
+        bordered
         columns={columns}
       />
     );
