@@ -13,3 +13,15 @@ export const getLearningTypes = () => {
 
   return response;
 };
+
+export const getLearningTypesR = (id_university: number) => {
+  let response;
+
+  try {
+    response = api.get(routes.getLearningTypesR(id_university));
+  } catch (error) {
+    response = error;
+  }
+
+  return response;
+};

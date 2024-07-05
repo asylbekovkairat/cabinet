@@ -14,7 +14,7 @@ export const LearningTypeSelector: FunctionComponent<LearningTypeProps> = memo(
   ({ learningTypes, ...restProps }) => {
     const renderOptions = useMemo(
       () =>
-        learningTypes.map((learn) => ({
+        learningTypes?.map((learn) => ({
           value: learn.id_learning,
           label: learn.learning,
         })),

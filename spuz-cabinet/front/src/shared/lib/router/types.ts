@@ -10,4 +10,5 @@ export const RoutesUrls = {
   admissionPlanList: `/${import.meta.env.VITE_BASE}/admission-plan-list`,
   admissionCommission: `/${import.meta.env.VITE_BASE}/admission-commission`,
   grantCommission: `/${import.meta.env.VITE_BASE}/grant-commission`,
+  attestat: `/${import.meta.env.VITE_BASE}/attestat`,
 };

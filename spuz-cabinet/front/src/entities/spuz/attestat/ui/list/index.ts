@@ -1,0 +1,1 @@
+export { AttestatCandidatesListView } from './AttestatCandidatesListView';

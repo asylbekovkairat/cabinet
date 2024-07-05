@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { atomWithDefault } from 'jotai/utils';
 
-import { getLearningTypes } from '../api';
+import { getLearningTypes, getLearningTypesR } from '../api';
 
 import { Learning } from './types';
 
@@ -19,4 +19,13 @@ export const setLearningTypesAtom = atom<any, any, any>(
 export const setLearningIdAtom = atom<any, number, any>(
   (get) => get(learningIdAtom),
   (_get, set, learnId) => set(learningIdAtom, learnId)
+);
+
+export const setLearningTypesRAtom = atom<any, { id_university: number }, any>(
+  (get) => get(learningTypesAtom),
+  async (_get, set, { id_university }) => {
+    const response = await getLearningTypesR(id_university);
+
+    set(learningTypesAtom, response as Learning[]);
+  }
 );

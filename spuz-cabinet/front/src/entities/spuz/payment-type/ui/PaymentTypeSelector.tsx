@@ -12,7 +12,7 @@ interface Props extends SelectProps {
 export const PaymentTypeSelector: FC<Props> = memo(({ paymentTypes, ...restProps }) => {
   return (
     <Select
-      options={paymentTypes.map((item) => ({
+      options={paymentTypes?.map((item) => ({
         label: item.bk,
         value: item.id_bk,
       }))}

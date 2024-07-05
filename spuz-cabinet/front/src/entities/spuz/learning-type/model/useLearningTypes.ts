@@ -5,6 +5,7 @@ import {
   learningTypesAtom,
   setLearningIdAtom,
   setLearningTypesAtom,
+  setLearningTypesRAtom,
 } from './atoms';
 
 export const useLearningTypes = () => {
@@ -21,4 +22,8 @@ export const useSetLearningTypes = () => {
 
 export const useSetLearningId = () => {
   return useSetAtom(setLearningIdAtom);
+};
+
+export const useSetLearningTypesR = () => {
+  return useSetAtom(setLearningTypesRAtom);
 };

@@ -15,3 +15,17 @@ export const getSpecialitiesList = async (id_university: number, id_learning: nu
 
   return response;
 };
+
+export const getSpecialitiesR = async (id_university: number, id_learning: number) => {
+  let response;
+
+  try {
+    response = await api.get<any, ApiResponseData<any>>(
+      routes.getSpecialitiesR(id_university, id_learning)
+    );
+  } catch (error) {
+    response = error;
+  }
+
+  return response;
+};
