@@ -48,6 +48,7 @@ const EditAdmissionCommissionView: FC<EditAdmissionCommissionViewProps> = ({
   return (
     <>
       <Form form={form} onFinish={onFinish} layout="vertical" initialValues={{ ...editInfo }}>
+        <h1 className="text-center">Сотрудник</h1>
         <Form.Item name="fio_users_university" label="ФИО" required>
           <Input />
         </Form.Item>
@@ -60,29 +61,29 @@ const EditAdmissionCommissionView: FC<EditAdmissionCommissionViewProps> = ({
           </Form.Item>
         </div>
         <div className="flex gap-5 w-full sm:flex-col sm:gap-0">
-          <Form.Item className="w-full" name="official_phone" label="Официальный телефон" required>
-            <MaskedInput className="w-full" mask="+996 (000) 000-000" />
-          </Form.Item>
           <Form.Item className="w-full" name="mobile_phone" label="Мобильный телефон" required>
             <MaskedInput className="w-full" mask="+996 (000) 000-000" />
           </Form.Item>
+          <Form.Item className="w-full" name="email" label="Email" required>
+            <Input />
+          </Form.Item>
         </div>
-        <Form.Item name="whatsapp" label="WhatsApp" required>
-          <Input />
-        </Form.Item>
-        <Form.Item name="telegram" label="Telegram" required>
-          <Input />
-        </Form.Item>
-        <Form.Item name="email" label="Email" required>
-          <Input />
-        </Form.Item>
+        <div className="flex gap-5 w-full sm:flex-col sm:gap-0">
+          <Form.Item name="whatsapp" label="WhatsApp" required>
+            <Input />
+          </Form.Item>
+          <Form.Item name="telegram" label="Telegram" required>
+            <Input />
+          </Form.Item>
+        </div>
+
         <Form.Item name="instagram" label="Instagram" required>
           <Input />
         </Form.Item>
         <Form.Item name="facebook" label="Facebook" required>
           <Input />
         </Form.Item>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-4">
           <Button
             className="px-8 flex items-center"
             htmlType="submit"

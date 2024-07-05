@@ -35,13 +35,13 @@ const AdmissionCommissionListView: FC<AdmissionCommissionListViewProps> = ({
     {
       title: 'Логин',
       dataIndex: 'login_university',
-      align: 'start',
+      align: 'center',
     },
     {
       title: 'Изменить',
-      align: 'start',
+      align: 'center',
       render: (value, { fio_users_university, id_users_university }) => (
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center justify-center">
           <Button
             className="flex items-center"
             type="primary"

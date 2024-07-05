@@ -54,8 +54,6 @@ export const AdmissionCommission: FC<Props> = ({ openAccessEmployees }) => {
     setOpenModalId(OpenModalId.editAdmission);
   };
 
-  console.log('openModalId', openModalId);
-
   const closeModal = () => setOpenModalId(null);
 
   const renderActions = useMemo(() => {

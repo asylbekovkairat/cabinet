@@ -15,7 +15,7 @@ export const GrantCommissionListView: FC<GrantCommissionListProps> = memo(({ lis
     {
       title: '№',
       dataIndex: 'id_specialty',
-      align: 'start',
+      align: 'center',
       render: (_value, _row, index) => {
         return index + 1;
       },
@@ -24,7 +24,7 @@ export const GrantCommissionListView: FC<GrantCommissionListProps> = memo(({ lis
       title: 'ФИО',
       width: '60%',
       dataIndex: 'grant_commission',
-      align: 'center',
+      align: 'start',
     },
     {
       title: 'Удалить',
