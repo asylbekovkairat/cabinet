@@ -97,8 +97,6 @@ const AdmissionPlanView = () => {
   }, [admissionPlan]);
 
   const onFinish = async (values: any) => {
-    console.log('values', values);
-
     const data = {
       ...values,
       id_university: 138,
@@ -111,8 +109,6 @@ const AdmissionPlanView = () => {
       full_plan: number;
       diff: number;
     };
-
-    console.log('res', response);
 
     if (response.res) {
       notification.openNotification({

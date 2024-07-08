@@ -60,8 +60,6 @@ const Specialities = () => {
     setEditInitialValues(null);
   };
 
-  console.log('editInitialValues', editInitialValues);
-
   return (
     <>
       <Modal open={isEditingOpen} onCancel={closeEditSpeciality} footer={null}>

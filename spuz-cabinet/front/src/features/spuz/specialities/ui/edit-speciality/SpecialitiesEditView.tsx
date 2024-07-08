@@ -52,8 +52,6 @@ const SpecialitiesEditView: FC<SpecialitiesEditProps> = ({
     form.setFieldsValue({ ...initialValues });
   }, [initialValues]);
 
-  console.log('initialValues', initialValues);
-
   useEffect(() => {
     setLearningId(learningWatch);
   }, [learningWatch]);
@@ -62,7 +60,6 @@ const SpecialitiesEditView: FC<SpecialitiesEditProps> = ({
     const data = { ...values, id_university: 138, id_specialty: initialValues.id_specialty };
 
     const response = (await editSpecialty(data)) as { res: boolean };
-    console.log('response', response);
 
     if (response.res) {
       notification.openNotification({
