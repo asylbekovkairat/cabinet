@@ -8,6 +8,8 @@ import { AttestatCandidate } from '../../model';
 
 interface AttestatCandidatesListViewProps {
   list: AttestatCandidate[];
+  onDelete: (deleteInfo: AttestatCandidate) => void;
+  onEdit: (editInfo: AttestatCandidate) => void;
 }
 
 export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = memo(({ list }) => {

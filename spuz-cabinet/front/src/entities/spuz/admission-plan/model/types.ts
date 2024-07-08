@@ -20,3 +20,5 @@ export interface AdmissionPlans extends AdmissionPlan {
   bk: string;
   discipline: string;
 }
+
+export type AdminPlan = { id_admission_plan: 3463 };

@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Modal } from 'antd';
+
+import { useAdminPlan } from '~entities/spuz/admission-plan';
 
 import {
   AttestatCandidatesListView,
@@ -12,10 +15,15 @@ import { useSpecialityId } from '~entities/spuz/specialities';
 import { useTourId } from '~entities/spuz/tour';
 import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 
+enum OpenModalId {
+  editCandidate = 'editCandidate',
+  deleteCandidate = 'deleteCandidate',
+}
+
 const Attestat = () => {
   const attestatCandidates = useAttestatCandidates();
   const learningId = useLearningId();
-  const specialityId = useSpecialityId();
+  const adminPlan = useAdminPlan();
   const tourId = useTourId();
   const paymentTypeId = usePaymentTypeId();
   const fio = useCandidateFio();
@@ -23,17 +31,20 @@ const Attestat = () => {
   const setAttestatCandidates = useSetAttestatCandidates();
 
   const [candidatesList, setCandidatesList] = useState(attestatCandidates);
+  const [openModalId, setOpenModalId] = useState<OpenModalId | null>(null);
+  const [deleteInfo, setDeleteInfo] = useState<null>(null);
+  const [editInfo, setEditInfo] = useState<null>(null);
 
   useEffect(() => {
-    if (specialityId && tourId && paymentTypeId) {
+    if (adminPlan?.id_admission_plan && tourId && paymentTypeId) {
       setAttestatCandidates({
-        id_admission_plan: 3463,
-        id_bk: 2,
+        id_admission_plan: adminPlan.id_admission_plan,
+        id_bk: paymentTypeId,
         id_university: 138,
-        tour: 1,
+        tour: tourId,
       });
     }
-  }, [learningId, specialityId, tourId, paymentTypeId]);
+  }, [learningId, adminPlan, tourId, paymentTypeId]);
 
   useEffect(() => {
     if (attestatCandidates) {
@@ -56,12 +67,42 @@ const Attestat = () => {
     }
   }, [fio]);
 
+  const openDeleteModal = (deleteInfo: any) => {
+    setDeleteInfo(deleteInfo);
+    setOpenModalId(OpenModalId.deleteCandidate);
+  };
+
+  const openEditModal = (editInfo: any) => {
+    setEditInfo(editInfo);
+    setOpenModalId(OpenModalId.editCandidate);
+  };
+
+  const closeModal = () => setOpenModalId(null);
+
+  const renderActions = useMemo(() => {
+    switch (openModalId) {
+      case OpenModalId.editCandidate:
+        return <></>;
+      case OpenModalId.deleteCandidate:
+        return <></>;
+      default:
+        break;
+    }
+  }, [openModalId]);
+
   return (
     <>
+      <Modal open={Boolean(openModalId)} onCancel={closeModal} onOk={closeModal} footer={null}>
+        {renderActions}
+      </Modal>
       <div className="grid grid-cols-3 gap-5 sm:grid-cols-1">
         <AttestatCandidatesFilterView />
       </div>
-      <AttestatCandidatesListView list={candidatesList || []} />
+      <AttestatCandidatesListView
+        list={candidatesList || []}
+        onDelete={openDeleteModal}
+        onEdit={openEditModal}
+      />
     </>
   );
 };

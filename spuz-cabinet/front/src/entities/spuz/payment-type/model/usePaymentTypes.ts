@@ -5,6 +5,7 @@ import {
   paymentTypesAtom,
   setPaymentTypeIdAtom,
   setPaymentTypesAtom,
+  setPaymentTypesRAtom,
 } from './atoms';
 
 export const usePaymentTypes = () => {
@@ -17,6 +18,10 @@ export const usePaymentTypeId = () => {
 
 export const useSetPaymentTypes = () => {
   return useSetAtom(setPaymentTypesAtom);
+};
+
+export const useSetPaymentTypesR = () => {
+  return useSetAtom(setPaymentTypesRAtom);
 };
 
 export const useSetPaymentTypeId = () => {

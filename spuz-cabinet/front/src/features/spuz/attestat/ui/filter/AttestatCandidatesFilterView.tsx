@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useSetAdminPlan } from '~entities/spuz/admission-plan';
+
 import { useSetCandidateFio } from '~entities/spuz/candidate';
 
 import {
@@ -10,15 +12,17 @@ import {
 } from '~entities/spuz/learning-type';
 import {
   PaymentTypeSelector,
+  usePaymentTypeId,
   usePaymentTypes,
   useSetPaymentTypeId,
-  useSetPaymentTypes,
+  useSetPaymentTypesR,
 } from '~entities/spuz/payment-type';
 import {
   SpecialitiesSelector,
   useSetSpecialitiesR,
   useSetSpecialityId,
   useSpecialities,
+  useSpecialityId,
 } from '~entities/spuz/specialities';
 import { Tour, TourSelector, useSetTourId, useSetTours, useTours } from '~entities/spuz/tour';
 import { Input } from '~shared/ui';
@@ -28,9 +32,11 @@ const AttestatCandidatesFilterView = () => {
   const specialities = useSpecialities();
   const paymentTypes = usePaymentTypes();
   const toursList = useTours();
+  const specialtyId = useSpecialityId();
+  const paymentTypeId = usePaymentTypeId();
 
   const setLearningTypesR = useSetLearningTypesR();
-  const setPaymentTypes = useSetPaymentTypes();
+  const setPaymentTypes = useSetPaymentTypesR();
   const setSpecialitiesR = useSetSpecialitiesR();
   const setLearningId = useSetLearningId();
   const setSpecialityId = useSetSpecialityId();
@@ -38,11 +44,18 @@ const AttestatCandidatesFilterView = () => {
   const setPaymentTypeId = useSetPaymentTypeId();
   const setTourId = useSetTourId();
   const setFio = useSetCandidateFio();
+  const setAdminPlan = useSetAdminPlan();
 
   useEffect(() => {
     setLearningTypesR({ id_university: 138 });
     setPaymentTypes();
   }, []);
+
+  useEffect(() => {
+    if (specialtyId && paymentTypeId) {
+      setAdminPlan({ id_specialty: specialtyId, id_bk: paymentTypeId });
+    }
+  }, [specialtyId, paymentTypeId]);
 
   const onLearningChange = (value: number) => {
     setLearningId(value);
@@ -64,8 +77,6 @@ const AttestatCandidatesFilterView = () => {
   };
 
   const onCandidateFioChange = (value: string) => {
-    console.log('value', value);
-
     setFio({ fio: value });
   };
 

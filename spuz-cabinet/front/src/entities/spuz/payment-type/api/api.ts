@@ -13,3 +13,15 @@ export const getPaymentTypes = async () => {
 
   return response;
 };
+
+export const getPaymentTypesR = async () => {
+  let response;
+
+  try {
+    response = await api.get<any, ApiResponseData<any>>(routes.getPaymentTypesR());
+  } catch (error) {
+    response = error;
+  }
+
+  return response;
+};
