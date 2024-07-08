@@ -6,7 +6,6 @@ import {
   LearningTypeSelector,
   useLearningTypes,
   useSetLearningId,
-  useSetLearningTypes,
   useSetLearningTypesR,
 } from '~entities/spuz/learning-type';
 import {
