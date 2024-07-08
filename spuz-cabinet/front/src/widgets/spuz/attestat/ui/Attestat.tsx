@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Modal } from 'antd';
 
 import { useAdminPlan } from '~entities/spuz/admission-plan';
 
 import {
+  AttestatCandidate,
   AttestatCandidatesListView,
   useAttestatCandidates,
   useSetAttestatCandidates,
@@ -11,7 +12,6 @@ import {
 import { useCandidateFio } from '~entities/spuz/candidate';
 import { useLearningId } from '~entities/spuz/learning-type';
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
-import { useSpecialityId } from '~entities/spuz/specialities';
 import { useTourId } from '~entities/spuz/tour';
 import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 
@@ -20,7 +20,11 @@ enum OpenModalId {
   deleteCandidate = 'deleteCandidate',
 }
 
-const Attestat = () => {
+interface AttestatProps {
+  openAbitInfo: (info: AttestatCandidate) => void;
+}
+
+const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
   const attestatCandidates = useAttestatCandidates();
   const learningId = useLearningId();
   const adminPlan = useAdminPlan();
@@ -33,7 +37,6 @@ const Attestat = () => {
   const [candidatesList, setCandidatesList] = useState(attestatCandidates);
   const [openModalId, setOpenModalId] = useState<OpenModalId | null>(null);
   const [deleteInfo, setDeleteInfo] = useState<null>(null);
-  const [editInfo, setEditInfo] = useState<null>(null);
 
   useEffect(() => {
     if (adminPlan?.id_admission_plan && tourId && paymentTypeId) {
@@ -72,11 +75,6 @@ const Attestat = () => {
     setOpenModalId(OpenModalId.deleteCandidate);
   };
 
-  const openEditModal = (editInfo: any) => {
-    setEditInfo(editInfo);
-    setOpenModalId(OpenModalId.editCandidate);
-  };
-
   const closeModal = () => setOpenModalId(null);
 
   const renderActions = useMemo(() => {
@@ -101,7 +99,7 @@ const Attestat = () => {
       <AttestatCandidatesListView
         list={candidatesList || []}
         onDelete={openDeleteModal}
-        onEdit={openEditModal}
+        onEdit={openAbitInfo}
       />
     </>
   );

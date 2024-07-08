@@ -692,7 +692,7 @@ export const DeleteIcon = ({ ...props }) => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="lucide lucide-trash"
+    // className="lucide lucide-trash"
     {...props}
   >
     <path d="M3 6h18" />
