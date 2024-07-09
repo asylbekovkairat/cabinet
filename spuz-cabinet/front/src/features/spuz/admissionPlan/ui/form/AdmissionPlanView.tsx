@@ -22,7 +22,9 @@ import { SaveIcon, TextArea, useNotification } from '~shared/ui';
 
 import { useAdmissionPlan, useSetAdmissionPlan } from '~entities/spuz/admission-plan';
 
-import { addAdmissionPlan } from '../../api/api';
+import { useUserInfo } from '~entities/shared/user';
+
+import { addAdmissionPlan } from '../../api';
 
 // TRANSLATE
 const AdmissionPlanView = () => {
@@ -38,6 +40,7 @@ const AdmissionPlanView = () => {
   const paymentTypes = usePaymentTypes();
   const disciplines = useDisciplines();
   const admissionPlan = useAdmissionPlan();
+  const userInfo = useUserInfo();
 
   const setLearningTypes = useSetLearningTypes();
   const setSpecialities = useSetSpecialities();
@@ -61,8 +64,12 @@ const AdmissionPlanView = () => {
       'descriptions',
     ]);
 
-    if (learningId) {
-      setSpecialities({ id_university: 138, id_learning: learningId as unknown as number });
+    if (learningId && userInfo?.id_university) {
+      setSpecialities({
+        id_university: userInfo.id_university,
+        id_learning: learningId as unknown as number,
+      });
+
       setDisciplines(learningId);
     }
   }, [learningId]);
@@ -99,7 +106,7 @@ const AdmissionPlanView = () => {
   const onFinish = async (values: any) => {
     const data = {
       ...values,
-      id_university: 138,
+      id_university: userInfo?.id_university,
     };
 
     delete data?.id_learning;

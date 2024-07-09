@@ -18,6 +18,8 @@ import { Speciality } from '~entities/spuz/specialities';
 
 import { useNotification } from '~shared/ui';
 
+import { useUserInfo } from '~entities/shared/user';
+
 import { editSpecialty } from '../../api';
 
 interface SpecialitiesEditProps {
@@ -38,6 +40,7 @@ const SpecialitiesEditView: FC<SpecialitiesEditProps> = ({
 
   const learningTypes = useLearningTypes();
   const qualifications = useQualifications();
+  const userInfo = useUserInfo();
 
   const setLearningTypes = useSetLearningTypes();
   const setQualifications = useSetQualifications();
@@ -57,7 +60,11 @@ const SpecialitiesEditView: FC<SpecialitiesEditProps> = ({
   }, [learningWatch]);
 
   const onFinish = async (values: any) => {
-    const data = { ...values, id_university: 138, id_specialty: initialValues.id_specialty };
+    const data = {
+      ...values,
+      id_university: userInfo?.id_university,
+      id_specialty: initialValues.id_specialty,
+    };
 
     const response = (await editSpecialty(data)) as { res: boolean };
 

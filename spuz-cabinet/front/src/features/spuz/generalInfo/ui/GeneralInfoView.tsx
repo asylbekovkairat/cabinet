@@ -4,11 +4,16 @@ import { Button, Form, InputNumber } from 'antd';
 
 import { Input, useNotification } from '~shared/ui';
 
+import { useUserInfo } from '~entities/shared/user';
+
 import { Spuz, getSpuzInfo, updateSpuzInfo } from '../api';
 
 export const GeneralInfoView = () => {
   const notification = useNotification();
   const [form] = Form.useForm();
+
+  const userInfo = useUserInfo();
+
   const [formValues, setFormValues] = useState<Spuz | null>(null);
 
   useEffect(() => {
@@ -22,9 +27,11 @@ export const GeneralInfoView = () => {
   }, [formValues]);
 
   const loadSpuzInfo = async () => {
-    const response = await getSpuzInfo(138);
+    if (userInfo?.id_university) {
+      const response = await getSpuzInfo(userInfo?.id_university);
 
-    setFormValues(response as Spuz);
+      setFormValues(response as Spuz);
+    }
   };
 
   const onFinish = async (values: Spuz) => {

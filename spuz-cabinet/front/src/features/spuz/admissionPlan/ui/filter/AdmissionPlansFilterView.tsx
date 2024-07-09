@@ -8,12 +8,14 @@ import {
   useLearningTypes,
   useSetLearningTypes,
 } from '~entities/spuz/learning-type';
+import { useUserInfo } from '~entities/shared/user';
 
 export const AdmissionPlansFilterView = () => {
   const [form] = Form.useForm();
 
   const learningWatch = Form.useWatch('id_learning', form);
   const learningTypes = useLearningTypes();
+  const userInfo = useUserInfo();
 
   const setLearningTypes = useSetLearningTypes();
   const setAdmissionPlansList = useSetAdmissionPlanList();
@@ -23,8 +25,8 @@ export const AdmissionPlansFilterView = () => {
   }, []);
 
   useEffect(() => {
-    if (learningWatch) {
-      setAdmissionPlansList({ id_university: 138, id_learning: learningWatch });
+    if (learningWatch && userInfo?.id_university) {
+      setAdmissionPlansList({ id_university: userInfo?.id_university, id_learning: learningWatch });
     }
   }, [learningWatch]);
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { useUserInfo } from '~entities/shared/user';
+
 import {
   GrantCommissionListView,
   useGrantCommissionList,
@@ -9,6 +11,8 @@ import { AddGrantCommissionView, removeGrantCommission } from '~features/spuz/gr
 
 const GrantCommission = () => {
   const grantCommissionsList = useGrantCommissionList();
+  const userInfo = useUserInfo();
+
   const setGrantCommissionList = useSetGrantCommissionList();
 
   const [grantId, setGrantId] = useState<number | null>(null);
@@ -19,8 +23,11 @@ const GrantCommission = () => {
     }
   }, [grantId]);
 
-  const loadGrantCommissionList = (id_grant_position: number) =>
-    setGrantCommissionList({ id_university: 138, id_grant_position });
+  const loadGrantCommissionList = (id_grant_position: number) => {
+    if (userInfo?.id_university) {
+      setGrantCommissionList({ id_university: userInfo?.id_university, id_grant_position });
+    }
+  };
 
   const onDeleteGrantCommission = async (id: number) => {
     await removeGrantCommission(id);

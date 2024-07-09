@@ -10,6 +10,8 @@ import {
 } from '~entities/spuz/commission-position';
 import { PlusIcon } from '~shared/ui';
 
+import { useUserInfo } from '~entities/shared/user';
+
 import { addGrantCommission } from '../../api';
 
 interface AddAdmissionCommissionViewProps {
@@ -26,6 +28,8 @@ export const AddGrantCommissionView: FC<AddAdmissionCommissionViewProps> = ({
   const positionWatch = Form.useWatch('id_grant_position', form);
 
   const commissionPositions = useCommissionPositions();
+  const userInfo = useUserInfo();
+
   const setCommissionPositions = useSetCommissionPositions();
 
   useEffect(() => {
@@ -39,13 +43,15 @@ export const AddGrantCommissionView: FC<AddAdmissionCommissionViewProps> = ({
   }, [positionWatch]);
 
   const onFinish = async (values: any) => {
-    const data = { ...values, id_university: 138 };
+    if (userInfo?.id_university) {
+      const data = { ...values, id_university: userInfo?.id_university };
 
-    const response = (await addGrantCommission(data)) as { res: boolean };
+      const response = (await addGrantCommission(data)) as { res: boolean };
 
-    if (response.res) {
-      loadGrantCommissionList(positionWatch);
-      form.resetFields(['grant_commission']);
+      if (response.res) {
+        loadGrantCommissionList(positionWatch);
+        form.resetFields(['grant_commission']);
+      }
     }
   };
 

@@ -1,5 +1,8 @@
 import { Button, Modal } from 'antd';
+
 import { FC, useEffect, useMemo, useState } from 'react';
+
+import { useUserInfo } from '~entities/shared/user';
 
 import {
   AdmissionCommissionListView,
@@ -29,6 +32,7 @@ interface Props {
 // TRANSLATE
 export const AdmissionCommission: FC<Props> = ({ openAccessEmployees }) => {
   const admissionCommissionList = useAdmissionCommissionList();
+  const userInfo = useUserInfo();
 
   const setAdmissionCommissionList = useSetAdmissionCommissionList();
 
@@ -40,7 +44,11 @@ export const AdmissionCommission: FC<Props> = ({ openAccessEmployees }) => {
     loadAdmissionCommissionList();
   }, []);
 
-  const loadAdmissionCommissionList = () => setAdmissionCommissionList(138);
+  const loadAdmissionCommissionList = () => {
+    if (userInfo?.id_university) {
+      setAdmissionCommissionList(userInfo?.id_university);
+    }
+  };
 
   const openAddAdmissionModal = () => setOpenModalId(OpenModalId.addEmployee);
 

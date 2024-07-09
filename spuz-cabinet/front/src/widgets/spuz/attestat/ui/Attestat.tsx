@@ -14,6 +14,7 @@ import { useLearningId } from '~entities/spuz/learning-type';
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
 import { useTourId } from '~entities/spuz/tour';
 import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
+import { useUserInfo } from '~entities/shared/user';
 
 enum OpenModalId {
   editCandidate = 'editCandidate',
@@ -31,6 +32,7 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
   const tourId = useTourId();
   const paymentTypeId = usePaymentTypeId();
   const fio = useCandidateFio();
+  const userInfo = useUserInfo();
 
   const setAttestatCandidates = useSetAttestatCandidates();
 
@@ -39,11 +41,11 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
   const [deleteInfo, setDeleteInfo] = useState<null>(null);
 
   useEffect(() => {
-    if (adminPlan?.id_admission_plan && tourId && paymentTypeId) {
+    if (adminPlan?.id_admission_plan && tourId && paymentTypeId && userInfo?.id_university) {
       setAttestatCandidates({
         id_admission_plan: adminPlan.id_admission_plan,
         id_bk: paymentTypeId,
-        id_university: 138,
+        id_university: userInfo?.id_university,
         tour: tourId,
       });
     }

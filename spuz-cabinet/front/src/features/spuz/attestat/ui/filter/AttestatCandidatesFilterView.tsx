@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useUserInfo } from '~entities/shared/user';
+
 import { useSetAdminPlan } from '~entities/spuz/admission-plan';
 
 import { useSetCandidateFio } from '~entities/spuz/candidate';
@@ -34,6 +36,7 @@ const AttestatCandidatesFilterView = () => {
   const toursList = useTours();
   const specialtyId = useSpecialityId();
   const paymentTypeId = usePaymentTypeId();
+  const userInfo = useUserInfo();
 
   const setLearningTypesR = useSetLearningTypesR();
   const setPaymentTypes = useSetPaymentTypesR();
@@ -47,8 +50,10 @@ const AttestatCandidatesFilterView = () => {
   const setAdminPlan = useSetAdminPlan();
 
   useEffect(() => {
-    setLearningTypesR({ id_university: 138 });
-    setPaymentTypes();
+    if (userInfo?.id_university) {
+      setLearningTypesR({ id_university: userInfo?.id_university });
+      setPaymentTypes();
+    }
   }, []);
 
   useEffect(() => {
@@ -60,7 +65,9 @@ const AttestatCandidatesFilterView = () => {
   const onLearningChange = (value: number) => {
     setLearningId(value);
 
-    setSpecialitiesR({ id_university: 138, id_learning: value });
+    if (userInfo?.id_university) {
+      setSpecialitiesR({ id_university: userInfo?.id_university, id_learning: value });
+    }
   };
 
   const onSpecialityChange = (value: number) => {

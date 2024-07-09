@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 
-import { Button, Form, InputNumber } from 'antd';
+import { Button, Form } from 'antd';
 
 import { LearningTypeSelector, useSetLearningId } from '~entities/spuz/learning-type';
 import { useLearningTypes, useSetLearningTypes } from '~entities/spuz/learning-type';
@@ -10,14 +10,9 @@ import {
   useSetQualifications,
 } from '~entities/spuz/qualification';
 
-import {
-  Input,
-  PlusIcon,
-  SquarePlusIcon,
-  UploadIcon,
-  UserPlusIcon,
-  useNotification,
-} from '~shared/ui';
+import { Input, SquarePlusIcon, useNotification } from '~shared/ui';
+
+import { useUserInfo } from '~entities/shared/user';
 
 import { addSpecialty } from '../../api';
 
@@ -33,6 +28,7 @@ const SpecialitiesAddView: FC<SpecialitiesAddViewProps> = ({ loadSpecialitites }
 
   const learningTypes = useLearningTypes();
   const qualifications = useQualifications();
+  const userInfo = useUserInfo();
 
   const setLearningTypes = useSetLearningTypes();
   const setQualifications = useSetQualifications();
@@ -50,18 +46,20 @@ const SpecialitiesAddView: FC<SpecialitiesAddViewProps> = ({ loadSpecialitites }
   // TRANSLATE
 
   const onFinish = async (values: any) => {
-    const data = { ...values, id_university: 138 };
+    if (userInfo?.id_university) {
+      const data = { ...values, id_university: userInfo?.id_university };
 
-    const response = (await addSpecialty(data)) as { res: true };
+      const response = (await addSpecialty(data)) as { res: true };
 
-    if (response.res) {
-      notification.openNotification({
-        message: 'success!',
-        type: 'success',
-      });
+      if (response.res) {
+        notification.openNotification({
+          message: 'success!',
+          type: 'success',
+        });
 
-      form.resetFields();
-      loadSpecialitites();
+        form.resetFields();
+        loadSpecialitites();
+      }
     }
   };
 

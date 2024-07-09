@@ -6,6 +6,8 @@ import MaskedInput from 'antd-mask-input';
 
 import { SaveIcon, useNotification } from '~shared/ui';
 
+import { useUserInfo } from '~entities/shared/user';
+
 import { addAdmissionCommissionUser } from '../../api';
 
 interface AddAdmissionCommissionViewProps {
@@ -18,10 +20,12 @@ const AddAdmissionCommissionView: FC<AddAdmissionCommissionViewProps> = ({
   loadAdmissionCommissionList,
 }) => {
   const [form] = Form.useForm();
+
+  const userInfo = useUserInfo();
   const notification = useNotification();
 
   const onFinish = async (values: any) => {
-    const data = { ...values, id_university: 138 };
+    const data = { ...values, id_university: userInfo?.id_university };
 
     const response = (await addAdmissionCommissionUser(data)) as { res: true };
 

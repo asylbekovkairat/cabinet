@@ -24,6 +24,7 @@ import {
   usePaymentTypes,
   useSetPaymentTypes,
 } from '~entities/spuz/payment-type';
+import { useUserInfo } from '~entities/shared/user';
 
 import { addEmployeeAccess } from '../../api';
 
@@ -46,6 +47,7 @@ const AddEmployeessAccessView: FC<AddAdmissionCommissionViewProps> = ({
   const learningTypes = useLearningTypes();
   const specialities = useSpecialities();
   const paymentTypes = usePaymentTypes();
+  const userInfo = useUserInfo();
 
   const setEmployees = useSetEmployess();
   const setLearningTypes = useSetLearningTypes();
@@ -53,9 +55,11 @@ const AddEmployeessAccessView: FC<AddAdmissionCommissionViewProps> = ({
   const setPaymentTypes = useSetPaymentTypes();
 
   useEffect(() => {
-    setEmployees(138);
-    setLearningTypes();
-    setPaymentTypes();
+    if (userInfo?.id_university) {
+      setEmployees(userInfo?.id_university);
+      setLearningTypes();
+      setPaymentTypes();
+    }
   }, []);
 
   useEffect(() => {
@@ -66,8 +70,8 @@ const AddEmployeessAccessView: FC<AddAdmissionCommissionViewProps> = ({
   }, [employeeIdWatch]);
 
   useEffect(() => {
-    if (learningIdWatch) {
-      setSpecialities({ id_university: 138, id_learning: learningIdWatch });
+    if (learningIdWatch && userInfo?.id_university) {
+      setSpecialities({ id_university: userInfo?.id_university, id_learning: learningIdWatch });
     }
   }, [learningIdWatch]);
 

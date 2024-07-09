@@ -1,5 +1,8 @@
 import { Modal } from 'antd';
+
 import { useEffect, useState } from 'react';
+
+import { useUserInfo } from '~entities/shared/user';
 
 import { useLearningId } from '~entities/spuz/learning-type';
 import {
@@ -24,19 +27,20 @@ const Specialities = () => {
   } | null>(null);
 
   const learningId = useLearningId();
+  const userInfo = useUserInfo();
   const specialities = useSpecialities();
 
   const setSpecialities = useSetSpecialities();
 
   useEffect(() => {
-    if (learningId) {
-      setSpecialities({ id_university: 138, id_learning: learningId });
+    if (learningId && userInfo?.id_university) {
+      setSpecialities({ id_university: userInfo?.id_university, id_learning: learningId });
     }
   }, [learningId]);
 
   const loadSpecialitites = () => {
-    if (learningId) {
-      setSpecialities({ id_university: 138, id_learning: learningId });
+    if (learningId && userInfo?.id_university) {
+      setSpecialities({ id_university: userInfo?.id_university, id_learning: learningId });
     }
   };
 
