@@ -74,8 +74,8 @@ export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = m
         dataIndex: 'summ',
         align: 'center',
         key: 'id_abit',
-
         render: (sum) => Math.abs(sum).toFixed(2),
+        sorter: (a, b) => a.summ - b.summ,
       },
       {
         title: 'Дата регистрации',
@@ -96,6 +96,14 @@ export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = m
       },
     ];
 
-    return <Table bordered key="attestatCandidatesListView" dataSource={list} columns={columns} />;
+    return (
+      <Table
+        bordered
+        key="attestatCandidatesListView"
+        dataSource={list}
+        columns={columns}
+        sortDirections={['ascend', 'descend']}
+      />
+    );
   }
 );
