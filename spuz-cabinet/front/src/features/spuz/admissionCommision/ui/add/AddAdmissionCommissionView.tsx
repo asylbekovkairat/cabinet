@@ -17,8 +17,8 @@ const AddAdmissionCommissionView: FC<AddAdmissionCommissionViewProps> = ({
   closeModal,
   loadAdmissionCommissionList,
 }) => {
-  const notification = useNotification();
   const [form] = Form.useForm();
+  const notification = useNotification();
 
   const onFinish = async (values: any) => {
     const data = { ...values, id_university: 138 };

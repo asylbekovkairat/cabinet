@@ -8,3 +8,8 @@ export interface User {
   org: number;
   orgTypeId: number;
 }
+
+export interface UserFio {
+  id_university: number;
+  fio_users: string;
+}

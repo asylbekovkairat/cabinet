@@ -1,26 +1,22 @@
 import { FC, useEffect } from 'react';
 
-import { SiderUser, useUser } from '~entities/shared/user';
+import { SiderUser, useSetUserInfo, useUser, useUserInfo } from '~entities/shared/user';
 import { useCollapsed, useSetCollapsed } from '~features/shared/collapse';
 import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
 import {
-  ApplicationIcon,
   AttestatIcon,
   BriefCaseIcon,
   GeneralInfoIcon,
   LogoutIcon,
-  OrganizationPhotoIcon,
   PlanIcon,
   RowsIcon,
   SN,
-  SettingsIcon,
   ShieldIcon,
   Sider,
   SiderButton,
   SiderSettingsButton,
   UsersAccessIcon,
-  UsersIcon,
   useWindowInnerWidth,
 } from '~shared/ui';
 import { INavTabItem } from '~widgets/shared/navigation/ui/types';
@@ -31,8 +27,10 @@ export const Navigation: FC<NavigationProps> = () => {
   const { t } = useTranslation();
   const collapsedAtom = useCollapsed();
   const setCollapsed = useSetCollapsed();
-  const user = useUser();
+  const user = useUserInfo();
   const windowWidth = useWindowInnerWidth();
+
+  console.log('user', user);
 
   useEffect(() => {
     if (windowWidth <= 768) {
@@ -109,8 +107,8 @@ export const Navigation: FC<NavigationProps> = () => {
       <Sider
         user={
           <SiderUser
-            fio={`${user?.s} ${user?.n?.charAt(-0)}. ${user?.p ? user?.p.charAt(0) + '.' : ''}`}
-            onError={<SN surname={user?.s || ''} name={user?.n || ''} size={18} />}
+            fio={`${user?.fio_users}`}
+            onError={<SN surname={user?.fio_users || ''} name={user?.fio_users || ''} size={18} />}
           />
         }
         routes={routes.map((item) => {

@@ -1,14 +1,11 @@
-// import { api, createAuthenticatedRequestHandler } from '~shared/api';
 import { atom, atomWithDefault } from '~shared/lib/atom-state';
 
-import { getUser } from '../api';
-// import { getUser, mockGetUser } from '../api';
+import { getUser, getUserFio } from '../api';
 
-import { User } from './types';
-
-// const isTestMode = import.meta.env.VITE_TEST_MODE;
+import { User, UserFio } from './types';
 
 export const viewerAtom = atomWithDefault<User | null>((_get) => null);
+export const userInfoAtom = atomWithDefault<UserFio | null>((_get) => null);
 
 export const setUserAtom = atom<User | null, { authState: User | null }, Promise<void>>(
   null,
@@ -18,11 +15,15 @@ export const setUserAtom = atom<User | null, { authState: User | null }, Promise
 
       return;
     }
-    // api.interceptors.request.use(createAuthenticatedRequestHandler(token));
 
-    // const response = isTestMode === 'true' ? await mockGetUser() : await getUser();
     const response = await getUser();
     const newValue = response?.data?.authState;
     set(viewerAtom, newValue);
   }
 );
+
+export const setUserInfoAtom = atom<any, any, any>(null, async (_get, set) => {
+  const response = await getUserFio();
+
+  set(userInfoAtom, response as UserFio);
+});

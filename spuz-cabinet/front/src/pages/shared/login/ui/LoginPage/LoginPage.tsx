@@ -10,15 +10,14 @@ import { Box } from '~shared/ui';
 export interface LoginPageProps {}
 
 export const LoginPage: React.FC<LoginPageProps> = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+
   const user = useUser();
   const setUser = useSetUser();
-  const { t } = useTranslation();
 
   const handleSignIn: SignInFormProps['onSignIn'] = useCallback(
     ({ authState }) => {
-      console.log('authState', authState);
-
       setUser({ authState }).then(() => {
         return navigate(RoutesUrls.generalInfo, { replace: true });
       });
