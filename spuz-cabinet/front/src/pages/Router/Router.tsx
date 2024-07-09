@@ -9,6 +9,7 @@ import { AdmissionPlanPage } from '~pages/spuz/AdmissionPlan';
 import { AdmissionPlanListPage } from '~pages/spuz/AdmissionPlanList';
 import { AttestatPage } from '~pages/spuz/Attestat';
 import { GrantCommissionPage } from '~pages/spuz/GrantCommission';
+import { RecommendCandidatePage } from '~pages/spuz/RecommendCandidate';
 import { RequireAuth, RoutesUrls } from '~shared/lib/router';
 
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
           { path: RoutesUrls.admissionCommission, element: <AdmissionCommissionPage /> },
           { path: RoutesUrls.grantCommission, element: <GrantCommissionPage /> },
           { path: RoutesUrls.attestat, element: <AttestatPage /> },
+          { path: RoutesUrls.recommend, element: <RecommendCandidatePage /> },
           { path: RoutesUrls.logout, element: <LogoutPage /> },
         ],
       },

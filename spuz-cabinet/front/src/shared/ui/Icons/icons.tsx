@@ -1298,11 +1298,11 @@ export const UsersIcon = () => (
 export const BadgeCheckIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="auto"
-    height="auto"
+    width="24"
+    height="24"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
+    stroke="#4f679b"
     strokeWidth="1"
     strokeLinecap="round"
     strokeLinejoin="round"

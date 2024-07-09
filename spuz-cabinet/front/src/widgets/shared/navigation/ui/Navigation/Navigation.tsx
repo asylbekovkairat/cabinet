@@ -6,6 +6,7 @@ import { useTranslation } from '~shared/lib/i18n';
 import { RoutesUrls } from '~shared/lib/router';
 import {
   AttestatIcon,
+  BadgeCheckIcon,
   BriefCaseIcon,
   GeneralInfoIcon,
   LogoutIcon,
@@ -83,6 +84,12 @@ export const Navigation: FC<NavigationProps> = () => {
       title: t('cm:routes.attestat'),
       path: RoutesUrls.attestat,
       icon: <AttestatIcon />,
+      isTabBar: true,
+    },
+    {
+      title: t('cm:routes.recommend'),
+      path: RoutesUrls.recommend,
+      icon: <BadgeCheckIcon />,
       isTabBar: true,
     },
   ];

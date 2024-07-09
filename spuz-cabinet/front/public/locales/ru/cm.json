@@ -89,6 +89,7 @@
     "admissionCommission": "Состав приемной комиссии",
     "grantCommission": "Грантовая коммиссия",
     "attestat": "Аттестат",
+    "recommend": "Рекомендовать",
     "logout": "Выйти"
   },
   "Timer": {
