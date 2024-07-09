@@ -1,0 +1,1 @@
+export { AbiturientDisciplinesView } from './AbiturientDisciplinesView';

@@ -12,4 +12,5 @@ export interface User {
 export interface UserFio {
   id_university: number;
   fio_users: string;
+  error?: string;
 }

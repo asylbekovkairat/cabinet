@@ -12,6 +12,8 @@ export const ImageView: FC<ImageViewProps> = memo(({ fileName }) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
+    console.log('fileName', fileName);
+
     if (fileName) {
       handleDownloadImage(fileName);
       console.count();
@@ -26,5 +28,5 @@ export const ImageView: FC<ImageViewProps> = memo(({ fileName }) => {
     }
   };
 
-  return <Image src={fileName} />;
+  return <Image src={image} />;
 });

@@ -22,10 +22,15 @@ export const setUserAtom = atom<User | null, { authState: User | null }, Promise
   }
 );
 
-export const setUserInfoAtom = atom<any, any, any>(null, async (_get, set) => {
-  const response = (await getUserFio()) as UserFio[];
+export const setUserInfoAtom = atom<any, any, any>(
+  (get) => get(userInfoAtom),
+  async (_get, set) => {
+    const response = (await getUserFio()) as any;
 
-  if (response[0].id_university) {
-    set(userInfoAtom, response[0] as UserFio);
+    if (response.error) {
+      set(userInfoAtom, response as unknown as UserFio);
+    } else if (response[0].id_university) {
+      set(userInfoAtom, response[0] as UserFio);
+    }
   }
-});
+);

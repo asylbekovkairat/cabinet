@@ -11,6 +11,8 @@ import {
 import { ImageView } from '~features/shared/image';
 import { AttestatCandidate } from '~entities/spuz/attestat';
 import { useAbitDisciplines, useSetAbitDiscipline } from '~entities/spuz/abiturient-discipline';
+import { AbiturientDisciplinesView } from '~features/spuz/abiturient-disciplines';
+import { useTourId } from '~entities/spuz/tour';
 
 interface AbiturientDataProps {
   goBack: () => void;
@@ -20,6 +22,7 @@ interface AbiturientDataProps {
 const AbiturientData: FC<AbiturientDataProps> = ({ goBack, info }) => {
   const abiturientInfo = useAbiturientInfo();
   const abiturientDisciplines = useAbitDisciplines();
+  const tourId = useTourId();
 
   const setAbiturientInfo = useSetAbiturientInfo();
   const setAbitDiscipline = useSetAbitDiscipline();
@@ -30,14 +33,17 @@ const AbiturientData: FC<AbiturientDataProps> = ({ goBack, info }) => {
     }
 
     if (info?.id_abit && info?.id_admin_plan && info?.id_learn) {
-      setAbitDiscipline({
-        id_abiturient: info?.id_abit,
-        id_admission_plan: info?.id_admin_plan,
-        id_learning: info?.id_learn,
-        tour: 1,
-      });
+      loadAbitDisciplines();
     }
-  }, [info]);
+  }, [info, tourId]);
+
+  const loadAbitDisciplines = () =>
+    setAbitDiscipline({
+      id_abiturient: info!.id_abit,
+      id_admission_plan: info!.id_admin_plan,
+      id_learning: info!.id_learn,
+      tour: tourId!,
+    });
 
   const documents = useMemo(
     () => ({
@@ -59,6 +65,10 @@ const AbiturientData: FC<AbiturientDataProps> = ({ goBack, info }) => {
         Вернуться назад
       </Button>
       <AbitDocumentsView {...documents} />
+      <AbiturientDisciplinesView
+        list={abiturientDisciplines || []}
+        loadAbitDisciplines={loadAbitDisciplines}
+      />
     </>
   );
 };

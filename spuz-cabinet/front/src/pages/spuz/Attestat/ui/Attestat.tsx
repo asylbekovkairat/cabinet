@@ -17,7 +17,7 @@ export const AttestatPage = () => {
   const openAbitInfo = (info: AttestatCandidate) =>
     setShowAbitInfo((prev) => ({ ...prev, show: true, info }));
 
-  const closeAbitInfo = () => setShowAbitInfo((prev) => ({ ...prev, show: true, info: null }));
+  const closeAbitInfo = () => setShowAbitInfo((prev) => ({ ...prev, show: false, info: null }));
 
   if (showAbitInfo.show) {
     return <AbiturientData goBack={closeAbitInfo} info={showAbitInfo.info} />;
