@@ -32,7 +32,10 @@ export const AbiturientInfoSaveView: FC<AbiturientInfoSaveViewProps> = ({ info }
   const setAbitDiscipline = useSetAbitDiscipline();
   const setAbiturientInfo = useSetAbiturientInfo();
 
-  const [GPA, setGPA] = useState(0);
+  const [GPA, setGPA] = useState(info?.srBall || 0);
+  const [internalTestGrade, setInternalTestGrade] = useState<number | null>(
+    info?.testsBall || null
+  );
 
   useEffect(() => {
     if (info?.id_enrollee) {
@@ -65,10 +68,10 @@ export const AbiturientInfoSaveView: FC<AbiturientInfoSaveViewProps> = ({ info }
     });
 
   const onAbitInfoSave = async () => {
-    if (info && tourId) {
+    if (info && tourId && internalTestGrade) {
       const response = (await saveAbitInfo({
         id_abiturient: info?.id_abit,
-        tests_ball: info?.testsBall,
+        tests_ball: internalTestGrade,
         tour: tourId,
         id_admission_plan: info?.id_admin_plan,
       })) as { res: boolean };
@@ -105,7 +108,13 @@ export const AbiturientInfoSaveView: FC<AbiturientInfoSaveViewProps> = ({ info }
           <div className="flex items-center self-end gap-3 mt-4">
             <div className="flex items-start flex-col justify-end w-full">
               <p>Результаты внутреннего испытания</p>
-              <InputNumber className="!bg-white !text-black" defaultValue={0} />
+              <InputNumber
+                className="!bg-white !text-black"
+                defaultValue={internalTestGrade || 0}
+                onChange={(value) => setInternalTestGrade(value)}
+                max={5}
+                min={0}
+              />
             </div>
             <div className="flex items-start flex-col justify-end w-full">
               <p>Средний балл</p>

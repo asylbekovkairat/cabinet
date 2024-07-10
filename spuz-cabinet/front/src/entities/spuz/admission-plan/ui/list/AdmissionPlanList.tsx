@@ -10,21 +10,13 @@ interface AdmissionPlanListProps {
 }
 
 const AdmissionPlanListView: FC<AdmissionPlanListProps> = memo(({ list }) => {
-  const renderContractAdmission = useMemo(
-    () =>
-      list
-        .filter((item) => item.id_bk === 2)
-        .map((item) => <AdmissionPlanCardView key={item.id_admission_plan} info={item} />),
-    [list]
-  );
+  const renderContractAdmission = list
+    .filter((item) => item.id_bk === 2)
+    .map((item) => <AdmissionPlanCardView key={item.id_admission_plan} info={item} />);
 
-  const renderBudgetAdmission = useMemo(
-    () =>
-      list
-        .filter((item) => item.id_bk === 1)
-        .map((item) => <AdmissionPlanCardView key={item.id_admission_plan} info={item} />),
-    [list]
-  );
+  const renderBudgetAdmission = list
+    .filter((item) => item.id_bk === 1)
+    .map((item) => <AdmissionPlanCardView key={item.id_admission_plan} info={item} />);
 
   if (!list.length) {
     return <Empty />;

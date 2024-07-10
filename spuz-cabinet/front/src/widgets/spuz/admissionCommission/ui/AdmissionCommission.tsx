@@ -1,6 +1,6 @@
 import { Button, Modal } from 'antd';
 
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { useUserInfo } from '~entities/shared/user';
 
@@ -64,40 +64,33 @@ export const AdmissionCommission: FC<Props> = ({ openAccessEmployees }) => {
 
   const closeModal = () => setOpenModalId(null);
 
-  const renderActions = useMemo(() => {
-    switch (openModalId) {
-      case OpenModalId.addEmployee:
-        return (
-          <AddAdmissionCommissionView
-            closeModal={closeModal}
-            loadAdmissionCommissionList={loadAdmissionCommissionList}
-          />
-        );
-      case OpenModalId.deleteAdmission:
-        return (
-          <DeleteAdmissionCommissionView
-            deleteInfo={deleteInfo}
-            closeModal={closeModal}
-            loadAdmissionCommissionList={loadAdmissionCommissionList}
-          />
-        );
-      case OpenModalId.editAdmission:
-        return (
-          <EditAdmissionCommissionView
-            editInfo={editInfo}
-            closeModal={closeModal}
-            loadAdmissionCommissionList={loadAdmissionCommissionList}
-          />
-        );
-      default:
-        break;
-    }
-  }, [openModalId]);
+  const renderActions: Record<keyof typeof OpenModalId, JSX.Element> = {
+    [OpenModalId.addEmployee]: (
+      <AddAdmissionCommissionView
+        closeModal={closeModal}
+        loadAdmissionCommissionList={loadAdmissionCommissionList}
+      />
+    ),
+    [OpenModalId.deleteAdmission]: (
+      <DeleteAdmissionCommissionView
+        deleteInfo={deleteInfo}
+        closeModal={closeModal}
+        loadAdmissionCommissionList={loadAdmissionCommissionList}
+      />
+    ),
+    [OpenModalId.editAdmission]: (
+      <EditAdmissionCommissionView
+        editInfo={editInfo}
+        closeModal={closeModal}
+        loadAdmissionCommissionList={loadAdmissionCommissionList}
+      />
+    ),
+  };
 
   return (
     <>
       <Modal open={Boolean(openModalId)} onCancel={closeModal} onOk={closeModal} footer={null}>
-        {renderActions}
+        {renderActions[openModalId as OpenModalId]}
       </Modal>
       <section className="flex justify-center items-center gap-2">
         <Button

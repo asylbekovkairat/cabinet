@@ -1,6 +1,6 @@
 import { RecommendCandidate } from '~widgets/spuz/recommendCandidate';
 
-export const RecommendCandidatePage = () => {
+export const RecommendCandidatePageContent = () => {
   return (
     <>
       <RecommendCandidate />
