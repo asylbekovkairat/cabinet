@@ -7,14 +7,16 @@ import {
   AttestatCandidate,
   AttestatCandidatesListView,
   useAttestatCandidates,
+  useResetAttestatCandidates,
   useSetAttestatCandidates,
 } from '~entities/spuz/attestat';
-import { useCandidateFio } from '~entities/spuz/candidate';
+import { useCandidateFio, useSetCandidateFio } from '~entities/spuz/candidate';
 import { useLearningId } from '~entities/spuz/learning-type';
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
 import { useTourId } from '~entities/spuz/tour';
 import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 import { useUserInfo } from '~entities/shared/user';
+import { Input } from '~shared/ui';
 
 enum OpenModalId {
   editCandidate = 'editCandidate',
@@ -35,12 +37,20 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
   const userInfo = useUserInfo();
 
   const setAttestatCandidates = useSetAttestatCandidates();
+  const resetAttestatCandidates = useResetAttestatCandidates();
+  const setFio = useSetCandidateFio();
 
   const [candidatesList, setCandidatesList] = useState(attestatCandidates);
   const [openModalId, setOpenModalId] = useState<OpenModalId | null>(null);
   const [deleteInfo, setDeleteInfo] = useState<null>(null);
 
+  console.log('adminPlan', adminPlan);
+
   useEffect(() => {
+    resetAttestatCandidates();
+
+    console.log('adminPlan?.id_admission_plan', adminPlan?.id_admission_plan);
+
     if (adminPlan?.id_admission_plan && tourId && paymentTypeId && userInfo?.id_university) {
       setAttestatCandidates({
         id_admission_plan: adminPlan.id_admission_plan,
@@ -49,13 +59,17 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
         tour: tourId,
       });
     }
-  }, [learningId, adminPlan, tourId, paymentTypeId]);
+
+    return () => {
+      resetAttestatCandidates();
+    };
+  }, [adminPlan, tourId, paymentTypeId, userInfo?.id_university, adminPlan?.id_admission_plan]);
 
   useEffect(() => {
-    if (attestatCandidates) {
-      setCandidatesList(attestatCandidates);
-    }
+    setCandidatesList(attestatCandidates);
   }, [attestatCandidates]);
+
+  console.log('attestatCandidates', attestatCandidates);
 
   useEffect(() => {
     if (fio) {
@@ -70,6 +84,10 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
     } else {
       setCandidatesList(attestatCandidates);
     }
+
+    return () => {
+      resetAttestatCandidates();
+    };
   }, [fio]);
 
   const openDeleteModal = (deleteInfo: any) => {
@@ -78,6 +96,10 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
   };
 
   const closeModal = () => setOpenModalId(null);
+
+  const onCandidateFioChange = (value: string) => {
+    setFio({ fio: value });
+  };
 
   const renderActions = useMemo(() => {
     switch (openModalId) {
@@ -97,6 +119,12 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
       </Modal>
       <div className="grid grid-cols-3 gap-5 sm:grid-cols-1">
         <AttestatCandidatesFilterView />
+        <Input
+          className="w-full"
+          size="large"
+          placeholder="Введите ФИО"
+          onChange={({ target }) => onCandidateFioChange(target.value)}
+        />
       </div>
       <AttestatCandidatesListView
         list={candidatesList || []}

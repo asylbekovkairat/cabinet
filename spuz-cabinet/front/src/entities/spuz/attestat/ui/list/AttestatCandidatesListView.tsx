@@ -1,4 +1,4 @@
-import { Table, TableColumnsType } from 'antd';
+import { Table, TableColumnsType, TableProps } from 'antd';
 
 import { FC, memo } from 'react';
 
@@ -6,14 +6,14 @@ import { DeleteIcon, EditIcon } from '~shared/ui';
 
 import { AttestatCandidate } from '../../model';
 
-interface AttestatCandidatesListViewProps {
+interface AttestatCandidatesListViewProps extends TableProps {
   list: AttestatCandidate[];
   onDelete: (deleteInfo: AttestatCandidate) => void;
   onEdit: (info: AttestatCandidate) => void;
 }
 
 export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = memo(
-  ({ list, onEdit }) => {
+  ({ list, onEdit, ...restProps }) => {
     const columns: TableColumnsType<AttestatCandidate> = [
       {
         title: '№',
@@ -103,6 +103,7 @@ export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = m
         dataSource={list}
         columns={columns}
         sortDirections={['ascend', 'descend']}
+        {...restProps}
       />
     );
   }

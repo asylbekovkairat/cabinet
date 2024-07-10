@@ -4,8 +4,6 @@ import { useUserInfo } from '~entities/shared/user';
 
 import { useSetAdminPlan } from '~entities/spuz/admission-plan';
 
-import { useSetCandidateFio } from '~entities/spuz/candidate';
-
 import {
   LearningTypeSelector,
   useLearningTypes,
@@ -27,7 +25,6 @@ import {
   useSpecialityId,
 } from '~entities/spuz/specialities';
 import { Tour, TourSelector, useSetTourId, useSetTours, useTours } from '~entities/spuz/tour';
-import { Input } from '~shared/ui';
 
 const AttestatCandidatesFilterView = () => {
   const learningTypes = useLearningTypes();
@@ -46,7 +43,6 @@ const AttestatCandidatesFilterView = () => {
   const setToursList = useSetTours();
   const setPaymentTypeId = useSetPaymentTypeId();
   const setTourId = useSetTourId();
-  const setFio = useSetCandidateFio();
   const setAdminPlan = useSetAdminPlan();
 
   useEffect(() => {
@@ -83,10 +79,6 @@ const AttestatCandidatesFilterView = () => {
     setTourId({ tour: value });
   };
 
-  const onCandidateFioChange = (value: string) => {
-    setFio({ fio: value });
-  };
-
   return (
     <>
       <LearningTypeSelector
@@ -117,12 +109,6 @@ const AttestatCandidatesFilterView = () => {
         toursList={toursList?.sort((a: Tour, b: Tour) => a.tour - b.tour) || []}
         onChange={onToursListChange}
         size="large"
-      />
-      <Input
-        className="w-full"
-        size="large"
-        placeholder="Введите ФИО"
-        onChange={({ target }) => onCandidateFioChange(target.value)}
       />
     </>
   );

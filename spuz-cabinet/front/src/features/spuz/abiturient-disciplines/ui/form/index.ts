@@ -1,0 +1,1 @@
+export { AbiturientInfoSaveView } from './AbiturientInfoSaveView';

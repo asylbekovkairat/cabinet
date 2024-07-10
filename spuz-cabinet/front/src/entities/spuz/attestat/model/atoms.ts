@@ -13,6 +13,12 @@ export const setAttestatCandidatesAtom = atom<any, AttestatCandidateParams, any>
   async (_get, set, params) => {
     const response = await getAttestatCandidates(params);
 
-    set(attestatCandidatesAtom, response as AttestatCandidate[]);
+    console.log('response', response);
+
+    if (response) {
+      set(attestatCandidatesAtom, response as AttestatCandidate[]);
+    } else {
+      set(attestatCandidatesAtom, null);
+    }
   }
 );

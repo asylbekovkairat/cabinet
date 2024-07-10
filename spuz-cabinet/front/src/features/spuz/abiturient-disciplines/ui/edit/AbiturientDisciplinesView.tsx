@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Table, TableColumnsType } from 'antd';
+import { Table, TableColumnsType, TableProps } from 'antd';
 
 import { DefaultOptionType } from 'antd/es/select';
 
@@ -9,7 +9,7 @@ import { AbiturientDiscipline } from '~entities/spuz/abiturient-discipline';
 
 import { updateAbitDisciplineBall } from '../../api';
 
-interface AbiturientDisciplinesViewProps {
+interface AbiturientDisciplinesViewProps extends TableProps {
   list: AbiturientDiscipline[];
   loadAbitDisciplines: () => void;
 }
@@ -17,6 +17,7 @@ interface AbiturientDisciplinesViewProps {
 export const AbiturientDisciplinesView: FC<AbiturientDisciplinesViewProps> = ({
   list,
   loadAbitDisciplines,
+  ...restProps
 }) => {
   const grades = useGrades();
 
@@ -48,7 +49,7 @@ export const AbiturientDisciplinesView: FC<AbiturientDisciplinesViewProps> = ({
     {
       title: 'Название предмета',
       dataIndex: 'discipline',
-      align: 'center',
+      align: 'start',
     },
     {
       title: 'Оценка',
@@ -67,7 +68,7 @@ export const AbiturientDisciplinesView: FC<AbiturientDisciplinesViewProps> = ({
 
   return (
     <>
-      <Table dataSource={list} columns={columns} />
+      <Table bordered dataSource={list} columns={columns} pagination={false} {...restProps} />
     </>
   );
 };
