@@ -1,7 +1,7 @@
 import { FC, memo } from 'react';
 import { Button, Table, TableColumnsType } from 'antd';
 
-import { DeleteIcon } from '~shared/ui';
+import { DeleteButtonContainer, DeleteIcon } from '~shared/ui';
 
 import { GrantCommission } from '../../model';
 
@@ -31,13 +31,13 @@ export const GrantCommissionListView: FC<GrantCommissionListProps> = memo(({ lis
       align: 'center',
       dataIndex: 'id_grant_commission',
       render: (id_grant_commission) => (
-        <Button
-          className="flex items-center justify-center mx-auto"
-          icon={<DeleteIcon />}
-          onClick={() => onDelete(id_grant_commission)}
-        >
-          Удалить
-        </Button>
+        <DeleteButtonContainer>
+          <Button
+            type="primary"
+            icon={<DeleteIcon />}
+            onClick={() => onDelete(id_grant_commission)}
+          ></Button>
+        </DeleteButtonContainer>
       ),
     },
   ];

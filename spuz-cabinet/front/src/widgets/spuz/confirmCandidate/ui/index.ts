@@ -1,0 +1,1 @@
+export { ConfirmCandidate } from './ConfirmCandidate';

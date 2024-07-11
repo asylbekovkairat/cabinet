@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Button, Table, TableColumnsType } from 'antd';
 
-import { DeleteIcon, EditIcon } from '~shared/ui';
+import { DeleteButtonContainer, DeleteIcon, EditIcon } from '~shared/ui';
 
 import { AdmissionUser } from '../../model';
 
@@ -42,21 +42,14 @@ const AdmissionCommissionListView: FC<AdmissionCommissionListViewProps> = ({
       align: 'center',
       render: (value, { fio_users_university, id_users_university }) => (
         <div className="flex gap-4 items-center justify-center">
-          <Button
-            className="flex items-center"
-            type="primary"
-            icon={<EditIcon />}
-            onClick={() => onEdit(value)}
-          >
-            Изменить
-          </Button>
-          <Button
-            className="flex items-center"
-            icon={<DeleteIcon />}
-            onClick={() => onDelete({ fio_users_university, id_users_university })}
-          >
-            Удалить
-          </Button>
+          <Button type="primary" icon={<EditIcon />} onClick={() => onEdit(value)}></Button>
+          <DeleteButtonContainer>
+            <Button
+              icon={<DeleteIcon />}
+              onClick={() => onDelete({ fio_users_university, id_users_university })}
+              type="primary"
+            ></Button>
+          </DeleteButtonContainer>
         </div>
       ),
     },

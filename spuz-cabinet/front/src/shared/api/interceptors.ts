@@ -52,5 +52,9 @@ export const createAuthenticatedRequestHandler = (token: string) => (config: Api
 };
 
 export const responseHandler = (res: ApiResponse) => {
+  if ((res.data.error as unknown as string) === 'vuz middle not auth') {
+    window.location.replace(LOGIN_PAGE);
+  }
+
   return res.data;
 };

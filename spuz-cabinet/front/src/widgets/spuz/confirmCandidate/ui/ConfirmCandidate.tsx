@@ -1,47 +1,54 @@
 import { useEffect } from 'react';
 
 import {
-  RecommendCandidateListView,
-  useRecommendCandidates,
-  useSetRecommendCandidates,
-} from '~entities/candidate/recommend-candidate';
+  ConfirmCandidateListView,
+  useConfirmCandidates,
+  useSetConfirmCandidates,
+} from '~entities/candidate/confirm-candidate';
 
 import { RanjirLinkTypes, RanjirLinkView } from '~entities/shared/ranjir';
 import { useAdminPlan } from '~entities/spuz/admission-plan';
-
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
-
 import { useSpecialityId } from '~entities/spuz/specialities';
 import { useTourId } from '~entities/spuz/tour';
 
 import { CandidatesFilterView } from '~features/spuz/candidate';
 
-export const RecommendCandidate = () => {
+export const ConfirmCandidate = () => {
   const tourId = useTourId();
   const adminPlan = useAdminPlan();
   const paymentTypeId = usePaymentTypeId();
-  const recommendCandidates = useRecommendCandidates();
+  const confirmCandidates = useConfirmCandidates();
   const speciality = useSpecialityId();
 
-  const setRecommendCandidates = useSetRecommendCandidates();
+  const setConfirmCandidates = useSetConfirmCandidates();
 
   useEffect(() => {
     if (paymentTypeId && speciality && tourId) {
-      setRecommendCandidates({ id_bk: paymentTypeId, id_specialty: speciality, tour: tourId });
+      setConfirmCandidates({ id_bk: paymentTypeId, id_specialty: speciality, tour: tourId });
     }
   }, [paymentTypeId, speciality, tourId]);
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-5 items-end sm:grid-cols-1 ">
+      <div className="grid grid-cols-3 gap-5 sm:grid-cols-1 items-center">
         <CandidatesFilterView />
-        <p>Вакантных мест: {recommendCandidates?.[0].vakanziy || 0}</p>
       </div>
       <div className="flex gap-2 items-center mt-6">
         <RanjirLinkView type={RanjirLinkTypes.report} p={adminPlan?.id_admission_plan || 0} t={1} />
-        <RanjirLinkView type={RanjirLinkTypes.recom} p={adminPlan?.id_admission_plan || 0} t={1} />
+        <RanjirLinkView
+          type={RanjirLinkTypes.confirm}
+          p={adminPlan?.id_admission_plan || 0}
+          t={1}
+        />
+        <RanjirLinkView
+          type={RanjirLinkTypes.confirm_no}
+          p={adminPlan?.id_admission_plan || 0}
+          t={1}
+        />
+        <RanjirLinkView type={RanjirLinkTypes.svod} p={adminPlan?.id_admission_plan || 0} t={1} />
       </div>
-      <RecommendCandidateListView list={recommendCandidates || []} />
+      <ConfirmCandidateListView list={confirmCandidates || []} />
     </>
   );
 };

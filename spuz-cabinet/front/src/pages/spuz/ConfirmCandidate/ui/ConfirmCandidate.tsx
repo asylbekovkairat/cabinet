@@ -1,5 +1,9 @@
-import React from 'react';
+import { ConfirmCandidate } from '~widgets/spuz/confirmCandidate';
 
 export const ConfirmCandidateContent = () => {
-  return <div>ConfirmCandidateContent</div>;
+  return (
+    <>
+      <ConfirmCandidate />
+    </>
+  );
 };

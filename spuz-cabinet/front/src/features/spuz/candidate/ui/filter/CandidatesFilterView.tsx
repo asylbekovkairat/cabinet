@@ -26,7 +26,7 @@ import {
 } from '~entities/spuz/specialities';
 import { Tour, TourSelector, useSetTourId, useSetTours, useTours } from '~entities/spuz/tour';
 
-const AttestatCandidatesFilterView = () => {
+const CandidatesFilterView = () => {
   const learningTypes = useLearningTypes();
   const specialities = useSpecialities();
   const paymentTypes = usePaymentTypes();
@@ -114,4 +114,4 @@ const AttestatCandidatesFilterView = () => {
   );
 };
 
-export default AttestatCandidatesFilterView;
+export default CandidatesFilterView;

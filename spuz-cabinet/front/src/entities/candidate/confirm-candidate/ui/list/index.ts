@@ -1,0 +1,1 @@
+export { ConfirmCandidateListView } from './ConfirmCandidateListView';

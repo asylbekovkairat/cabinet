@@ -10,16 +10,16 @@ import {
   useResetAttestatCandidates,
   useSetAttestatCandidates,
 } from '~entities/spuz/attestat';
-import { useCandidateFio, useSetCandidateFio } from '~entities/spuz/candidate';
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
 import { useTourId } from '~entities/spuz/tour';
 import { useUserInfo } from '~entities/shared/user';
 
-import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
-import { AttestatCandidatesToExcel } from '~features/spuz/attestat/ui/excel';
+import { AttestatCandidatesToExcel } from '~features/spuz/attestat';
 import { PrintButtonView } from '~features/shared/print';
 
 import { Input } from '~shared/ui';
+import { CandidatesFilterView } from '~features/spuz/candidate';
+import { useCandidateFio, useSetCandidateFio } from '~entities/candidate/info';
 
 enum OpenModalId {
   deleteCandidate = 'deleteCandidate',
@@ -104,7 +104,7 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
         {renderActions[openModalId as OpenModalId]}
       </Modal>
       <div className="grid grid-cols-3 gap-5 sm:grid-cols-1 items-center">
-        <AttestatCandidatesFilterView />
+        <CandidatesFilterView />
         <Input
           className="w-full"
           size="large"

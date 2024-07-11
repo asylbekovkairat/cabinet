@@ -2,6 +2,8 @@ import { FC, memo } from 'react';
 
 import { Button, Table, TableColumnsType } from 'antd';
 
+import { DeleteButtonContainer, DeleteIcon } from '~shared/ui';
+
 import { EmployeeAccess } from '../../model';
 
 interface EmployeesAccessListViewProps {
@@ -39,7 +41,13 @@ export const EmployeesAccessListView: FC<EmployeesAccessListViewProps> = memo(
         title: 'Удалить',
         align: 'center',
         render: ({ id_users_university_access }) => (
-          <Button onClick={() => onDelete(id_users_university_access)}>Удалить</Button>
+          <DeleteButtonContainer>
+            <Button
+              type="primary"
+              icon={<DeleteIcon />}
+              onClick={() => onDelete(id_users_university_access)}
+            ></Button>
+          </DeleteButtonContainer>
         ),
       },
     ];
