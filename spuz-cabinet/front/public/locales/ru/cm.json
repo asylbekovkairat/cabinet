@@ -90,6 +90,7 @@
     "grantCommission": "Грантовая коммиссия",
     "attestat": "Аттестат",
     "recommend": "Рекомендовать",
+    "confirmCandidate": "Подтвердить",
     "logout": "Выйти"
   },
   "Timer": {

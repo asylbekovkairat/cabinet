@@ -8,6 +8,8 @@ import {
   AttestatIcon,
   BadgeCheckIcon,
   BriefCaseIcon,
+  CheckIcon,
+  DoubleCheckIcon,
   GeneralInfoIcon,
   LogoutIcon,
   PlanIcon,
@@ -89,7 +91,13 @@ export const Navigation: FC<NavigationProps> = () => {
     {
       title: t('cm:routes.recommend'),
       path: RoutesUrls.recommend,
-      icon: <BadgeCheckIcon />,
+      icon: <CheckIcon />,
+      isTabBar: true,
+    },
+    {
+      title: t('cm:routes.confirmCandidate'),
+      path: RoutesUrls.confirmCandidate,
+      icon: <DoubleCheckIcon />,
       isTabBar: true,
     },
   ];
