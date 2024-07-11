@@ -1,6 +1,6 @@
 import { Button, Modal } from 'antd';
 
-import { FC, ReactNode, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useUserInfo } from '~entities/shared/user';
 

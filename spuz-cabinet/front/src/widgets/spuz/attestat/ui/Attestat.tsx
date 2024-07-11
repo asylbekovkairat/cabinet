@@ -1,5 +1,5 @@
-import { FC, useEffect, useMemo, useState } from 'react';
-import { Modal } from 'antd';
+import { FC, useEffect, useState } from 'react';
+import { Button, Modal } from 'antd';
 
 import { useAdminPlan } from '~entities/spuz/admission-plan';
 
@@ -16,10 +16,11 @@ import { usePaymentTypeId } from '~entities/spuz/payment-type';
 import { useTourId } from '~entities/spuz/tour';
 import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 import { useUserInfo } from '~entities/shared/user';
-import { Input } from '~shared/ui';
+import { ExcelIcon, Input, PrinterIcon } from '~shared/ui';
+import { ExcelButtonContainer } from '~features/shared/excel';
+import { AttestatCandidatesToExcel } from '~features/spuz/attestat/ui/excel';
 
 enum OpenModalId {
-  editCandidate = 'editCandidate',
   deleteCandidate = 'deleteCandidate',
 }
 
@@ -44,12 +45,8 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
   const [openModalId, setOpenModalId] = useState<OpenModalId | null>(null);
   const [deleteInfo, setDeleteInfo] = useState<null>(null);
 
-  console.log('adminPlan', adminPlan);
-
   useEffect(() => {
     resetAttestatCandidates();
-
-    console.log('adminPlan?.id_admission_plan', adminPlan?.id_admission_plan);
 
     if (adminPlan?.id_admission_plan && tourId && paymentTypeId && userInfo?.id_university) {
       setAttestatCandidates({
@@ -68,8 +65,6 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
   useEffect(() => {
     setCandidatesList(attestatCandidates);
   }, [attestatCandidates]);
-
-  console.log('attestatCandidates', attestatCandidates);
 
   useEffect(() => {
     if (fio) {
@@ -101,23 +96,16 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
     setFio({ fio: value });
   };
 
-  const renderActions = useMemo(() => {
-    switch (openModalId) {
-      case OpenModalId.editCandidate:
-        return <></>;
-      case OpenModalId.deleteCandidate:
-        return <></>;
-      default:
-        break;
-    }
-  }, [openModalId]);
+  const renderActions: Record<keyof typeof OpenModalId, JSX.Element> = {
+    [OpenModalId.deleteCandidate]: <h1>Delete</h1>,
+  };
 
   return (
     <>
       <Modal open={Boolean(openModalId)} onCancel={closeModal} onOk={closeModal} footer={null}>
-        {renderActions}
+        {renderActions[openModalId as OpenModalId]}
       </Modal>
-      <div className="grid grid-cols-3 gap-5 sm:grid-cols-1">
+      <div className="grid grid-cols-3 gap-5 sm:grid-cols-1 items-center">
         <AttestatCandidatesFilterView />
         <Input
           className="w-full"
@@ -125,6 +113,14 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
           placeholder="Введите ФИО"
           onChange={({ target }) => onCandidateFioChange(target.value)}
         />
+        {candidatesList?.length && (
+          <div className="flex items-center flex-row gap-5 justify-end">
+            <AttestatCandidatesToExcel />
+            <Button className="flex items-center w-min" type="primary" icon={<PrinterIcon />}>
+              Print
+            </Button>
+          </div>
+        )}
       </div>
       <AttestatCandidatesListView
         list={candidatesList || []}

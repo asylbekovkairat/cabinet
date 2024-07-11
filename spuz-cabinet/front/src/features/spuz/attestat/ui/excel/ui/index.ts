@@ -1,0 +1,1 @@
+export { AttestatCandidatesToExcel } from './AttestatCandidatesToExcelView';
