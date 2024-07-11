@@ -1,0 +1,1 @@
+export { CandidateByPinListView } from './CandidateByPinListView';

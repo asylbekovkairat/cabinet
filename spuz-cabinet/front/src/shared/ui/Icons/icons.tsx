@@ -16,6 +16,23 @@ export const PlusIcon = () => (
   </svg>
 );
 
+export const SearchIcon = ({ ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
+);
+
 export const OrganizationPhotoIcon = () => (
   <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="0.349404" y="0.349404" width="38.3012" height="38.3012" rx="19.1506" fill="#EFEFEF" />

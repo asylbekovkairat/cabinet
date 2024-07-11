@@ -15,6 +15,7 @@ import {
   PlanIcon,
   RowsIcon,
   SN,
+  SearchIcon,
   ShieldIcon,
   Sider,
   SiderButton,
@@ -98,6 +99,12 @@ export const Navigation: FC<NavigationProps> = () => {
       title: t('cm:routes.confirmCandidate'),
       path: RoutesUrls.confirmCandidate,
       icon: <DoubleCheckIcon />,
+      isTabBar: true,
+    },
+    {
+      title: t('cm:routes.searchByPin'),
+      path: RoutesUrls.searchByPin,
+      icon: <SearchIcon stroke="#4f679b" />,
       isTabBar: true,
     },
   ];

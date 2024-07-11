@@ -1,0 +1,1 @@
+export { SearchCandidateView } from './SearchCandidateView';

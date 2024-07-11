@@ -91,6 +91,7 @@
     "attestat": "Аттестат",
     "recommend": "Рекомендовать",
     "confirmCandidate": "Подтвердить",
+    "searchByPin": "Поиск",
     "logout": "Выйти"
   },
   "Timer": {
