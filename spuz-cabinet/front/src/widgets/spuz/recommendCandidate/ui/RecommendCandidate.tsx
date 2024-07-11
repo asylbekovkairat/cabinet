@@ -1,4 +1,8 @@
+import { Button } from 'antd';
 import { useEffect } from 'react';
+
+import { RanjirLinkTypes, RanjirLinkView } from '~entities/shared/ranjir';
+import { useAdminPlan } from '~entities/spuz/admission-plan';
 
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
 import {
@@ -13,6 +17,7 @@ import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 
 export const RecommendCandidate = () => {
   const tourId = useTourId();
+  const adminPlan = useAdminPlan();
   const paymentTypeId = usePaymentTypeId();
   const recommendCandidates = useRecommendCandidates();
   const speciality = useSpecialityId();
@@ -29,7 +34,11 @@ export const RecommendCandidate = () => {
     <>
       <div className="grid grid-cols-3 gap-5 items-end sm:grid-cols-1 ">
         <AttestatCandidatesFilterView />
-        <p>Вакантных мест: 50</p>
+        <p>Вакантных мест: {recommendCandidates?.[0].vakanziy || 0}</p>
+      </div>
+      <div className="flex gap-2 items-center mt-6">
+        <RanjirLinkView type={RanjirLinkTypes.report} p={adminPlan?.id_admission_plan || 0} t={1} />
+        <RanjirLinkView type={RanjirLinkTypes.recom} p={adminPlan?.id_admission_plan || 0} t={1} />
       </div>
       <RecommendCandidateListView list={recommendCandidates || []} />
     </>
