@@ -1,8 +1,8 @@
-import { Table, TableColumnsType, TableProps } from 'antd';
+import { Button, Table, TableColumnsType, TableProps } from 'antd';
 
 import { FC, memo } from 'react';
 
-import { DeleteIcon, EditIcon } from '~shared/ui';
+import { DeleteButtonContainer, DeleteIcon, EditIcon } from '~shared/ui';
 
 import { AttestatCandidate } from '../../model';
 
@@ -89,8 +89,18 @@ export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = m
         align: 'center',
         render: (value) => (
           <div className="px-2 flex gap-3 items-center">
-            <EditIcon className="cursor-pointer" onClick={() => onEdit(value)} />
-            <DeleteIcon className="cursor-pointer" onClick={() => onDelete(value)} />
+            <Button
+              className="flex items-center justify-center"
+              type="primary"
+              icon={<EditIcon className="cursor-pointer" onClick={() => onEdit(value)} />}
+            ></Button>
+            <DeleteButtonContainer>
+              <Button
+                type="primary"
+                icon={<DeleteIcon className="cursor-pointer" />}
+                onClick={() => onDelete(value)}
+              ></Button>
+            </DeleteButtonContainer>
           </div>
         ),
       },

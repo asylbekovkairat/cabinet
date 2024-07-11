@@ -286,8 +286,8 @@ export const ExcelIcon = () => (
       d="M0.832441 6.5V6.5H0.83345L9.16655 6.5L9.16706 6.5C9.22244 6.49995 9.29883 6.52559 9.37135 6.61256C9.44602 6.7021 9.49966 6.84029 9.5 6.9996C9.5 6.99978 9.5 6.99996 9.5 7.00014V16.9999C9.5 17 9.5 17.0002 9.5 17.0004C9.49966 17.1597 9.44602 17.2979 9.37135 17.3874C9.29883 17.4744 9.22244 17.5001 9.16706 17.5H9.16655L0.83345 17.5L0.832441 17.5C0.80303 17.5001 0.770901 17.4933 0.736903 17.4765C0.702433 17.4594 0.66457 17.431 0.628444 17.3877C0.592201 17.3442 0.55966 17.2879 0.536248 17.2202C0.512863 17.1525 0.50007 17.0776 0.5 17.0004V6.99964C0.50007 6.92241 0.512863 6.8475 0.536248 6.77983C0.559659 6.71208 0.592201 6.65577 0.628444 6.61231C0.664571 6.56899 0.702434 6.54062 0.736903 6.52353C0.770901 6.50667 0.80303 6.49994 0.832441 6.5ZM0.83345 6H9.16655H0.83345Z"
       stroke="white"
     ></path>
-    <path d="M7 9L3 15" stroke="white" stroke-linecap="round"></path>
-    <path d="M3 9L7 15" stroke="white" stroke-linecap="round"></path>
+    <path d="M7 9L3 15" stroke="white" strokeLinecap="round"></path>
+    <path d="M3 9L7 15" stroke="white" strokeLinecap="round"></path>
   </svg>
 );
 
@@ -683,21 +683,15 @@ export const EditIcon = ({ ...props }) => (
 
 export const DeleteIcon = ({ ...props }) => (
   <svg
+    stroke="white"
+    width="24"
+    height="24"
+    viewBox="0 0 15 16"
     xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    // className="lucide lucide-trash"
     {...props}
   >
-    <path d="M3 6h18" />
-    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    <path d="M14.1055 1.30273L1.06641 14.3418" stroke-width="2.5"></path>
+    <path d="M1.06641 1.30273L14.1055 14.3418" stroke-width="2.5"></path>
   </svg>
 );
 

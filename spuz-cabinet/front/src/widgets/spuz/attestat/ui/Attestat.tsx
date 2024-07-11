@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 
 import { useAdminPlan } from '~entities/spuz/admission-plan';
 
@@ -13,11 +13,13 @@ import {
 import { useCandidateFio, useSetCandidateFio } from '~entities/spuz/candidate';
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
 import { useTourId } from '~entities/spuz/tour';
-import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 import { useUserInfo } from '~entities/shared/user';
-import { Input, PrinterIcon } from '~shared/ui';
+
+import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 import { AttestatCandidatesToExcel } from '~features/spuz/attestat/ui/excel';
 import { PrintButtonView } from '~features/shared/print';
+
+import { Input } from '~shared/ui';
 
 enum OpenModalId {
   deleteCandidate = 'deleteCandidate',
@@ -56,10 +58,6 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
         tour: tourId,
       });
     }
-
-    return () => {
-      resetAttestatCandidates();
-    };
   }, [adminPlan, tourId, paymentTypeId, userInfo?.id_university, adminPlan?.id_admission_plan]);
 
   useEffect(() => {
@@ -68,21 +66,21 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
 
   useEffect(() => {
     if (fio) {
-      const filteredNames = candidatesList?.filter((candidate) => {
+      const filteredNames = attestatCandidates?.filter((candidate) => {
         const lowerName = candidate.fio.toLowerCase();
         const lowerSearchTerm = fio.toLowerCase();
 
         return lowerName.includes(lowerSearchTerm);
       });
 
-      setCandidatesList(filteredNames || attestatCandidates);
+      if (filteredNames) {
+        setCandidatesList(filteredNames);
+      } else {
+        setCandidatesList(attestatCandidates);
+      }
     } else {
       setCandidatesList(attestatCandidates);
     }
-
-    return () => {
-      resetAttestatCandidates();
-    };
   }, [fio]);
 
   const openDeleteModal = (deleteInfo: any) => {
@@ -113,12 +111,12 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
           placeholder="Введите ФИО"
           onChange={({ target }) => onCandidateFioChange(target.value)}
         />
-        {candidatesList?.length && (
+        {candidatesList?.length ? (
           <div className="flex items-center flex-row gap-5 justify-end">
             <AttestatCandidatesToExcel />
             <PrintButtonView tableName={`.${tableRef.current?.className}` || ''} />
           </div>
-        )}
+        ) : null}
       </div>
       <section className="table_print" ref={tableRef}>
         <AttestatCandidatesListView
