@@ -10,7 +10,7 @@ import {
   useSetQualifications,
 } from '~entities/spuz/qualification';
 
-import { Input, SquarePlusIcon, useNotification } from '~shared/ui';
+import { Input, PlusIcon, SquarePlusIcon, useNotification } from '~shared/ui';
 
 import { useUserInfo } from '~entities/shared/user';
 
@@ -117,7 +117,12 @@ const SpecialitiesAddView: FC<SpecialitiesAddViewProps> = ({ loadSpecialitites }
           >
             <QualificationSelector qualifications={qualifications || []} />
           </Form.Item>
-          <Button htmlType="submit" type="primary" icon={<SquarePlusIcon />}>
+          <Button
+            className="flex items-center justify-center"
+            htmlType="submit"
+            type="primary"
+            icon={<SquarePlusIcon />}
+          >
             Добавить специальность
           </Button>
         </div>

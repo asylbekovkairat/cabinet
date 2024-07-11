@@ -1,8 +1,8 @@
-import { Table, TableColumnsType } from 'antd';
+import { Button, Table, TableColumnsType } from 'antd';
 
 import { FC, memo } from 'react';
 
-import { DeleteIcon, EditIcon } from '~shared/ui';
+import { DeleteButtonContainer, DeleteIcon, EditIcon } from '~shared/ui';
 
 import { Speciality } from '../../model';
 
@@ -57,10 +57,13 @@ export const SpecialitiesListView: FC<SpecialitiesListProps> = memo(
         title: 'Удалить',
         align: 'center',
         render: ({ specialty, id_specialty }) => (
-          <DeleteIcon
-            className="cursor-pointer"
-            onClick={() => onDelete({ specialty, id_specialty })}
-          />
+          <DeleteButtonContainer>
+            <Button
+              type="primary"
+              icon={<DeleteIcon />}
+              onClick={() => onDelete({ specialty, id_specialty })}
+            ></Button>
+          </DeleteButtonContainer>
         ),
       },
     ];
