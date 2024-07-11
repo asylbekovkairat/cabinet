@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Button, Modal } from 'antd';
 
 import { useAdminPlan } from '~entities/spuz/admission-plan';
@@ -11,14 +11,13 @@ import {
   useSetAttestatCandidates,
 } from '~entities/spuz/attestat';
 import { useCandidateFio, useSetCandidateFio } from '~entities/spuz/candidate';
-import { useLearningId } from '~entities/spuz/learning-type';
 import { usePaymentTypeId } from '~entities/spuz/payment-type';
 import { useTourId } from '~entities/spuz/tour';
 import { AttestatCandidatesFilterView } from '~features/spuz/attestat';
 import { useUserInfo } from '~entities/shared/user';
-import { ExcelIcon, Input, PrinterIcon } from '~shared/ui';
-import { ExcelButtonContainer } from '~features/shared/excel';
+import { Input, PrinterIcon } from '~shared/ui';
 import { AttestatCandidatesToExcel } from '~features/spuz/attestat/ui/excel';
+import { PrintButtonView } from '~features/shared/print';
 
 enum OpenModalId {
   deleteCandidate = 'deleteCandidate',
@@ -29,8 +28,9 @@ interface AttestatProps {
 }
 
 const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
+  const tableRef = useRef<HTMLElement | null>(null);
+
   const attestatCandidates = useAttestatCandidates();
-  const learningId = useLearningId();
   const adminPlan = useAdminPlan();
   const tourId = useTourId();
   const paymentTypeId = usePaymentTypeId();
@@ -116,17 +116,17 @@ const Attestat: FC<AttestatProps> = ({ openAbitInfo }) => {
         {candidatesList?.length && (
           <div className="flex items-center flex-row gap-5 justify-end">
             <AttestatCandidatesToExcel />
-            <Button className="flex items-center w-min" type="primary" icon={<PrinterIcon />}>
-              Print
-            </Button>
+            <PrintButtonView tableName={`.${tableRef.current?.className}` || ''} />
           </div>
         )}
       </div>
-      <AttestatCandidatesListView
-        list={candidatesList || []}
-        onDelete={openDeleteModal}
-        onEdit={openAbitInfo}
-      />
+      <section className="table_print" ref={tableRef}>
+        <AttestatCandidatesListView
+          list={candidatesList || []}
+          onDelete={openDeleteModal}
+          onEdit={openAbitInfo}
+        />
+      </section>
     </>
   );
 };

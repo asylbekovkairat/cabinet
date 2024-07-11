@@ -13,7 +13,7 @@ interface AttestatCandidatesListViewProps extends TableProps {
 }
 
 export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = memo(
-  ({ list, onEdit, ...restProps }) => {
+  ({ list, onEdit, onDelete, ...restProps }) => {
     const columns: TableColumnsType<AttestatCandidate> = [
       {
         title: '№',
@@ -90,7 +90,7 @@ export const AttestatCandidatesListView: FC<AttestatCandidatesListViewProps> = m
         render: (value) => (
           <div className="px-2 flex gap-3 items-center">
             <EditIcon className="cursor-pointer" onClick={() => onEdit(value)} />
-            <DeleteIcon className="cursor-pointer" />
+            <DeleteIcon className="cursor-pointer" onClick={() => onDelete(value)} />
           </div>
         ),
       },
