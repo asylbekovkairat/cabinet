@@ -1,0 +1,1 @@
+export { RecommendCandidateListView } from './RecommendCandidateListView';
