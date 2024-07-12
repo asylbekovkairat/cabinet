@@ -11,7 +11,9 @@ import {
   CheckIcon,
   DoubleCheckIcon,
   GeneralInfoIcon,
+  LinkPencilIcon,
   LogoutIcon,
+  PencilIcon,
   PlanIcon,
   RowsIcon,
   SN,
@@ -81,6 +83,12 @@ export const Navigation: FC<NavigationProps> = () => {
       title: t('cm:routes.grantCommission'),
       path: RoutesUrls.grantCommission,
       icon: <ShieldIcon />,
+      isTabBar: true,
+    },
+    {
+      title: t('cm:routes.registerAbiturient'),
+      path: RoutesUrls.registerAbiturient,
+      icon: <LinkPencilIcon stroke="#4f679b" />,
       isTabBar: true,
     },
     {

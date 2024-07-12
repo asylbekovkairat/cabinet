@@ -11,6 +11,7 @@ import { AttestatPage } from '~pages/spuz/Attestat';
 import { ConfirmCandidatePage } from '~pages/spuz/ConfirmCandidate';
 import { GrantCommissionPage } from '~pages/spuz/GrantCommission';
 import { RecommendCandidatePage } from '~pages/spuz/RecommendCandidate';
+import { RegisterAbiturientPage } from '~pages/spuz/RegisterAbiturient';
 import { SearchByPinPage } from '~pages/spuz/SearchByPin';
 import { RequireAuth, RoutesUrls } from '~shared/lib/router';
 
@@ -33,6 +34,7 @@ const routes = [
           { path: RoutesUrls.recommend, element: <RecommendCandidatePage /> },
           { path: RoutesUrls.confirmCandidate, element: <ConfirmCandidatePage /> },
           { path: RoutesUrls.searchByPin, element: <SearchByPinPage /> },
+          { path: RoutesUrls.registerAbiturient, element: <RegisterAbiturientPage /> },
           { path: RoutesUrls.logout, element: <LogoutPage /> },
         ],
       },

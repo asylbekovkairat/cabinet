@@ -10,4 +10,4 @@ export * from './logo';
 export * from './navigation';
 export * from './site-logo';
 export * from './utils';
-export * from './buttons';
+export * from './buttonsContainer';
