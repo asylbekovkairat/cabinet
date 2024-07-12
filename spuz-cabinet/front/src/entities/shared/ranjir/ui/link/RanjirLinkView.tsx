@@ -1,6 +1,8 @@
 import { FC, memo } from 'react';
 import { Button } from 'antd';
 
+import { LinkIcon } from '~shared/ui';
+
 import { RanjirLinkTypes } from '../../model';
 
 interface RanjirLinkViewProps {
@@ -20,8 +22,10 @@ export const RanjirLinkView: FC<RanjirLinkViewProps> = memo(({ type, p, t }) => 
 
   return (
     <>
-      <Button type="link" disabled={!p}>
-        <a href={`/spuz/ranjir/${type}?p=${p}&t=${t}`}>{renderLinkContent[type]}</a>
+      <Button className="flex items-center" type="link" disabled={!p} icon={<LinkIcon />}>
+        <a href={`/spuz/ranjir/${type}?p=${p}&t=${t}`} target="_blank">
+          {renderLinkContent[type]}
+        </a>
       </Button>
     </>
   );
