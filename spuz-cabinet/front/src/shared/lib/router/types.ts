@@ -15,4 +15,5 @@ export const RoutesUrls = {
   confirmCandidate: `/${import.meta.env.VITE_BASE}/confirm-candidate`,
   searchByPin: `/${import.meta.env.VITE_BASE}/search-by-pin`,
   registerAbiturient: `/${import.meta.env.VITE_BASE}/register-abiturient`,
+  instruction: `/${import.meta.env.VITE_BASE}/instruction`,
 };

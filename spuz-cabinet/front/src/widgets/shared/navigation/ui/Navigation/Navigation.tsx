@@ -13,6 +13,7 @@ import {
   GeneralInfoIcon,
   LinkPencilIcon,
   LogoutIcon,
+  NotePadIcon,
   PencilIcon,
   PlanIcon,
   RowsIcon,
@@ -113,6 +114,12 @@ export const Navigation: FC<NavigationProps> = () => {
       title: t('cm:routes.searchByPin'),
       path: RoutesUrls.searchByPin,
       icon: <SearchIcon stroke="#4f679b" />,
+      isTabBar: true,
+    },
+    {
+      title: t('cm:bottomLinks.manual'),
+      path: RoutesUrls.instruction,
+      icon: <NotePadIcon stroke="#4f679b" />,
       isTabBar: true,
     },
   ];

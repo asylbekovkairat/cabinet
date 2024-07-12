@@ -1,6 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 
 import { BaseLayout } from '~pages/layouts';
+import { InstructionPage } from '~pages/shared/instruction';
 import { LoginPage } from '~pages/shared/login';
 import { LogoutPage } from '~pages/shared/logout';
 import { GeneralInfoPage, SpecialitiesPage } from '~pages/spuz';
@@ -35,6 +36,7 @@ const routes = [
           { path: RoutesUrls.confirmCandidate, element: <ConfirmCandidatePage /> },
           { path: RoutesUrls.searchByPin, element: <SearchByPinPage /> },
           { path: RoutesUrls.registerAbiturient, element: <RegisterAbiturientPage /> },
+          { path: RoutesUrls.instruction, element: <InstructionPage /> },
           { path: RoutesUrls.logout, element: <LogoutPage /> },
         ],
       },
