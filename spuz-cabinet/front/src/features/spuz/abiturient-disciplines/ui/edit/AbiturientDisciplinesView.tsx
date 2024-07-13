@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Table, TableColumnsType, TableProps } from 'antd';
 
 import { DefaultOptionType } from 'antd/es/select';
@@ -38,33 +38,36 @@ export const AbiturientDisciplinesView: FC<AbiturientDisciplinesViewProps> = ({
     }
   };
 
-  const columns: TableColumnsType<AbiturientDiscipline> = [
-    {
-      title: '№',
-      align: 'start',
-      render: (_value, _row, index) => {
-        return index + 1;
+  const columns: TableColumnsType<AbiturientDiscipline> = useMemo(
+    () => [
+      {
+        title: '№',
+        align: 'center',
+        render: (_value, _row, index) => {
+          return index + 1;
+        },
       },
-    },
-    {
-      title: 'Название предмета',
-      dataIndex: 'discipline',
-      align: 'start',
-    },
-    {
-      title: 'Оценка',
-      align: 'center',
-      render: ({ id_abit_discip, ball_discipline }) => (
-        <GradesSelector
-          grades={grades}
-          defaultValue={ball_discipline}
-          onChange={(_value, option: DefaultOptionType) =>
-            handleChangeBall({ id_abit_discip, ball_new: option?.value as number })
-          }
-        />
-      ),
-    },
-  ];
+      {
+        title: 'Название предмета',
+        dataIndex: 'discipline',
+        align: 'start',
+      },
+      {
+        title: 'Оценка',
+        align: 'center',
+        render: ({ id_abit_discip, ball_discipline }) => (
+          <GradesSelector
+            grades={grades}
+            defaultValue={ball_discipline}
+            onChange={(_value, option: DefaultOptionType) =>
+              handleChangeBall({ id_abit_discip, ball_new: option?.value as number })
+            }
+          />
+        ),
+      },
+    ],
+    [list]
+  );
 
   return (
     <>

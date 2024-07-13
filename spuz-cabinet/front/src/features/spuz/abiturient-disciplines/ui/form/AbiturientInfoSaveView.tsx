@@ -13,10 +13,11 @@ import { useAbitDisciplines, useSetAbitDiscipline } from '~entities/spuz/abituri
 import { useTourId } from '~entities/spuz/tour';
 import { AttestatCandidate } from '~entities/spuz/attestat';
 
-import { SaveIcon, UploadIcon, useNotification } from '~shared/ui';
+import { SaveIcon, useNotification } from '~shared/ui';
 
 import { AbiturientDisciplinesView } from '../edit';
 import { saveAbitInfo } from '../../api';
+import { UpdateGradesView } from '../update';
 
 interface AbiturientInfoSaveViewProps {
   info: AttestatCandidate | null;
@@ -125,9 +126,10 @@ export const AbiturientInfoSaveView: FC<AbiturientInfoSaveViewProps> = ({ info }
             <Button type="primary" icon={<SaveIcon />} onClick={onAbitInfoSave}>
               Сохранить
             </Button>
-            <Button className="flex items-center" type="primary" icon={<UploadIcon />}>
-              Загрузить
-            </Button>
+            <UpdateGradesView
+              id_abiturient={info?.id_abit || 0}
+              loadAbitDisciplines={loadAbitDisciplines}
+            />
           </div>
         </section>
       </section>
